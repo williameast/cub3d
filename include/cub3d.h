@@ -13,6 +13,9 @@
 
 # define WIN_NAME "cub3d_debug"
 
+// DM main configuration
+/* typedef struct s_config; */
+
 typedef struct s_window {
   mlx_t *mlx;
   mlx_image_t *img;
@@ -26,7 +29,7 @@ void	key_hook(mlx_key_data_t key_press, void *param);
 
 
 
-// parsing
+// PARSING
 
 // check .cub file format, is readable and present
 int check_file_format(void);
@@ -47,5 +50,28 @@ int	map_normalizer(void);
 
 // read in the normalized 1d char map data, and fill in the array.
 int create_array(void);
+
+// VALIDATION
+
+// check that map is closed.
+int flood_fill(void);
+
+
+// DRAWING
+
+
+// viewport
+int handle_direction(void);
+int handle_rotation(void);
+
+// movement
+int handle_movement(void);
+
+// not passing walls, checking if move is legal!
+int bounds_managament(void);
+
+
+
+
 
 #endif
