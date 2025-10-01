@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/10/01 14:20:03 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:38:43 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ void	cleanup_window(t_window *window)
 		mlx_delete_image(window->mlx, window->img);
 	if (window->mlx)
 		mlx_terminate(window->mlx);
+	free(window->mlx);
 }

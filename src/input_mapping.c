@@ -6,10 +6,11 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:25:40 by weast             #+#    #+#             */
-/*   Updated: 2025/10/01 14:26:12 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/01 15:13:11 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/MLX42.h"
 #include "cub3d.h"
 
 
@@ -19,4 +20,5 @@ void	key_hook(mlx_key_data_t key_press, void *param)
 	t_window *window = (t_window *)param;
 	if (key_press.key == MLX_KEY_ESCAPE && key_press.action == MLX_PRESS)
 		mlx_close_window(window->mlx);
+
 }
