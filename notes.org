@@ -1,0 +1,6 @@
+#+title: Notes
+
+* Cub3d project [0/2]
+** TODO Tasks
+*** TODO Parsing
+**** TODO

@@ -7,21 +7,41 @@
 # include <math.h>
 # include "libft.h"
 # include "MLX42/MLX42.h"
+# include "fcntl.h"
 
-# define WIDTH 1024
-# define HEIGHT 768
+# define WIDTH 1024 // window width
+# define HEIGHT 768 // window height
+
+#define FILE_EXT ".cub" // file extension used.
 
 # define WIN_NAME "cub3d_debug"
 
 // DM main configuration
 /* typedef struct s_config; */
 
+
+// a single coordinate point.
+typedef struct s_crd {
+  int x;
+  int y;
+} t_crd;
+
+// a map object, containing the string, the dimensions
+typedef struct s_map
+{
+	char	*raw_map_string;
+	t_crd	dimension;
+} t_map;
+
+
+// a window object.
 typedef struct s_window {
   mlx_t *mlx;
   mlx_image_t *img;
   int width;
   int height;
 } t_window;
+
 
 int		init_window(t_window *window);
 void	cleanup_window(t_window *window);
@@ -40,7 +60,7 @@ int get_texture_files(void);
 // check files exist, are valid etc.
 int get_floor_ceiling_values(void);
 
-int	get_map_max_dimensions(void);
+int	get_map_max_dimensions(t_map *map);
 
 // use gnl to extract char data of map
 int read_map_data_as_char(void);
@@ -70,8 +90,8 @@ int handle_movement(void);
 // not passing walls, checking if move is legal!
 int bounds_managament(void);
 
-
-
+// DEBUG
+void	debug_crd(t_crd crd);
 
 
 #endif
