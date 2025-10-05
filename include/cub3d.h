@@ -74,7 +74,8 @@ int create_array(void);
 // VALIDATION
 
 // check that map is closed.
-int flood_fill(void);
+int	allocate_contiguous_map(char ***map, size_t cols, size_t rows);
+int	map_is_valid(void);
 
 
 // DRAWING
