@@ -23,16 +23,16 @@
 
 
 // a single coordinate point.
-typedef struct s_crd {
+typedef struct s_2D {
   int x;
   int y;
-} t_crd;
+} t_2D;
 
 // a map object, containing the string, the dimensions
 typedef struct s_map
 {
 	char	*raw_map_string;
-	t_crd	dimension;
+	t_2D	dimension;
 } t_map;
 
 
@@ -65,7 +65,7 @@ int get_floor_ceiling_values(void);
 int	get_map_max_dimensions(t_map *map);
 
 // use gnl to extract char data of map
-int read_map_data_as_char(void);
+int	read_map_as_string(t_map *map, char *filename);
 
 // basically, we only need to add spaces at the end of each line to equal MAX_WIDTH.
 int	map_normalizer(void);
@@ -94,7 +94,7 @@ int handle_movement(void);
 int bounds_managament(void);
 
 // DEBUG
-void	debug_crd(t_crd crd);
+void	debug_2D(t_2D point);
 
 
 #endif

@@ -1,0 +1,11 @@
+CompileFlags:
+  CompilationDatabase: build
+  Add:
+    - -I/home/weast/org/42/cub3d/include
+    - -I/home/weast/org/42/cub3d/libs/libft/include
+    - -I/home/weast/org/42/cub3d/libs/MLX42/include
+    - -D_GNU_SOURCE
+
+Diagnostics:
+  UnusedIncludes: None
+  MissingIncludes: Strict

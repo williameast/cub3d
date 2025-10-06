@@ -4,3 +4,5 @@
 ** TODO Tasks
 *** TODO Parsing
 **** TODO
+* devops
+I am using nix to build locally on my device.

@@ -4,8 +4,9 @@ project(cub3d)
 set(CMAKE_C_STANDARD 99)
 
 # Find required packages
-find_package(glfw3 REQUIRED)
-find_package(OpenGL REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GLFW3 REQUIRED glfw3)
+pkg_check_modules(OPENGL REQUIRED opengl)
 
 # Add libft
 add_subdirectory(libs/libft)
@@ -30,10 +31,13 @@ add_executable(cub3d ${SOURCES})
 target_link_libraries(cub3d 
     ft
     mlx42
-    glfw
-    OpenGL::GL
+    ${GLFW3_LIBRARIES}
+    ${OPENGL_LIBRARIES}
     ${CMAKE_DL_LIBS}
 )
+
+# Fix compilation issues on newer systems
+target_compile_definitions(mlx42 PRIVATE _GNU_SOURCE)
 
 # Set default build type to Debug if not specified
 if(NOT CMAKE_BUILD_TYPE)
@@ -42,6 +46,7 @@ endif()
 
 # Compiler flags
 target_compile_options(cub3d PRIVATE -Wall -Wextra -Werror)
+target_compile_definitions(cub3d PRIVATE _GNU_SOURCE)
 
 # Debug-specific flags
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")

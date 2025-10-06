@@ -6,11 +6,11 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:31:20 by weast             #+#    #+#             */
-/*   Updated: 2025/09/09 16:53:55 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 10:26:24 by William          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "cub3d.h"
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <unistd.h>
