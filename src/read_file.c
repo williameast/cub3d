@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:12:48 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 17:04:33 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 17:11:47 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@ int	check_config_is_valid(t_config *config)
 	}
 	return (0);
 }
-
 
 // Returns the byte offset to the first line of the map object
 // Returns -1 if no map is found
