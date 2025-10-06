@@ -6,14 +6,16 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:30:28 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 12:51:17 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 14:19:16 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "ft_printf.h"
 #include "get_next_line.h"
 #include "libft.h"
 #include <stdio.h>
+#include <unistd.h>
 
 static int	check_extension(char *filename)
 {
@@ -27,7 +29,7 @@ static int	check_extension(char *filename)
 	return (!ft_strncmp(FILE_EXT, &filename[name_len - ext_len], 5));
 }
 
-int	read_map_as_string(t_map *map, char *filename)
+static int	read_map_as_string(t_map *map, char *filename)
 {
 	int	fd;
 	char *line;
@@ -55,7 +57,7 @@ int	read_map_as_string(t_map *map, char *filename)
 	return (0);
 }
 
-int	get_map_max_dimensions(t_map *map)
+static int	get_map_max_dimensions(t_map *map)
 {
 	int row_len;
 	int i;
@@ -78,9 +80,20 @@ int	get_map_max_dimensions(t_map *map)
 			row_len++;
 		i++;
 	}
-	puts("Map dimensions:");
-	debug_2D(map->dimension);
 	return (0);
 }
 
+int	create_map(t_map *map, char *filename)
+{
+	ft_printf("Opening %s...\n", filename);
+	if (read_map_as_string(map, filename))
+		return(ft_putstr_fd("Invalid input file.\n", STDERR_FILENO));
+	get_map_max_dimensions(map);
+	ft_printf("Allocating %s...\n", filename);
+	if (allocate_flat_map(map))
+		return(ft_putstr_fd("Could not allocate map grid.\n", STDERR_FILENO));
+	ft_printf("%s loaded successfully.\n", filename);
+	debug_map(map);
+	return (0);
+}
 

@@ -18,6 +18,8 @@
 
 // Helper macro for accessing flat map grid: GRID(x, y)
 // Note: requires a t_map *map variable in scope
+// Warn: gonna have to replace this on submit. but can do
+// this with a quick ripgrep at the end.
 #define GRID(x, y) (map->grid[(y) * map->dimension.x + (x)])
 
 // DM main configuration
@@ -56,8 +58,11 @@ void	key_hook(mlx_key_data_t key_press, void *param);
 
 // PARSING
 
-// check .cub file format, is readable and present
-int check_file_format(void);
+// Reads <filename> into heap and:
+// 	1) checks it exists
+// 	1) checks is valid .cub file
+// 	2) maximum bounds
+int	create_map(t_map *map, char *filename);
 
 // check files exist, are valid etc.
 int get_texture_files(void);
@@ -65,16 +70,8 @@ int get_texture_files(void);
 // check files exist, are valid etc.
 int get_floor_ceiling_values(void);
 
-int	get_map_max_dimensions(t_map *map);
-
-// use gnl to extract char data of map
-int	read_map_as_string(t_map *map, char *filename);
-
 // basically, we only need to add spaces at the end of each line to equal MAX_WIDTH.
 int	map_normalizer(void);
-
-// read in the normalized 1d char map data, and fill in the array.
-int create_array(void);
 
 // VALIDATION
 
@@ -103,6 +100,6 @@ int bounds_managament(void);
 
 // DEBUG
 void	debug_2D(t_2D point);
-
+void	debug_map(t_map *map);
 
 #endif
