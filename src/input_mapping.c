@@ -6,12 +6,11 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:25:40 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 14:45:20 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 15:08:24 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 // this we use to handle key presses.
 void	key_hook(mlx_key_data_t key_press, void *param)
