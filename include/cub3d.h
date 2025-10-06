@@ -47,11 +47,26 @@ typedef struct s_2D {
   int y;
 } t_2D;
 
+// temp object. RGB
+typedef struct s_config
+{
+	char	*raw_file_string;
+	char	*tex_no;
+	char	*tex_so;
+	char	*tex_ea;
+	char	*tex_we;
+	char	*col_floor_raw;
+	char	*col_ceiling_raw;
+	int		col_floor;
+	int		col_ceiling;
+} t_config;
+
 // a map object, containing the string, the dimensions
 typedef struct s_map
 {
 	char	*raw_map_string;
 	char	*grid;
+	unsigned int	y_offset;
 	t_2D	dimension;
 } t_map;
 
@@ -77,6 +92,25 @@ void	key_hook(mlx_key_data_t key_press, void *param);
 /* ************************************************************************** */
 // PARSING
 
+// Line identifier enum for config parsing
+typedef enum e_line_id
+{
+	LINE_NO,
+	LINE_SO,
+	LINE_WE,
+	LINE_EA,
+	LINE_F,
+	LINE_C,
+	LINE_MAP,
+	LINE_EMPTY,
+	LINE_INVALID
+} t_line_id;
+
+
+// capture all config info and map. passes a pointer to begnning
+// of map object.
+int	parse_config_data(t_config *config, char *filename);
+
 // check files exist, are valid etc.
 int get_texture_files(void);
 
@@ -88,7 +122,7 @@ int get_floor_ceiling_values(void);
 // 	1) checks it exists
 // 	1) checks is valid .cub file
 // 	2) maximum bounds
-int	create_map(t_map *map, char *filename);
+int	create_map(t_map *map);
 
 
 // VALIDATION
@@ -103,7 +137,8 @@ int	map_is_valid(void);
 
 
 // CLEANUP
-int	cleanup_map(t_map *map);
+void	cleanup_map(t_map *map);
+void	cleanup_config(t_config *config);
 
 
 // viewport
