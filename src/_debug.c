@@ -6,13 +6,13 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 13:19:33 by weast             #+#    #+#             */
-/*   Updated: 2025/10/02 13:22:04 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 11:06:23 by William          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	debug_crd(t_crd crd)
+void	debug_2D(t_2D point)
 {
-	printf("(%d, %d)\n", crd.x, crd.y);
+	printf("(%d, %d)\n", point.x, point.y);
 }
