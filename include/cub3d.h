@@ -13,8 +13,20 @@
 # define HEIGHT 768 // window height
 
 #define FILE_EXT ".cub" // file extension used.
-
 # define WIN_NAME "cub3d_debug"
+
+
+/* ************************************************************************** */
+// MAPS
+
+// I have macroed this, so we can add valid characters quickly.
+#define MAP_VALID_PLAYER_CHARS "NESW" // north east south west
+#define MAP_VALID_ENV_CHARS " \n01" // note the space.
+
+
+
+/* ************************************************************************** */
+// GRID SYSTEM
 
 // Helper macro for accessing flat map grid: GRID(x, y)
 // Note: requires a t_map *map variable in scope
@@ -25,6 +37,9 @@
 // DM main configuration
 /* typedef struct s_config; */
 
+
+/* ************************************************************************** */
+// STRUCTURE DEFINITIONS
 
 // a single coordinate point.
 typedef struct s_2D {
@@ -39,6 +54,9 @@ typedef struct s_map
 	char	*grid;
 	t_2D	dimension;
 } t_map;
+
+/* ************************************************************************** */
+// WINDOW MANAGEMENT
 
 
 // a window object.
@@ -56,13 +74,8 @@ void	key_hook(mlx_key_data_t key_press, void *param);
 
 
 
+/* ************************************************************************** */
 // PARSING
-
-// Reads <filename> into heap and:
-// 	1) checks it exists
-// 	1) checks is valid .cub file
-// 	2) maximum bounds
-int	create_map(t_map *map, char *filename);
 
 // check files exist, are valid etc.
 int get_texture_files(void);
@@ -70,8 +83,13 @@ int get_texture_files(void);
 // check files exist, are valid etc.
 int get_floor_ceiling_values(void);
 
-// basically, we only need to add spaces at the end of each line to equal MAX_WIDTH.
-int	map_normalizer(void);
+
+// Reads <filename> into heap and:
+// 	1) checks it exists
+// 	1) checks is valid .cub file
+// 	2) maximum bounds
+int	create_map(t_map *map, char *filename);
+
 
 // VALIDATION
 
