@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:30:28 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 14:52:19 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 15:08:57 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ static int	get_map_max_dimensions(t_map *map)
 	return (0);
 }
 
-
-int validate_map_chars(t_map *map)
+static int validate_map_chars(t_map *map)
 {
 	int i;
 	int spawn;
