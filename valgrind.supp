@@ -1,0 +1,100 @@
+{
+   ignore_0_byte_leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:*
+   ...
+}
+
+{
+   mlx_invalid_read
+   Memcheck:Addr1
+   obj:*/libmlx*
+}
+
+{
+   mlx_invalid_read_2
+   Memcheck:Addr2
+   obj:*/libmlx*
+}
+
+{
+   mlx_invalid_read_4
+   Memcheck:Addr4
+   obj:*/libmlx*
+}
+
+{
+   mlx_invalid_read_8
+   Memcheck:Addr8
+   obj:*/libmlx*
+}
+
+{
+   mlx_invalid_read_any_1
+   Memcheck:Addr1
+   fun:*mlx*
+}
+
+{
+   mlx_invalid_read_any_2
+   Memcheck:Addr2
+   fun:*mlx*
+}
+
+{
+   mlx_invalid_read_any_4
+   Memcheck:Addr4
+   fun:*mlx*
+}
+
+{
+   mlx_invalid_read_any_8
+   Memcheck:Addr8
+   fun:*mlx*
+}
+
+{
+   mlx_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:*mlx*
+}
+
+{
+   mlx_leak_obj
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libmlx*
+}
+
+{
+   x11_leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   obj:*/libX11*
+}
+
+{
+   x11_invalid_read_1
+   Memcheck:Addr1
+   obj:*/libX11*
+}
+
+{
+   x11_invalid_read_2
+   Memcheck:Addr2
+   obj:*/libX11*
+}
+
+{
+   x11_invalid_read_4
+   Memcheck:Addr4
+   obj:*/libX11*
+}
+
+{
+   x11_invalid_read_8
+   Memcheck:Addr8
+   obj:*/libX11*
+}

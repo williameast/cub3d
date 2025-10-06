@@ -36,6 +36,7 @@ def run_valgrind_test(cub3d_path, map_path):
     """Run cub3d with valgrind (no timeout)"""
     cmd = [
         'valgrind',
+        '--suppressions=valgrind.supp',
         '--leak-check=full',
         '--show-leak-kinds=all',
         '--errors-for-leak-kinds=all',
