@@ -81,6 +81,10 @@ int	map_is_valid(void);
 // DRAWING
 
 
+// CLEANUP
+int	cleanup_map(t_map *map);
+
+
 // viewport
 int handle_direction(void);
 int handle_rotation(void);

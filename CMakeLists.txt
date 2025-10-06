@@ -53,7 +53,15 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_options(cub3d PRIVATE -g -O0)
 endif()
 
-# Release-specific flags  
+# Release-specific flags
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     target_compile_options(cub3d PRIVATE -O2 -DNDEBUG)
 endif()
+
+# Create symlink to maps directory
+add_custom_command(TARGET cub3d POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E create_symlink
+    ${CMAKE_SOURCE_DIR}/maps
+    ${CMAKE_BINARY_DIR}/maps
+    COMMENT "Creating symlink to maps directory"
+)
