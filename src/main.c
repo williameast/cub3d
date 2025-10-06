@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 17:07:49 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 17:10:22 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv)
 	offset = parse_config_data(&config, argv[1]);
 	if (offset == -1)
 	{
+		cleanup_config(&config);
 		ft_putstr_fd("Error: Missing or invalid config data\n", 2);
 		return (1);
 	}
