@@ -6,3 +6,5 @@ bin/
 .DS_Store
 cmake-build-*/
 build/
+.cache
+.projectile
