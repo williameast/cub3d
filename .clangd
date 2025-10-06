@@ -1,11 +1,24 @@
 CompileFlags:
-  CompilationDatabase: build
   Add:
-    - -I/home/weast/org/42/cub3d/include
-    - -I/home/weast/org/42/cub3d/libs/libft/include
-    - -I/home/weast/org/42/cub3d/libs/MLX42/include
-    - -D_GNU_SOURCE
+    - -Wall
+    - -Wextra
+    - -Werror
+    - -std=c99
+    - -I./include
+    - -I./libs/libft/include
+    - -I./libs/MLX42/include
+  Remove:
+    - -W*
+    - -f*
 
 Diagnostics:
-  UnusedIncludes: None
+  UnusedIncludes: Strict
   MissingIncludes: Strict
+
+InlayHints:
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+
+Hover:
+  ShowAKA: Yes

@@ -13,7 +13,7 @@
 NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I./include -I./libs/libft/include -I./libs/MLX42/include
-LDFLAGS = -L./libs/libft -L./libs/MLX42/build -lft -lmlx42 -lglfw -lGL -ldl -lm
+LDFLAGS = -L./libs/libft/build -L./libs/MLX42/build -lft -lmlx42 -lglfw -lGL -ldl -lm
 
 SRCDIR = src
 OBJDIR = obj
@@ -24,16 +24,19 @@ MLX42_DIR = libs/MLX42
 SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
-all: $(BINDIR)/$(NAME)
+all: $(BINDIR)/$(NAME) $(BINDIR)/maps
 
-$(BINDIR)/$(NAME): $(LIBFT_DIR)/libft.a $(MLX42_DIR)/build/libmlx42.a $(OBJECTS) | $(BINDIR)
+$(BINDIR)/$(NAME): $(LIBFT_DIR)/build/libft.a $(MLX42_DIR)/build/libmlx42.a $(OBJECTS) | $(BINDIR)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+
+$(BINDIR)/maps: | $(BINDIR)
+	ln -sf ../maps $(BINDIR)/maps
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT_DIR)/libft.a:
-	$(MAKE) -C $(LIBFT_DIR)
+$(LIBFT_DIR)/build/libft.a:
+	cd $(LIBFT_DIR) && cmake -S . -B build && cmake --build build
 
 $(MLX42_DIR)/build/libmlx42.a: | $(MLX42_DIR)/build
 	cd $(MLX42_DIR)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && make

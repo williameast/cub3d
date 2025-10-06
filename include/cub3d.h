@@ -83,6 +83,10 @@ int	map_is_closed(char ***map, size_t cols, size_t rows);
 // DRAWING
 
 
+// CLEANUP
+int	cleanup_map(t_map *map);
+
+
 // viewport
 int handle_direction(void);
 int handle_rotation(void);
