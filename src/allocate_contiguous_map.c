@@ -6,13 +6,14 @@
 /*   By: dimachad <dimachad@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:41:27 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/06 14:23:12 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 15:12:17 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <stdlib.h>
 
+// Copies mapstring data into grid system
 static void	fill_grid_from_map_string(t_map *map)
 {
 	int i;
@@ -76,6 +77,9 @@ int	allocate_contiguous_map(char ***map, size_t cols, size_t rows)
  * Access pattern: map->grid[y * map->dimension.x + x]
  * I set it to ' ' as a placeholder, because that is the deadspace
  * in the beginning of rows.
+ *
+ * fill grid from string then populates the grid from our
+ * raw string data
  *
  * Benefits:
  *   - Single malloc, single free
