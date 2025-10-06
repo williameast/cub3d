@@ -6,14 +6,12 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:31:20 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 10:26:24 by William          ###   ########.fr       */
+/*   Updated: 2025/10/06 14:45:54 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <unistd.h>
 
 static int	check_extension(char *filename)
 {
@@ -26,9 +24,6 @@ static int	check_extension(char *filename)
 		return (0);
 	return (!ft_strncmp(FILE_EXT, &filename[name_len - ext_len], 5));
 }
-
-int	validate_filename(char *filename);
-
 
 char *read_map(char *filename)
 {
