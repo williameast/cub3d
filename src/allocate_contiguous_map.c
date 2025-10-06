@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:41:27 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/06 14:15:53 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 14:23:12 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	allocate_contiguous_map(char ***map, size_t cols, size_t rows)
 /* Allocates a flat 1D array for the map grid (rows * cols)
  * This is the most cache-friendly approach with zero pointer overhead.
  * Access pattern: map->grid[y * map->dimension.x + x]
- * I set it to -1 as a placeholder.
+ * I set it to ' ' as a placeholder, because that is the deadspace
+ * in the beginning of rows.
  *
  * Benefits:
  *   - Single malloc, single free
