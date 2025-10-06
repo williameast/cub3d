@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 17:10:22 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 17:41:40 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	main(int argc, char **argv)
 	map.y_offset = offset;
 	map.raw_map_string = config.raw_file_string + map.y_offset;
 	if (create_map(&map))
+	{
+		cleanup_config(&config);
 		return (1);
+	}
 	if (init_window(&window) != 0)
 	{
 		ft_putstr_fd("Error: Failed to initialize game\n", 2);
