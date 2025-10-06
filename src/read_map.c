@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:30:28 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 14:41:41 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 14:52:19 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int validate_map_chars(t_map *map)
 	spawn = 0;
 	while (map->raw_map_string[i])
 	{
-		if (ft_strchr("NESW", map->raw_map_string[i]))
+		if (ft_strchr(MAP_VALID_PLAYER_CHARS, map->raw_map_string[i]))
 		{
 			if (!spawn)
 				spawn = 1;
@@ -101,7 +101,7 @@ int validate_map_chars(t_map *map)
 				return (1);
 			i++;
 		}
-		if (ft_strchr(" \n01", map->raw_map_string[i]))
+		if (ft_strchr(MAP_VALID_ENV_CHARS, map->raw_map_string[i]))
 			i++;
 		else
 			return (1);
