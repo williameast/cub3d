@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/07 16:30:03 by dimachad          #+#    #+#             */
+/*   Updated: 2025/10/07 16:30:03 by dimachad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -18,6 +30,10 @@
 
 # define WIN_NAME "cub3d_debug"
 
+// Helper macro for accessing flat map grid: GRID(x, y)
+// Note: requires a t_map *map variable in scope
+#define GRID(x, y) (map->grid[(y) * map->dimension.x + (x)])
+
 // DM main configuration
 /* typedef struct s_config; */
 
@@ -32,6 +48,7 @@ typedef struct s_2D {
 typedef struct s_map
 {
 	char	*raw_map_string;
+	char	*grid;
 	t_2D	dimension;
 } t_map;
 
@@ -77,7 +94,8 @@ int create_array(void);
 
 // check that map is closed.
 int	allocate_contiguous_map(char ***map, size_t cols, size_t rows);
-int	map_is_closed(char ***map, size_t cols, size_t rows);
+int	allocate_flat_map(t_map *map);
+int	map_is_valid(void);
 
 
 // DRAWING

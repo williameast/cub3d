@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:41:27 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/06 11:56:44 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/06 13:26:00 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,26 @@ int	allocate_contiguous_map(char ***map, size_t cols, size_t rows)
 		cur_row += row_size;
 		i++;
 	}
-
 	return (0);
 }
 
+/* Allocates a flat 1D array for the map grid (rows * cols)
+ * This is the most cache-friendly approach with zero pointer overhead.
+ * Access pattern: map->grid[y * map->dimension.x + x]
+ *
+ * Benefits:
+ *   - Single malloc, single free
+ *   - No pointer indirection overhead
+ *   - Best cache locality for sequential access
+ *   - Optimal for tight rendering loops
+ */
+int	allocate_flat_map(t_map *map)
+{
+	size_t	total_size;
+
+	total_size = map->dimension.y * map->dimension.x;
+	map->grid = malloc(total_size * sizeof(char));
+	if (!map->grid)
+		return (-1);
+	return (0);
+}
