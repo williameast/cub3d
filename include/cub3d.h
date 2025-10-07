@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:30:03 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/07 16:30:03 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:31:51 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define WIDTH 1024 // window width
 # define HEIGHT 768 // window height
 
-#define FILE_EXT ".cub" // file extension used.
+# define FILE_EXT ".cub" // file extension used.
 # define WIN_NAME "cub3d_debug"
 
 
@@ -34,9 +34,12 @@
 // MAPS
 
 // I have macroed this, so we can add valid characters quickly.
+// for player chars, it will only be valid with one and only one
+// player character.
 #define MAP_VALID_PLAYER_CHARS "NESW" // north east south west
-#define MAP_VALID_ENV_CHARS " \n01" // note the space.
 
+// these can come up as many times as needed.
+#define MAP_VALID_ENV_CHARS " \n01" // note the space.
 
 
 /* ************************************************************************** */
@@ -169,4 +172,7 @@ int bounds_managament(void);
 void	debug_2D(t_2D point);
 void	debug_map(t_map *map);
 
+
+// basically prints a little report of all that we know.
+void	debug_config(t_config *config, t_map *map);
 #endif
