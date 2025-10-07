@@ -6,13 +6,12 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 16:28:38 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 19:56:56 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <unistd.h>
-
 
 int	init_game(t_game *game, t_parse *parse, char *filename)
 {
@@ -41,7 +40,6 @@ int	init_game(t_game *game, t_parse *parse, char *filename)
 
 int	init_engine(t_game *game);
 
-
 int	main(int argc, char **argv)
 {
 	t_window	window;
@@ -55,6 +53,8 @@ int	main(int argc, char **argv)
 	}
 	if (init_game(&game, &parse, argv[1]))
 		return (1);
+	if (!map_is_closed(&game.map, game.player.pos))
+		return (cleanup_map(&game.map), 1);
 	if (init_window(&window) != 0)
 	{
 		ft_putstr_fd("Error: Failed to initialize game\n", STDERR_FILENO);

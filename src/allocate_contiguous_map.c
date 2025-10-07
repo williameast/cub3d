@@ -6,7 +6,7 @@
 /*   By: size<sizestudent.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:41:27 by size         #+#    #+#             */
-/*   Updated: 2025/10/07 17:03:27 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 20:05:40 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	fill_grid_from_map_string(t_map *map, char *raw_map_string)
 	}
 }
 
-/* Allocates a 2D char array (rows x cols) with a single malloc in contiguous memory
+/* Allocates a 2D char array (rows x cols)
+ * with a single malloc in contiguous memory
  * for optimize calculation in graphical tight loops:
  *   - First part of the block stores the row pointers (one char* for each row).
  *   - Second part of the block stores all the characters for all rows.
@@ -50,7 +51,7 @@ int	allocate_contiguous_map(char ***map, size_t cols, size_t rows)
 {
 	size_t	pointers_size;
 	size_t	row_size;
-	char *	cur_row;
+	char	*cur_row;
 	size_t	i;
 
 	pointers_size = rows * sizeof(char *);

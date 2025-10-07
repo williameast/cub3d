@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 16:16:36 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 19:55:05 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define FILE_EXT ".cub" // file extension used.
 # define WIN_NAME "cub3d_debug"
 
+# define OK 0
+# define ERR -1
 
 /* ************************************************************************** */
 // MAPS
@@ -34,10 +36,11 @@
 // I have macroed this, so we can add valid characters quickly.
 // for player chars, it will only be valid with one and only one
 // player character.
-#define MAP_VALID_PLAYER_CHARS "NESW" // north east south west
+# define MAP_VALID_PLAYER_CHARS "NESW" // north east south west
+# define PLAYER_DIRECTIONS "NESW" // north east south west
 
 // these can come up as many times as needed.
-#define MAP_VALID_ENV_CHARS " \n01" // note the space.
+# define MAP_VALID_ENV_CHARS " \n01" // note the space.
 
 
 /* ************************************************************************** */
@@ -74,7 +77,7 @@ typedef struct s_config
 
 typedef struct	s_player
 {
-	double pos[2];
+	double	pos[2];
 	int		angle;
 } t_player;
 
@@ -151,10 +154,11 @@ int	create_map(t_map *map, char *raw_map_string);
 // VALIDATION
 
 // check that map is closed.
-int	allocate_contiguous_map(char ***map, size_t cols, size_t rows);
+int		allocate_contiguous_map(char ***map, size_t cols, size_t rows);
+void	find_player(char **map, double *player, int cols, int rows);
+int		map_is_closed(t_map *map, double *player);
 /* int	allocate_flat_map(t_map *map); */
 int allocate_game_map(t_map *map, char *raw_map_string);
-int	map_is_valid(void);
 
 
 // DRAWING
