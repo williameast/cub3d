@@ -6,36 +6,31 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 13:19:33 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 10:45:26 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 15:09:32 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-void	debug_2D(t_2D point)
-{
-	printf("(%d, %d)\n", point.x, point.y);
-}
-
 void	debug_map(t_map *map)
 {
-	int x;
-	int y;
+	int i;
+	int j;
 
-	x = 0;
-	y = 0;
+	i = 0;
+	j = 0;
 
-	while (y < map->dimension.y)
+	while (i < map->size[y])
 	{
-		while (x < map->dimension.x)
+		while (j < map->size[x])
 		{
-			printf("%c", GRID(x, y));
-			x++;
+			printf("%c", map->grid[i][j]);
+			j++;
 		}
-		x = 0;
+		j = 0;
 		printf("\n");
-		y++;
+		i++;
 	}
 }
 
@@ -51,8 +46,6 @@ void	debug_config(t_config *config, t_map *map)
 	printf("	Floor: %s\n", config->col_floor_raw);
 	printf("	Ceil : %s\n", config->col_ceiling_raw);
 
-	printf("\nMAP DIMENSION: ");
-	debug_2D(map->dimension);
 	printf(" LAYOUT\n\n");
 	debug_map(map);
 }

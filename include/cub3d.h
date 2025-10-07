@@ -5,13 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
 /*   Created: 2025/10/07 16:30:03 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/07 16:31:51 by dimachad         ###   ########.fr       */
-=======
-/*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 14:22:58 by weast            ###   ########.fr       */
->>>>>>> 64fd1ce (added struct protoypes)
+/*   Updated: 2025/10/07 16:34:15 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +160,8 @@ int	create_map(t_map *map);
 
 // check that map is closed.
 int	allocate_contiguous_map(char ***map, size_t cols, size_t rows);
-int	allocate_flat_map(t_map *map);
+/* int	allocate_flat_map(t_map *map); */
+int allocate_game_map(t_map *map);
 int	map_is_valid(void);
 
 
@@ -188,9 +184,7 @@ int handle_movement(void);
 int bounds_managament(void);
 
 // DEBUG
-void	debug_2D(t_2D point);
 void	debug_map(t_map *map);
-
 
 // basically prints a little report of all that we know.
 void	debug_config(t_config *config, t_map *map);

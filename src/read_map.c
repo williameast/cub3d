@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:30:28 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 10:38:45 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 15:00:31 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ static int	get_map_max_dimensions(t_map *map)
 
 	i = 0;
 	row_len = 0;
-	map->dimension.y = 0;
+	map->size[y] = 0;
 	while (map->raw_map_string[i])
 	{
 		if (map->raw_map_string[i] == '\n')
 		{
 			if (row_len > 0)
 			{
-				map->dimension.y++;
-				if (row_len > map->dimension.x)
-					map->dimension.x = row_len;
+				map->size[y]++;
+				if (row_len > map->size[x])
+					map->size[x] = row_len;
 			}
 			row_len = 0;
 		}
@@ -76,7 +76,7 @@ int	create_map(t_map *map)
 	if (validate_map_chars(map))
 		return(ft_putstr_fd("Invalid characters in map.", STDERR_FILENO));
 	get_map_max_dimensions(map);
-	if (allocate_flat_map(map))
+	if (allocate_game_map(map))
 		return(ft_putstr_fd("Could not allocate map grid.\n", STDERR_FILENO));
 	return (0);
 }

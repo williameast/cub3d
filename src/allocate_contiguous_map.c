@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_contiguous_map.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimachad <dimachad@student.42berlin.d>     +#+  +:+       +#+        */
+/*   By: size<sizestudent.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/05 22:41:27 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/06 15:12:17 by weast            ###   ########.fr       */
+/*   Created: 2025/10/05 22:41:27 by size         #+#    #+#             */
+/*   Updated: 2025/10/07 14:58:52 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "cub3d.h"
 #include <stdlib.h>
 
 // Copies mapstring data into grid system
@@ -32,7 +32,7 @@ static void	fill_grid_from_map_string(t_map *map)
 		}
 		else
 		{
-			GRID(x, y) = map->raw_map_string[i];
+			map->grid[y][x] = map->raw_map_string[i];
 			x++;
 		}
 		i++;
@@ -59,9 +59,7 @@ int	allocate_contiguous_map(char ***map, size_t cols, size_t rows)
 	*map = malloc(pointers_size + (rows * row_size));
 	if (!(*map))
 		return (-1);
-
 	cur_row = (char *)(*map) + pointers_size;
-
 	i = 0;
 	while (i < rows)
 	{
@@ -74,7 +72,7 @@ int	allocate_contiguous_map(char ***map, size_t cols, size_t rows)
 
 /* Allocates a flat 1D array for the map grid (rows * cols)
  * This is the most cache-friendly approach with zero pointer overhead.
- * Access pattern: map->grid[y * map->dimension.x + x]
+ * Access pattern: map->grid[y * map->size.x + x]
  * I set it to ' ' as a placeholder, because that is the deadspace
  * in the beginning of rows.
  *
@@ -91,11 +89,30 @@ int	allocate_flat_map(t_map *map)
 {
 	size_t	total_size;
 
-	total_size = map->dimension.y * map->dimension.x;
+	total_size = map->size[y] * map->size[x];
+
 	map->grid = malloc(total_size * sizeof(char));
 	if (!map->grid)
 		return (-1);
 	ft_memset(map->grid, ' ', total_size);
+	fill_grid_from_map_string(map);
+	return (0);
+}
+
+
+
+int allocate_game_map(t_map *map)
+{
+	size_t	total_size;
+	char	*data;
+
+	total_size = map->size[y] * map->size[x];
+	allocate_contiguous_map(&map->grid,
+							map->size[x],
+							map->size[y]);
+	data = (char *)map->grid + (map->size[y] * sizeof(char *));
+
+	ft_memset(data, ' ', total_size);
 	fill_grid_from_map_string(map);
 	return (0);
 }
