@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 13:19:33 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 14:19:50 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 10:45:26 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,22 @@ void	debug_map(t_map *map)
 		printf("\n");
 		y++;
 	}
+}
+
+void	debug_config(t_config *config, t_map *map)
+{
+	printf("PREAMBLE\n\n");
+	printf("  TEXTURES\n\n");
+	printf("	North: %s\n", config->tex_no);
+	printf("	South: %s\n", config->tex_so);
+	printf("	East : %s\n", config->tex_ea);
+	printf("	West : %s\n", config->tex_we);
+	printf("\n  COLOURS\n\n");
+	printf("	Floor: %s\n", config->col_floor_raw);
+	printf("	Ceil : %s\n", config->col_ceiling_raw);
+
+	printf("\nMAP DIMENSION: ");
+	debug_2D(map->dimension);
+	printf(" LAYOUT\n\n");
+	debug_map(map);
 }
