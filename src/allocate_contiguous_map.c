@@ -6,7 +6,7 @@
 /*   By: size<sizestudent.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:41:27 by size         #+#    #+#             */
-/*   Updated: 2025/10/07 14:58:52 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 15:33:46 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 // Copies mapstring data into grid system
-static void	fill_grid_from_map_string(t_map *map)
+static void	fill_grid_from_map_string(t_map *map, char *raw_map_string)
 {
 	int i;
 	int x;
@@ -23,16 +23,16 @@ static void	fill_grid_from_map_string(t_map *map)
 	i = 0;
 	x = 0;
 	y = 0;
-	while (map->raw_map_string[i])
+	while (raw_map_string[i])
 	{
-		if (map->raw_map_string[i] == '\n')
+		if (raw_map_string[i] == '\n')
 		{
 			y++;
 			x = 0;
 		}
 		else
 		{
-			map->grid[y][x] = map->raw_map_string[i];
+			map->grid[y][x] = raw_map_string[i];
 			x++;
 		}
 		i++;
@@ -85,23 +85,23 @@ int	allocate_contiguous_map(char ***map, size_t cols, size_t rows)
  *   - Best cache locality for sequential access
  *   - Optimal for tight rendering loops
  */
-int	allocate_flat_map(t_map *map)
-{
-	size_t	total_size;
+/* int	allocate_flat_map(t_map *map) */
+/* { */
+/* 	size_t	total_size; */
 
-	total_size = map->size[y] * map->size[x];
+/* 	total_size = map->size[y] * map->size[x]; */
 
-	map->grid = malloc(total_size * sizeof(char));
-	if (!map->grid)
-		return (-1);
-	ft_memset(map->grid, ' ', total_size);
-	fill_grid_from_map_string(map);
-	return (0);
-}
+/* 	map->grid = malloc(total_size * sizeof(char)); */
+/* 	if (!map->grid) */
+/* 		return (-1); */
+/* 	ft_memset(map->grid, ' ', total_size); */
+/* 	fill_grid_from_map_string(map, ); */
+/* 	return (0); */
+/* } */
 
 
 
-int allocate_game_map(t_map *map)
+int allocate_game_map(t_map *map, char *raw_map_string)
 {
 	size_t	total_size;
 	char	*data;
@@ -113,6 +113,6 @@ int allocate_game_map(t_map *map)
 	data = (char *)map->grid + (map->size[y] * sizeof(char *));
 
 	ft_memset(data, ' ', total_size);
-	fill_grid_from_map_string(map);
+	fill_grid_from_map_string(map, raw_map_string);
 	return (0);
 }

@@ -34,7 +34,7 @@ void	debug_map(t_map *map)
 	}
 }
 
-void	debug_config(t_config *config, t_map *map)
+void	debug_config(t_parse *parse, t_config *config, t_map *map)
 {
 	printf("PREAMBLE\n\n");
 	printf("  TEXTURES\n\n");
@@ -43,8 +43,8 @@ void	debug_config(t_config *config, t_map *map)
 	printf("	East : %s\n", config->tex_ea);
 	printf("	West : %s\n", config->tex_we);
 	printf("\n  COLOURS\n\n");
-	printf("	Floor: %s\n", config->col_floor_raw);
-	printf("	Ceil : %s\n", config->col_ceiling_raw);
+	printf("	Floor: %s\n", parse->raw_col_floor);
+	printf("	Ceil : %s\n", parse->raw_col_ceiling);
 
 	printf(" LAYOUT\n\n");
 	debug_map(map);
