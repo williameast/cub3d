@@ -3,6 +3,25 @@
 * Cub3d project [0/2]
 ** TODO Tasks
 *** TODO Parsing
-**** TODO
+**** DONE Maps
+CLOSED: [2025-10-07 Tue 10:22]
+**** TODO preamble
+***** TODO RGB to int conversion
+***** TODO Clean up of config struct
+***** TODO
+
+
+* parsing
+
+I have completed the parsing of maps, including basic validation. this means
+only maps that contain valid chars, and one and only one player char are
+permitted.
+
+it also allows for one and only one of each texture (NESW) and colour (FC)
+order does not matter, nor empty lines etc.
+
+what needs to be done:
+
+
 * devops
 I am using nix to build locally on my device.
