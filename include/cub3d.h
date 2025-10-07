@@ -9,6 +9,8 @@
 # include "MLX42/MLX42.h"
 # include "fcntl.h"
 
+# define OK 0
+# define ERR -1
 # define WIDTH 1024 // window width
 # define HEIGHT 768 // window height
 
@@ -75,7 +77,7 @@ int create_array(void);
 
 // check that map is closed.
 int	allocate_contiguous_map(char ***map, size_t cols, size_t rows);
-int	map_is_valid(void);
+int	map_is_closed(char ***map, size_t cols, size_t rows);
 
 
 // DRAWING
