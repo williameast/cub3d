@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 14:46:11 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 15:21:44 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@
 /* ************************************************************************** */
 // GRID SYSTEM
 
-// Helper macro for accessing flat map grid: GRID(x, y)
-// Note: requires a t_map *map variable in scope
-// Warn: gonna have to replace this on submit. but can do
-// this with a quick ripgrep at the end.
-#define GRID(x, y) (map->grid[(y) * map->dimension.x + (x)])
-
-// DM main configuration
-
 enum coordinates
 {
 	x,
@@ -58,34 +50,37 @@ enum coordinates
 };
 
 
+/* ************************************************************************** */
+// STRUCTURE DEFINITIONS
+
+typedef struct s_parse
+{
+	char	*raw_file_string;
+	char	*raw_map_string;
+	char	*raw_col_floor;
+	char	*raw_col_ceiling;
+} t_parse;
+
+// temp object. RGB
+typedef struct s_config
+{
+	char	*tex_no;
+	char	*tex_so;
+	char	*tex_ea;
+	char	*tex_we;
+	int		col_floor;
+	int		col_ceiling;
+} t_config;
+
 typedef struct	s_player
 {
 	double pos[2];
 	int		angle;
 } t_player;
 
-/* ************************************************************************** */
-// STRUCTURE DEFINITIONS
-
-// temp object. RGB
-typedef struct s_config
-{
-	char	*raw_file_string;
-	char	*tex_no;
-	char	*tex_so;
-	char	*tex_ea;
-	char	*tex_we;
-	char	*col_floor_raw;
-	char	*col_ceiling_raw;
-	int		col_floor;
-	int		col_ceiling;
-} t_config;
-
 // a map object, containing the string, the dimensions
 typedef struct s_map
 {
-	char	*raw_map_string;
-	/* char	*grid; */
 	char	**grid;
 	unsigned int	y_offset;
 	int	size[2];
@@ -138,7 +133,7 @@ typedef enum e_line_id
 
 // capture all config info and map. passes a pointer to begnning
 // of map object.
-int	parse_config_data(t_config *config, char *filename);
+int	parse_config_data(t_parse *parse, t_config *config, char *filename);
 
 // check files exist, are valid etc.
 int get_texture_files(void);
@@ -151,7 +146,7 @@ int get_floor_ceiling_values(void);
 // 	1) checks it exists
 // 	1) checks is valid .cub file
 // 	2) maximum bounds
-int	create_map(t_map *map);
+int	create_map(t_map *map, char *raw_map_string);
 
 
 // VALIDATION
@@ -159,7 +154,7 @@ int	create_map(t_map *map);
 // check that map is closed.
 int	allocate_contiguous_map(char ***map, size_t cols, size_t rows);
 /* int	allocate_flat_map(t_map *map); */
-int allocate_game_map(t_map *map);
+int allocate_game_map(t_map *map, char *raw_map_string);
 int	map_is_valid(void);
 
 
@@ -169,6 +164,7 @@ int	map_is_valid(void);
 // CLEANUP
 void	cleanup_map(t_map *map);
 void	cleanup_config(t_config *config);
+void	cleanup_parse(t_parse *parse);
 
 
 // viewport
@@ -185,5 +181,5 @@ int bounds_managament(void);
 void	debug_map(t_map *map);
 
 // basically prints a little report of all that we know.
-void	debug_config(t_config *config, t_map *map);
+void	debug_config(t_parse *parse, t_config *config, t_map *map);
 #endif
