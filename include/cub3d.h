@@ -5,13 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
 /*   Created: 2025/10/07 16:30:03 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/07 16:34:15 by dimachad         ###   ########.fr       */
-=======
-/*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 15:21:44 by weast            ###   ########.fr       */
->>>>>>> 0960e36 (updated header for new format)
+/*   Updated: 2025/10/07 16:37:00 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,10 +154,11 @@ int	create_map(t_map *map, char *raw_map_string);
 // VALIDATION
 
 // check that map is closed.
+
 int	allocate_contiguous_map(char ***map, size_t cols, size_t rows);
 /* int	allocate_flat_map(t_map *map); */
 int allocate_game_map(t_map *map, char *raw_map_string);
-int	map_is_valid(void);
+int	map_is_closed(char ***map, size_t cols, size_t rows);
 
 
 // DRAWING
