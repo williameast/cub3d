@@ -6,7 +6,7 @@
 /*   By: size<sizestudent.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:41:27 by size         #+#    #+#             */
-/*   Updated: 2025/10/07 15:33:46 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 17:03:27 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,37 +69,6 @@ int	allocate_contiguous_map(char ***map, size_t cols, size_t rows)
 	}
 	return (0);
 }
-
-/* Allocates a flat 1D array for the map grid (rows * cols)
- * This is the most cache-friendly approach with zero pointer overhead.
- * Access pattern: map->grid[y * map->size.x + x]
- * I set it to ' ' as a placeholder, because that is the deadspace
- * in the beginning of rows.
- *
- * fill grid from string then populates the grid from our
- * raw string data
- *
- * Benefits:
- *   - Single malloc, single free
- *   - No pointer indirection overhead
- *   - Best cache locality for sequential access
- *   - Optimal for tight rendering loops
- */
-/* int	allocate_flat_map(t_map *map) */
-/* { */
-/* 	size_t	total_size; */
-
-/* 	total_size = map->size[y] * map->size[x]; */
-
-/* 	map->grid = malloc(total_size * sizeof(char)); */
-/* 	if (!map->grid) */
-/* 		return (-1); */
-/* 	ft_memset(map->grid, ' ', total_size); */
-/* 	fill_grid_from_map_string(map, ); */
-/* 	return (0); */
-/* } */
-
-
 
 int allocate_game_map(t_map *map, char *raw_map_string)
 {
