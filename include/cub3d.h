@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 11:29:44 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 14:22:58 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,22 @@
 #define GRID(x, y) (map->grid[(y) * map->dimension.x + (x)])
 
 // DM main configuration
-/* typedef struct s_config; */
 
+enum coordinates
+{
+	x,
+	y,
+};
+
+
+typedef struct	s_player
+{
+	double pos[2];
+	int		angle;
+} t_player;
 
 /* ************************************************************************** */
 // STRUCTURE DEFINITIONS
-
-// a single coordinate point.
-typedef struct s_2D {
-  int x;
-  int y;
-} t_2D;
 
 // temp object. RGB
 typedef struct s_config
@@ -80,22 +85,31 @@ typedef struct s_config
 typedef struct s_map
 {
 	char	*raw_map_string;
-	char	*grid;
+	/* char	*grid; */
+	char	**grid;
 	unsigned int	y_offset;
-	t_2D	dimension;
+	int	size[2];
 } t_map;
 
 /* ************************************************************************** */
 // WINDOW MANAGEMENT
 
-
-// a window object.
 typedef struct s_window {
   mlx_t *mlx;
   mlx_image_t *img;
   int width;
   int height;
 } t_window;
+
+typedef struct s_game
+{
+	t_player player;
+	t_map	map;
+	t_window win;
+	t_config config;
+} t_game;
+
+
 
 
 int		init_window(t_window *window);
