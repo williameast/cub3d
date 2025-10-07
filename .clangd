@@ -4,15 +4,15 @@ CompileFlags:
     - -Wextra
     - -Werror
     - -std=c99
-    - -I./include
-    - -I./libs/libft/include
-    - -I./libs/MLX42/include
+    - -I../include
+    - -I../libs/libft/include
+    - -I../libs/MLX42/include
   Remove:
     - -W*
     - -f*
 
 Diagnostics:
-  UnusedIncludes: Strict
+  UnusedIncludes: None
   MissingIncludes: Strict
 
 InlayHints:
