@@ -19,13 +19,19 @@ void	cleanup_config(t_config *config)
 {
 	if (!config)
 		return ;
-	free(config->raw_file_string);
 	free(config->tex_no);
 	free(config->tex_so);
 	free(config->tex_ea);
 	free(config->tex_we);
-	free(config->col_floor_raw);
-	free(config->col_ceiling_raw);
+}
+
+void	cleanup_parse(t_parse *parse)
+{
+	if (!parse)
+		return ;
+	free(parse->raw_file_string);
+	free(parse->raw_col_floor);
+	free(parse->raw_col_ceiling);
 }
 
 void	cleanup_map(t_map *map)

@@ -17,6 +17,7 @@ int	main(int argc, char **argv)
 	t_window	window;
 	t_map		map = {0};
 	t_config	config = {0};
+	t_parse		parse = {0};
 	int			offset;
 
 	if (argc != 2)
@@ -24,17 +25,19 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Usage: ./cub3d <map.cub>\n", 2);
 		return (1);
 	}
-	offset = parse_config_data(&config, argv[1]);
+	offset = parse_config_data(&parse, &config, argv[1]);
 	if (offset == -1)
 	{
+		cleanup_parse(&parse);
 		cleanup_config(&config);
 		ft_putstr_fd("Error: Missing or invalid config data\n", 2);
 		return (1);
 	}
 	map.y_offset = offset;
-	map.raw_map_string = config.raw_file_string + map.y_offset;
-	if (create_map(&map))
+	parse.raw_map_string = parse.raw_file_string + map.y_offset;
+	if (create_map(&map, parse.raw_map_string))
 	{
+		cleanup_parse(&parse);
 		cleanup_config(&config);
 		return (1);
 	}
@@ -43,11 +46,12 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error: Failed to initialize game\n", 2);
 		return (1);
 	}
-	debug_config(&config, &map);
+	debug_config(&parse, &config, &map);
 	mlx_key_hook(window.mlx, key_hook, &window);
 	mlx_loop(window.mlx);
 	cleanup_window(&window);
 	cleanup_map(&map);
 	cleanup_config(&config);
+	cleanup_parse(&parse);
 	return (0);
 }

@@ -15,7 +15,7 @@
 
 // INFO: map object is bzeroed in main.
 // raw_map_string already points to start of map data
-static int	get_map_max_dimensions(t_map *map)
+static int	get_map_max_dimensions(t_map *map, char *raw_map_string)
 {
 	int row_len;
 	int i;
@@ -23,9 +23,9 @@ static int	get_map_max_dimensions(t_map *map)
 	i = 0;
 	row_len = 0;
 	map->size[y] = 0;
-	while (map->raw_map_string[i])
+	while (raw_map_string[i])
 	{
-		if (map->raw_map_string[i] == '\n')
+		if (raw_map_string[i] == '\n')
 		{
 			if (row_len > 0)
 			{
@@ -43,16 +43,16 @@ static int	get_map_max_dimensions(t_map *map)
 }
 
 // offset is used for validation start
-static int validate_map_chars(t_map *map)
+static int validate_map_chars(char *raw_map_string)
 {
 	int i;
 	int spawn;
 
 	i = 0;
 	spawn = 0;
-	while (map->raw_map_string[i])
+	while (raw_map_string[i])
 	{
-		if (ft_strchr(MAP_VALID_PLAYER_CHARS, map->raw_map_string[i]))
+		if (ft_strchr(MAP_VALID_PLAYER_CHARS, raw_map_string[i]))
 		{
 			if (!spawn)
 				spawn = 1;
@@ -60,7 +60,7 @@ static int validate_map_chars(t_map *map)
 				return (1);
 			i++;
 		}
-		if (ft_strchr(MAP_VALID_ENV_CHARS, map->raw_map_string[i]))
+		if (ft_strchr(MAP_VALID_ENV_CHARS, raw_map_string[i]))
 			i++;
 		else
 			return (1);
@@ -71,12 +71,12 @@ static int validate_map_chars(t_map *map)
 		return (0);
 }
 
-int	create_map(t_map *map)
+int	create_map(t_map *map, char *raw_map_string)
 {
-	if (validate_map_chars(map))
+	if (validate_map_chars(raw_map_string))
 		return(ft_putstr_fd("Invalid characters in map.", STDERR_FILENO));
-	get_map_max_dimensions(map);
-	if (allocate_game_map(map))
+	get_map_max_dimensions(map, raw_map_string);
+	if (allocate_game_map(map, raw_map_string))
 		return(ft_putstr_fd("Could not allocate map grid.\n", STDERR_FILENO));
 	return (0);
 }

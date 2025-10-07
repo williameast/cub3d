@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:12:48 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 11:38:36 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 15:36:23 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	check_extension(char *filename)
 	return (!ft_strncmp(FILE_EXT, &filename[name_len - ext_len], 5));
 }
 
-int	read_file_as_string(t_config *config, char *filename)
+int	read_file_as_string(t_parse *parse, char *filename)
 {
 	int	fd;
 	char *line;
@@ -35,19 +35,19 @@ int	read_file_as_string(t_config *config, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0 || !check_extension(filename))
 		return (1);
-	config->raw_file_string = ft_strdup("");
-	if (!config->raw_file_string)
+	parse->raw_file_string = ft_strdup("");
+	if (!parse->raw_file_string)
 		return (1);
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		temp = ft_strjoin(config->raw_file_string, line);
-		free(config->raw_file_string);
+		temp = ft_strjoin(parse->raw_file_string, line);
+		free(parse->raw_file_string);
 		if (!temp)
 		{
 			free(line);
 			return (1);
 		}
-		config->raw_file_string = temp;
+		parse->raw_file_string = temp;
 		free(line);
 	}
 	close(fd);
@@ -112,20 +112,19 @@ static int	increment_and_check(int *counter)
 
 // Validates that all config fields are present exactly once
 // Returns -1 if duplicates found or fields missing, 0 otherwise
-int	check_config_is_valid(t_config *config)
+int	check_config_is_valid(t_parse *parse)
 {
 	int			counts[6] = {0};
 	char		*line;
 	char		*str;
 	t_line_id	id;
 
-	if (!config || !config->raw_file_string)
+	if (!parse || !parse->raw_file_string)
 		return (-1);
-	str = config->raw_file_string;
+	str = parse->raw_file_string;
 	while (*str)
 	{
 		line = str;
-		// Find end of line
 		while (*str && *str != '\n')
 			str++;
 		id = return_line_identifier(line);
@@ -146,7 +145,6 @@ int	check_config_is_valid(t_config *config)
 		if (*str == '\n')
 			str++;
 	}
-	// Check all fields are present
 	for (int i = 0; i < 6; i++)
 	{
 		if (counts[i] != 1)
@@ -183,13 +181,13 @@ static char	*extract_value(char *line, int skip)
 
 // Stores the config values in the t_config structure
 // Returns -1 on allocation failure, 0 on success
-static int	store_config_values(t_config *config)
+static int	store_config_values(t_parse *parse, t_config *config)
 {
 	char		*str;
 	char		*line;
 	t_line_id	id;
 
-	str = config->raw_file_string;
+	str = parse->raw_file_string;
 	while (*str)
 	{
 		line = str;
@@ -207,9 +205,9 @@ static int	store_config_values(t_config *config)
 		else if (id == LINE_EA)
 			config->tex_ea = extract_value(line, 2);
 		else if (id == LINE_F)
-			config->col_floor_raw = extract_value(line, 1);
+			parse->raw_col_floor = extract_value(line, 1);
 		else if (id == LINE_C)
-			config->col_ceiling_raw = extract_value(line, 1);
+			parse->raw_col_ceiling = extract_value(line, 1);
 		if (*str == '\n')
 			str++;
 	}
@@ -218,21 +216,20 @@ static int	store_config_values(t_config *config)
 
 // Returns the byte offset to the first line of the map object
 // Returns -1 if no map is found
-int	return_offset(t_config *config)
+int	return_offset(t_parse *parse)
 {
 	char		*str;
 	char		*line;
 	int			offset;
 	t_line_id	id;
 
-	if (!config || !config->raw_file_string)
+	if (!parse || !parse->raw_file_string)
 		return (-1);
-	str = config->raw_file_string;
+	str = parse->raw_file_string;
 	offset = 0;
 	while (*str)
 	{
 		line = str;
-		// Find end of line
 		while (*str && *str != '\n')
 			str++;
 		id = return_line_identifier(line);
@@ -240,21 +237,20 @@ int	return_offset(t_config *config)
 			return (offset);
 		if (*str == '\n')
 			str++;
-		offset = str - config->raw_file_string;
+		offset = str - parse->raw_file_string;
 	}
 	return (-1);
 }
 
-
 // Parses config file and returns byte offset to map section
 // Returns -1 on error (file read error, invalid config, missing fields)
-int	parse_config_data(t_config *config, char *filename)
+int	parse_config_data(t_parse *parse, t_config *config, char *filename)
 {
-	if (read_file_as_string(config, filename))
+	if (read_file_as_string(parse, filename))
 		return (-1);
-	if (check_config_is_valid(config))
+	if (check_config_is_valid(parse))
 		return (-1);
-	if (store_config_values(config))
+	if (store_config_values(parse, config))
 		return (-1);
-	return (return_offset(config));
+	return (return_offset(parse));
 }
