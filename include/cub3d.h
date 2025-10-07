@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 14:22:58 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 14:46:11 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,8 @@ int	create_map(t_map *map);
 
 // check that map is closed.
 int	allocate_contiguous_map(char ***map, size_t cols, size_t rows);
-int	allocate_flat_map(t_map *map);
+/* int	allocate_flat_map(t_map *map); */
+int allocate_game_map(t_map *map);
 int	map_is_valid(void);
 
 
@@ -181,9 +182,7 @@ int handle_movement(void);
 int bounds_managament(void);
 
 // DEBUG
-void	debug_2D(t_2D point);
 void	debug_map(t_map *map);
-
 
 // basically prints a little report of all that we know.
 void	debug_config(t_config *config, t_map *map);
