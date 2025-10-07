@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 17:41:40 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 10:39:51 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error: Failed to initialize game\n", 2);
 		return (1);
 	}
+	debug_config(&config, &map);
 	mlx_key_hook(window.mlx, key_hook, &window);
 	mlx_loop(window.mlx);
 	cleanup_window(&window);

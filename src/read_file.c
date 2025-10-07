@@ -6,12 +6,13 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:12:48 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 17:11:47 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 11:38:36 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "get_next_line.h"
+#include "libft.h"
 
 static int	check_extension(char *filename)
 {
@@ -154,6 +155,67 @@ int	check_config_is_valid(t_config *config)
 	return (0);
 }
 
+// Extracts the value from a config line, skipping whitespace
+// Returns pointer to the start of the value (trims trailing newline)
+static char	*extract_value(char *line, int skip)
+{
+	char	*start;
+	char	*end;
+	int		len;
+
+	// Skip identifier and whitespace
+	start = line;
+	while (*start == ' ' || *start == '\t')
+		start++;
+	start += skip;
+	while (*start == ' ' || *start == '\t')
+		start++;
+	// Find end (newline or null)
+	end = start;
+	while (*end && *end != '\n')
+		end++;
+	// Trim trailing whitespace
+	while (end > start && (*(end - 1) == ' ' || *(end - 1) == '\t'))
+		end--;
+	len = end - start;
+	return (ft_substr(start, 0, len));
+}
+
+// Stores the config values in the t_config structure
+// Returns -1 on allocation failure, 0 on success
+static int	store_config_values(t_config *config)
+{
+	char		*str;
+	char		*line;
+	t_line_id	id;
+
+	str = config->raw_file_string;
+	while (*str)
+	{
+		line = str;
+		while (*str && *str != '\n')
+			str++;
+		id = return_line_identifier(line);
+		if (id == LINE_MAP)
+			break;
+		if (id == LINE_NO)
+			config->tex_no = extract_value(line, 2);
+		else if (id == LINE_SO)
+			config->tex_so = extract_value(line, 2);
+		else if (id == LINE_WE)
+			config->tex_we = extract_value(line, 2);
+		else if (id == LINE_EA)
+			config->tex_ea = extract_value(line, 2);
+		else if (id == LINE_F)
+			config->col_floor_raw = extract_value(line, 1);
+		else if (id == LINE_C)
+			config->col_ceiling_raw = extract_value(line, 1);
+		if (*str == '\n')
+			str++;
+	}
+	return (0);
+}
+
 // Returns the byte offset to the first line of the map object
 // Returns -1 if no map is found
 int	return_offset(t_config *config)
@@ -191,6 +253,8 @@ int	parse_config_data(t_config *config, char *filename)
 	if (read_file_as_string(config, filename))
 		return (-1);
 	if (check_config_is_valid(config))
+		return (-1);
+	if (store_config_values(config))
 		return (-1);
 	return (return_offset(config));
 }

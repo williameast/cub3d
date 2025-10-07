@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:30:28 by weast             #+#    #+#             */
-/*   Updated: 2025/10/06 17:11:30 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 10:38:45 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,5 @@ int	create_map(t_map *map)
 	get_map_max_dimensions(map);
 	if (allocate_flat_map(map))
 		return(ft_putstr_fd("Could not allocate map grid.\n", STDERR_FILENO));
-	debug_map(map);
 	return (0);
 }
