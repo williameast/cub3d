@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:30:28 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 15:00:31 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 16:14:16 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static int	get_map_max_dimensions(t_map *map, char *raw_map_string)
 	return (0);
 }
 
-// offset is used for validation start
 static int validate_map_chars(char *raw_map_string)
 {
 	int i;

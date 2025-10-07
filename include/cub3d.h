@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 15:21:44 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/07 16:16:36 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct	s_player
 typedef struct s_map
 {
 	char	**grid;
-	unsigned int	y_offset;
 	int	size[2];
 } t_map;
 
