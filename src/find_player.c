@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 19:26:42 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/07 19:53:59 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/09 01:56:32 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	find_player(char **map, double *player, int cols, int rows)
 			}
 			col++;
 		}
+		col = 0;
 		row++;
 	}
 }
