@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:30:28 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 16:14:16 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:20:21 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ static int validate_map_chars(char *raw_map_string)
 		return (0);
 }
 
-int	create_map(t_map *map, char *raw_map_string)
+int	create_map(t_map *map, char *raw_map_string, t_game *game)
 {
 	if (validate_map_chars(raw_map_string))
-		return(ft_putstr_fd("Invalid characters in map.", STDERR_FILENO));
+		return(handle_error("Invalid characters in map.", game, INVALID));
 	get_map_max_dimensions(map, raw_map_string);
 	if (allocate_game_map(map, raw_map_string))
-		return(ft_putstr_fd("Could not allocate map grid.\n", STDERR_FILENO));
+		return(handle_error("Could not allocate map grid.\n", game, ERR));
 	return (0);
 }

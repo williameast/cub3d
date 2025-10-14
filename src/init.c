@@ -6,35 +6,20 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 17:00:06 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:32:28 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-int	init_game(t_game *game, char *filename)
-{
-	int			map_begin_offset;
-	t_parse		parse = {0};
-
-	map_begin_offset = parse_config_data(&parse, &game->config, filename);
-	if (map_begin_offset == -1)
-		return(handle_error("Error: Missing or invalid config data", game));
-	parse.raw_map_string = parse.raw_file_string + map_begin_offset;
-	if (create_map(&game->map, parse.raw_map_string))
-		return (1);
-	debug_config(&parse, &game->config, &game->map);
-	return (0);
-}
 
 int	init_window(t_window *window)
 {
 	window->width = WIDTH;
 	window->height = HEIGHT;
 	window->mlx = mlx_init(window->width,
-						   window->height,
-						   WIN_NAME, false);
+							window->height,
+							WIN_NAME,
+							false);
 	if (!window->mlx)
 		return (1);
 	window->img = mlx_new_image(window->mlx,

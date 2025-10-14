@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:00:37 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/14 16:30:11 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:16:53 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	map_is_closed(t_map *map, double *player, t_game *game)
 	char	**visited;
 
 	if (OK != allocate_contiguous_map(&visited, map->size[x], map->size[y]))
-		return (perror("Error: map_is_closed: Malloc fail"), ERR);
+		return (handle_error("Error: map_is_closed: malloc fail", game , ERR));
 	ft_memset(*visited, 0, map->size[y] * map->size[x]);
 	find_player(map->grid, player, map->size[x], map->size[y]);
 	if (!is_closed(player[y], player[x], map, visited))
-		return (handle_error("Error: map_is_closed: map not closed", game));
+		return (handle_error("Error: map_is_closed: map not closed", game, INVALID));
 	return (free(visited), OK);
 }

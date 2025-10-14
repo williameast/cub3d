@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 17:07:39 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:20:41 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int get_floor_ceiling_values(void);
 // 	1) checks it exists
 // 	1) checks is valid .cub file
 // 	2) maximum bounds
-int	create_map(t_map *map, char *raw_map_string);
+int	create_map(t_map *map, char *raw_map_string, t_game *game);
 
 
 // VALIDATION
@@ -183,7 +183,7 @@ int handle_movement(void);
 int bounds_managament(void);
 
 // ERROR
-int	handle_error(char *msg, t_game *game);
+int	handle_error(char *msg, t_game *game, int error);
 
 // DEBUG
 void	debug_map(t_map *map);

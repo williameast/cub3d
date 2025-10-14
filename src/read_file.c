@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:12:48 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 17:06:46 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:26:03 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,13 +275,13 @@ int	parse_map(t_game *game, char *filename)
 	if (map_begin_offset == -1)
 	{
 		cleanup_parse(&parse);
-		return(handle_error("Error: Missing or invalid config data", game));
+		return(handle_error("Error: Missing or invalid config data", game, INVALID));
 	}
 	parse.raw_map_string = parse.raw_file_string + map_begin_offset;
-	if (create_map(&game->map, parse.raw_map_string))
+	if (create_map(&game->map, parse.raw_map_string, game))
 	{
 		cleanup_parse(&parse);
-		return(handle_error("Error: failed to create map", game));
+		return(handle_error("Error: failed to create map", game, INVALID));
 	}
 	return (0);
 }
