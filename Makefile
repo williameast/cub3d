@@ -6,7 +6,7 @@
 #    By: weast <weast@student.42berlin.de>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 14:24:45 by weast             #+#    #+#              #
-#    Updated: 2025/10/01 14:24:49 by weast            ###   ########.fr        #
+#    Updated: 2025/10/14 13:33:40 by weast            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 #
@@ -24,14 +24,12 @@ MLX42_DIR = libs/MLX42
 SOURCES = $(SRCDIR)/_debug.c \
           $(SRCDIR)/allocate_contiguous_map.c \
           $(SRCDIR)/cleanup.c \
-          $(SRCDIR)/draw_map.c \
           $(SRCDIR)/exit.c \
           $(SRCDIR)/find_player.c \
           $(SRCDIR)/init.c \
           $(SRCDIR)/input_mapping.c \
           $(SRCDIR)/main.c \
           $(SRCDIR)/map_is_closed.c \
-          $(SRCDIR)/player.c \
           $(SRCDIR)/read_file.c \
           $(SRCDIR)/read_map.c
 OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)

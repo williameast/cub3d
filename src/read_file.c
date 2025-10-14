@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:12:48 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 15:36:23 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 13:31:12 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,85 @@ static char	*extract_value(char *line, int skip)
 	return (ft_substr(start, 0, len));
 }
 
+
+// Helper to check if string contains only digits (and optional leading whitespace)
+static int	is_valid_number(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+// Helper to free rgb_parts array
+static void	free_rgb_parts(char **rgb_parts)
+{
+	int	i;
+
+	i = 0;
+	while (rgb_parts && rgb_parts[i])
+		free(rgb_parts[i++]);
+	free(rgb_parts);
+}
+
+static int	extract_rgb(char *line, int skip)
+{
+	char	*start;
+	char	*end;
+	char	*rgb_str;
+	char	**rgb_parts;
+	int		r;
+	int		g;
+	int		b;
+	int		color;
+
+	start = line;
+	while (*start == ' ' || *start == '\t')
+		start++;
+	start += skip;
+	while (*start == ' ' || *start == '\t')
+		start++;
+	end = start;
+	while (*end && *end != '\n')
+		end++;
+	while (end > start && (*(end - 1) == ' ' || *(end - 1) == '\t'))
+		end--;
+	rgb_str = ft_substr(start, 0, end - start);
+	if (!rgb_str)
+		return (-1);
+	rgb_parts = ft_split(rgb_str, ',');
+	free(rgb_str);
+	if (!rgb_parts || !rgb_parts[0] || !rgb_parts[1] || !rgb_parts[2] || rgb_parts[3])
+	{
+		free_rgb_parts(rgb_parts);
+		return (-1);
+	}
+	if (!is_valid_number(rgb_parts[0]) || !is_valid_number(rgb_parts[1])
+		|| !is_valid_number(rgb_parts[2]))
+	{
+		free_rgb_parts(rgb_parts);
+		return (-1);
+	}
+	r = ft_atoi(rgb_parts[0]);
+	g = ft_atoi(rgb_parts[1]);
+	b = ft_atoi(rgb_parts[2]);
+	free_rgb_parts(rgb_parts);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		return (-1);
+	color = (r << 24) | (g << 16) | (b << 8) | 0xFF;
+	return (color);
+}
+
 // Stores the config values in the t_config structure
 // Returns -1 on allocation failure, 0 on success
 static int	store_config_values(t_parse *parse, t_config *config)
@@ -205,9 +284,9 @@ static int	store_config_values(t_parse *parse, t_config *config)
 		else if (id == LINE_EA)
 			config->tex_ea = extract_value(line, 2);
 		else if (id == LINE_F)
-			parse->raw_col_floor = extract_value(line, 1);
+			config->col_floor = extract_rgb(line, 1);
 		else if (id == LINE_C)
-			parse->raw_col_ceiling = extract_value(line, 1);
+			config->col_ceiling = extract_rgb(line, 1);
 		if (*str == '\n')
 			str++;
 	}

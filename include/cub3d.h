@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 19:55:05 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:35:45 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,5 +184,5 @@ int bounds_managament(void);
 void	debug_map(t_map *map);
 
 // basically prints a little report of all that we know.
-void	debug_config(t_parse *parse, t_config *config, t_map *map);
+void	debug_config(t_config *config, t_map *map);
 #endif
