@@ -47,8 +47,8 @@ int	init_engine(t_game *game)
 
 int	main(int argc, char **argv)
 {
-	t_game		game;
-	t_parse		parse;
+	t_game		game = {0};
+	t_parse		parse = {0};
 
 	if (argc != 2)
 		return (perror("Usage: ./cub3d <map.cub>\n"), ERR);
