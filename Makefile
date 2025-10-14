@@ -21,7 +21,19 @@ BINDIR = bin
 LIBFT_DIR = libs/libft
 MLX42_DIR = libs/MLX42
 
-SOURCES = $(wildcard $(SRCDIR)/*.c)
+SOURCES = $(SRCDIR)/_debug.c \
+          $(SRCDIR)/allocate_contiguous_map.c \
+          $(SRCDIR)/cleanup.c \
+          $(SRCDIR)/draw_map.c \
+          $(SRCDIR)/exit.c \
+          $(SRCDIR)/find_player.c \
+          $(SRCDIR)/init.c \
+          $(SRCDIR)/input_mapping.c \
+          $(SRCDIR)/main.c \
+          $(SRCDIR)/map_is_closed.c \
+          $(SRCDIR)/player.c \
+          $(SRCDIR)/read_file.c \
+          $(SRCDIR)/read_map.c
 OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 all: $(BINDIR)/$(NAME) $(BINDIR)/maps
