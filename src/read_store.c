@@ -6,14 +6,37 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 17:35:00 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:28:10 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 18:37:52 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-static void	store_line_value(t_line_id id, t_parse *parse, t_config *config, \
+
+static int extract_rgb(char *line, int skip)
+{
+	int i;
+	int rgb;
+	char **split;
+	int colors[3];
+
+	split = ft_split(extract_value(line, skip), ',');
+	i = 0;
+	rgb = 0;
+	while (split[i] != NULL && i < 3)
+	{
+		colors[i] = ft_atoi(split[i]);
+		free(split[i]);
+		i++;
+	}
+	free(split);
+	if (i == 3)
+		rgb = (colors[0] << 16) | (colors[1] << 8) | colors[2];
+	return (rgb);
+}
+
+static void	store_line_value(t_line_id id, t_config *config, \
 				char *line)
 {
 	if (id == LINE_NO)
@@ -25,10 +48,11 @@ static void	store_line_value(t_line_id id, t_parse *parse, t_config *config, \
 	else if (id == LINE_EA)
 		config->tex_ea = extract_value(line, 2);
 	else if (id == LINE_F)
-		parse->raw_col_floor = extract_value(line, 1);
+		config->col_floor = extract_rgb(line, 1);
 	else if (id == LINE_C)
-		parse->raw_col_ceiling = extract_value(line, 1);
+		config->col_ceiling = extract_rgb(line, 1);
 }
+
 
 int	store_config_values(t_parse *parse, t_config *config)
 {
@@ -45,7 +69,7 @@ int	store_config_values(t_parse *parse, t_config *config)
 		id = return_line_identifier(line);
 		if (id == LINE_MAP)
 			break ;
-		store_line_value(id, parse, config, line);
+		store_line_value(id, config, line);
 		if (*str == '\n')
 			str++;
 	}

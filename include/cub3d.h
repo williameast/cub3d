@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:28:59 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 18:45:23 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,5 +195,5 @@ int	handle_error(char *msg, t_game *game, int error);
 void	debug_map(t_map *map);
 
 // basically prints a little report of all that we know.
-void	debug_config(t_parse *parse, t_config *config, t_map *map);
+void	debug_game(t_game *game);
 #endif

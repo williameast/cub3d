@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 13:19:33 by weast             #+#    #+#             */
-/*   Updated: 2025/10/08 23:59:31 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/14 18:46:09 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	debug_map(t_map *map)
 	}
 }
 
-void	debug_config(t_parse *parse, t_config *config, t_map *map)
+void	debug_config(t_config *config, t_map *map)
 {
 	printf("PREAMBLE\n\n");
 	printf("  TEXTURES\n\n");
@@ -43,9 +43,15 @@ void	debug_config(t_parse *parse, t_config *config, t_map *map)
 	printf("	East : %s\n", config->tex_ea);
 	printf("	West : %s\n", config->tex_we);
 	printf("\n  COLOURS\n\n");
-	printf("	Floor: %s\n", parse->raw_col_floor);
-	printf("	Ceil : %s\n", parse->raw_col_ceiling);
+	printf("	Floor: %i\n", config->col_floor);
+	printf("	Ceil : %i\n", config->col_ceiling);
 
 	printf(" LAYOUT\n\n");
 	debug_map(map);
+}
+
+
+void	debug_game(t_game *game)
+{
+	debug_config(&game->config, &game->map);
 }
