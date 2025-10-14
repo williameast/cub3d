@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:12:48 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 17:26:03 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 18:27:05 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	check_extension(char *filename)
 	ext_len = ft_strlen(FILE_EXT);
 	name_len = ft_strlen(filename);
 	if (ext_len >= name_len)
-		return (0);
+		return (OK);
 	return (!ft_strncmp(FILE_EXT, &filename[name_len - ext_len], 5));
 }
 
@@ -39,7 +39,7 @@ static int	append_line_to_string(t_parse *parse, char *line)
 	}
 	parse->raw_file_string = temp;
 	free(line);
-	return (0);
+	return (OK);
 }
 
 int	read_file_as_string(t_parse *parse, char *filename)
@@ -49,29 +49,29 @@ int	read_file_as_string(t_parse *parse, char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0 || !check_extension(filename))
-		return (1);
+		return (ERR);
 	parse->raw_file_string = ft_strdup("");
 	if (!parse->raw_file_string)
-		return (1);
+		return (ERR);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		if (append_line_to_string(parse, line))
-			return (1);
+			return (ERR);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	return (0);
+	return (OK);
 }
 
 int	parse_config_data(t_parse *parse, t_config *config, char *filename)
 {
 	if (read_file_as_string(parse, filename))
-		return (-1);
+		return (ERR);
 	if (check_config_is_valid(parse))
-		return (-1);
+		return (ERR);
 	if (store_config_values(parse, config))
-		return (-1);
+		return (ERR);
 	return (return_offset(parse));
 }
 
@@ -94,5 +94,5 @@ int	parse_map(t_game *game, char *filename)
 		cleanup_parse(&parse);
 		return (handle_error("Error: failed to create map", game, INVALID));
 	}
-	return (0);
+	return (OK);
 }
