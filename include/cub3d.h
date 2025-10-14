@@ -137,7 +137,14 @@ typedef enum e_line_id
 
 // capture all config info and map. passes a pointer to begnning
 // of map object.
-int	parse_config_data(t_parse *parse, t_config *config, char *filename);
+int			parse_config_data(t_parse *parse, t_config *config, char *filename);
+int			increment_and_check(int *counter);
+char		*extract_value(char *line, int skip);
+t_line_id	return_line_identifier(char *line);
+void		cleanup_parse(t_parse *parse);
+int			return_offset(t_parse *parse);
+int			check_config_is_valid(t_parse *parse);
+int			store_config_values(t_parse *parse, t_config *config);
 
 // check files exist, are valid etc.
 int get_texture_files(void);
