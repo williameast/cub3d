@@ -6,7 +6,7 @@
 #    By: weast <weast@student.42berlin.de>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 14:24:45 by weast             #+#    #+#              #
-#    Updated: 2025/10/14 13:29:21 by dimachad         ###   ########.fr        #
+#    Updated: 2025/10/14 15:21:35 by weast            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 #
@@ -18,6 +18,7 @@ LDFLAGS = -L./libs/libft -L./libs/MLX42/build -lft -lmlx42 -lglfw -lGL -ldl -lm
 SRCDIR = src
 OBJDIR = obj
 OBJDIR_DBG	= obj_dbg
+OBJDIR_SAN	= obj_san
 BINDIR = bin
 LIBFT_DIR = libs/libft
 MLX42_DIR = libs/MLX42
@@ -38,6 +39,7 @@ SRC_FILES	= $(MAIN_SRC) $(INIT_SRC) $(VALID_SRC) $(EXIT_SRC)
 SRCS		= $(addprefix $(SRCDIR)/, $(SRC_FILES))
 OBJECTS		= $(addprefix $(OBJDIR)/, $(SRC_FILES:.c=.o))
 OBJS_DBG	= $(addprefix $(OBJDIR_DBG)/, $(SRC_FILES:.c=.o))
+OBJS_SAN	= $(addprefix $(OBJDIR_SAN)/, $(SRC_FILES:.c=.o))
 
 all: $(BINDIR)/$(NAME) $(BINDIR)/maps submodules
 
@@ -45,10 +47,15 @@ $(BINDIR)/$(NAME): $(LIBFT_DIR)/libft.a $(MLX42_DIR)/build/libmlx42.a $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 
 # Debug build (with -g, separate object files)
-debug: CFLAGS += -g -fsanitize=address
-debug: LDFLAGS += -fsanitize=address
+debug: CFLAGS += -g
 debug: submodules $(LIBFT_DIR)/libft.a $(MLX42_DIR)/build/libmlx42.a $(OBJS_DBG) | $(BINDIR)
 	$(CC) $(OBJS_DBG) $(LDFLAGS) -o $(BINDIR)/$(NAME)
+
+
+san: CFLAGS += -g -fsanitize=address
+san: LDFLAGS += -fsanitize=address
+san: submodules $(LIBFT_DIR)/libft.a $(MLX42_DIR)/build/libmlx42.a $(OBJS_DBG) | $(BINDIR)
+	$(CC) $(OBJS_SAN) $(LDFLAGS) -o $(BINDIR)/$(NAME)
 
 $(BINDIR)/maps: | $(BINDIR)
 	ln -sf ../maps $(BINDIR)/maps
@@ -58,6 +65,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 
 # Debug objects
 $(OBJDIR_DBG)/%.o: $(SRCDIR)/%.c | $(OBJDIR_DBG)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# San objects
+$(OBJDIR_SAN)/%.o: $(SRCDIR)/%.c | $(OBJDIR_SAN)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT_DIR)/libft.a:
@@ -79,6 +90,9 @@ $(OBJDIR):
 $(OBJDIR_DBG):
 	mkdir -p $(OBJDIR_DBG)
 
+$(OBJDIR_SAN):
+	mkdir -p $(OBJDIR_SAN)
+
 $(BINDIR):
 	mkdir -p $(BINDIR)
 
@@ -89,6 +103,8 @@ compile_commands:
 
 clean:
 	rm -rf $(OBJDIR)
+	rm -rf $(OBJDIR_DBG)
+	rm -rf $(OBJDIR_SAN)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
@@ -97,9 +113,5 @@ fclean: clean
 	rm -rf $(MLX42_DIR)/build
 
 re: fclean all
-
-dev: CFLAGS += -g -fsanitize=address
-dev: LDFLAGS += -fsanitize=address
-dev: all
 
 .PHONY: all clean fclean re dev compile_commands
