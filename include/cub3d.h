@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/09 01:56:34 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:37:33 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 # define OK 0
 # define ERR -1
+# define INVALID -2
 
 /* ************************************************************************** */
 // MAPS
@@ -104,6 +105,7 @@ typedef struct s_game
 	t_map	map;
 	t_window win;
 	t_config config;
+	int	exit_code;
 } t_game;
 
 
@@ -168,6 +170,8 @@ int allocate_game_map(t_map *map, char *raw_map_string);
 void	cleanup_map(t_map *map);
 void	cleanup_config(t_config *config);
 void	cleanup_parse(t_parse *parse);
+
+void	cleanup_all(t_game *game);
 
 
 // viewport

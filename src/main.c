@@ -6,10 +6,11 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/10/09 00:15:42 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:58:43 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/MLX42.h"
 #include "cub3d.h"
 #include <unistd.h>
 
@@ -38,34 +39,24 @@ int	init_game(t_game *game, t_parse *parse, char *filename)
 	return (0);
 }
 
-int	init_engine(t_game *game);
+int	init_engine(t_game *game)
+{
+	mlx_key_hook(game->win.mlx, key_hook, &game->win);
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
-	t_window	window;
 	t_game		game;
 	t_parse		parse;
 
 	if (argc != 2)
-	{
-		ft_putstr_fd("Usage: ./cub3d <map.cub>\n", STDERR_FILENO);
-		return (1);
-	}
-	if (init_game(&game, &parse, argv[1]))
-		return (1);
-	if (!map_is_closed(&game.map, game.player.pos))
-		return (cleanup_map(&game.map), 1);
-	if (init_window(&window) != 0)
-	{
-		ft_putstr_fd("Error: Failed to initialize game\n", STDERR_FILENO);
-		cleanup_map(&game.map);
-		cleanup_config(&game.config);
-		return (1);
-	}
-	mlx_key_hook(window.mlx, key_hook, &window);
-	mlx_loop(window.mlx);
-	cleanup_window(&window);
-	cleanup_map(&game.map);
-	cleanup_config(&game.config);
-	return (0);
+		return (perror("Usage: ./cub3d <map.cub>\n"), ERR);
+	if (init_game(&game, &parse, argv[1]) == OK
+		&& map_is_closed(&game.map, game.player.pos) == OK
+		&& init_window(&game.win) == OK
+		&& init_engine(&game) == OK)
+		mlx_loop(game.win.mlx);
+	cleanup_all(&game);
+	return (game.exit_code);
 }

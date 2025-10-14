@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:50:16 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 16:18:52 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 14:33:41 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -36,5 +36,17 @@ void	cleanup_parse(t_parse *parse)
 
 void	cleanup_map(t_map *map)
 {
+	if (!map)
+		return;
 	free(map->grid);
+}
+
+
+void	cleanup_all(t_game *game)
+{
+	if (!game)
+		return ;
+	cleanup_config(&game->config);
+	cleanup_map(&game->map);
+	cleanup_window(&game->win);
 }
