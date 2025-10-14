@@ -6,25 +6,12 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 19:26:42 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/14 13:48:53 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/14 18:24:44 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-char	is_player_direction(char c)
-{
-	char	*dir;
-
-	dir = PLAYER_DIRECTIONS;
-	while (*dir)
-	{
-		if (c == *dir)
-			return (c);
-		dir++;
-	}
-	return (0);
-}
+#include "libft.h"
 
 void	find_player(char **map, double *player, int cols, int rows)
 {
@@ -37,7 +24,7 @@ void	find_player(char **map, double *player, int cols, int rows)
 	{
 		while (col < cols)
 		{
-			if (is_player_direction(map[row][col]))
+			if (ft_strchr(MAP_VALID_PLAYER_CHARS, map[row][col]))
 			{
 				player[y] = row;
 				player[x] = col;
