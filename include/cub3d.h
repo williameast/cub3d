@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 16:30:49 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:07:39 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,8 @@ int		map_is_closed(t_map *map, double *player, t_game *game);
 /* int	allocate_flat_map(t_map *map); */
 int		allocate_game_map(t_map *map, char *raw_map_string);
 
+// PARSING;
+int	parse_map(t_game *game, char *filename);
 
 // DRAWING
 
@@ -182,7 +184,6 @@ int bounds_managament(void);
 
 // ERROR
 int	handle_error(char *msg, t_game *game);
-
 
 // DEBUG
 void	debug_map(t_map *map);

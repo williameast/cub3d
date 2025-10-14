@@ -6,7 +6,7 @@
 #    By: weast <weast@student.42berlin.de>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 14:24:45 by weast             #+#    #+#              #
-#    Updated: 2025/10/14 15:21:35 by weast            ###   ########.fr        #
+#    Updated: 2025/10/14 17:08:13 by weast            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 #
@@ -29,7 +29,9 @@ INIT_SRC	= allocate_contiguous_map.c \
 			  read_file.c \
 			  read_map.c \
 			  input_mapping.c \
-			  init.c
+			  init.c \
+				utils.c
+
 VALID_SRC	= find_player.c \
 			  map_is_closed.c
 EXIT_SRC	= cleanup.c \

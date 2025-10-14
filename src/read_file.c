@@ -6,22 +6,13 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:12:48 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 16:32:44 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:06:46 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "get_next_line.h"
 #include "libft.h"
-
-static void	cleanup_parse(t_parse *parse)
-{
-	if (!parse)
-		return ;
-	free(parse->raw_file_string);
-	free(parse->raw_col_floor);
-	free(parse->raw_col_ceiling);
-}
 
 static int	check_extension(char *filename)
 {
@@ -263,4 +254,34 @@ int	parse_config_data(t_parse *parse, t_config *config, char *filename)
 		return (-1);
 
 	return (return_offset(parse));
+}
+
+void	cleanup_parse(t_parse *parse)
+{
+	if (!parse)
+		return ;
+	free(parse->raw_map_string);
+	free(parse->raw_file_string);
+	free(parse->raw_col_floor);
+	free(parse->raw_col_ceiling);
+}
+
+int	parse_map(t_game *game, char *filename)
+{
+	int			map_begin_offset;
+	t_parse		parse = {0};
+
+	map_begin_offset = parse_config_data(&parse, &game->config, filename);
+	if (map_begin_offset == -1)
+	{
+		cleanup_parse(&parse);
+		return(handle_error("Error: Missing or invalid config data", game));
+	}
+	parse.raw_map_string = parse.raw_file_string + map_begin_offset;
+	if (create_map(&game->map, parse.raw_map_string))
+	{
+		cleanup_parse(&parse);
+		return(handle_error("Error: failed to create map", game));
+	}
+	return (0);
 }

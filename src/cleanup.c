@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:50:16 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 16:34:05 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:06:27 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -25,14 +25,6 @@ static void	cleanup_config(t_config *config)
 	free(config->tex_we);
 }
 
-void	cleanup_parse(t_parse *parse)
-{
-	if (!parse)
-		return ;
-	free(parse->raw_file_string);
-	free(parse->raw_col_floor);
-	free(parse->raw_col_ceiling);
-}
 
 static void	cleanup_map(t_map *map)
 {
