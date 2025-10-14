@@ -6,7 +6,7 @@
 #    By: weast <weast@student.42berlin.de>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 14:24:45 by weast             #+#    #+#              #
-#    Updated: 2025/10/14 13:03:15 by weast            ###   ########.fr        #
+#    Updated: 2025/10/14 13:29:21 by dimachad         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 #
@@ -17,33 +17,47 @@ LDFLAGS = -L./libs/libft -L./libs/MLX42/build -lft -lmlx42 -lglfw -lGL -ldl -lm
 
 SRCDIR = src
 OBJDIR = obj
+OBJDIR_DBG	= obj_dbg
 BINDIR = bin
 LIBFT_DIR = libs/libft
 MLX42_DIR = libs/MLX42
 
-SOURCES = $(SRCDIR)/_debug.c \
-          $(SRCDIR)/allocate_contiguous_map.c \
-          $(SRCDIR)/cleanup.c \
-          $(SRCDIR)/exit.c \
-          $(SRCDIR)/find_player.c \
-          $(SRCDIR)/init.c \
-          $(SRCDIR)/input_mapping.c \
-          $(SRCDIR)/main.c \
-          $(SRCDIR)/map_is_closed.c \
-          $(SRCDIR)/read_file.c \
-          $(SRCDIR)/read_map.c
+MAIN_SRC	= main.c\
+			  _debug.c
+INIT_SRC	= allocate_contiguous_map.c \
+			  read_file.c \
+			  read_map.c \
+			  input_mapping.c \
+			  init.c
+VALID_SRC	= find_player.c \
+			  map_is_closed.c
+EXIT_SRC	= cleanup.c \
+			  exit.c
 
-OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+SRC_FILES	= $(MAIN_SRC) $(INIT_SRC) $(VALID_SRC) $(EXIT_SRC)
+SRCS		= $(addprefix $(SRCDIR)/, $(SRC_FILES))
+OBJECTS		= $(addprefix $(OBJDIR)/, $(SRC_FILES:.c=.o))
+OBJS_DBG	= $(addprefix $(OBJDIR_DBG)/, $(SRC_FILES:.c=.o))
 
-all: $(BINDIR)/$(NAME) $(BINDIR)/maps
+all: $(BINDIR)/$(NAME) $(BINDIR)/maps submodules
 
 $(BINDIR)/$(NAME): $(LIBFT_DIR)/libft.a $(MLX42_DIR)/build/libmlx42.a $(OBJECTS) | $(BINDIR)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+
+# Debug build (with -g, separate object files)
+debug: CFLAGS += -g -fsanitize=address
+debug: LDFLAGS += -fsanitize=address
+debug: submodules $(LIBFT_DIR)/libft.a $(MLX42_DIR)/build/libmlx42.a $(OBJS_DBG) | $(BINDIR)
+	$(CC) $(OBJS_DBG) $(LDFLAGS) -o $(BINDIR)/$(NAME)
 
 $(BINDIR)/maps: | $(BINDIR)
 	ln -sf ../maps $(BINDIR)/maps
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Debug objects
+$(OBJDIR_DBG)/%.o: $(SRCDIR)/%.c | $(OBJDIR_DBG)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT_DIR)/libft.a:
@@ -55,8 +69,15 @@ $(MLX42_DIR)/build/libmlx42.a: | $(MLX42_DIR)/build
 $(MLX42_DIR)/build:
 	mkdir -p $(MLX42_DIR)/build
 
+# Initialize git submodules
+submodules:
+	@git submodule update --init --recursive
+
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
+
+$(OBJDIR_DBG):
+	mkdir -p $(OBJDIR_DBG)
 
 $(BINDIR):
 	mkdir -p $(BINDIR)

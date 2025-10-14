@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 19:26:42 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/09 01:56:32 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:48:53 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	find_player(char **map, double *player, int cols, int rows)
 	{
 		while (col < cols)
 		{
-			if (is_player_direction(map[row][col++]))
+			if (is_player_direction(map[row][col]))
 			{
 				player[y] = row;
 				player[x] = col;
