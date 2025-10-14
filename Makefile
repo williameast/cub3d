@@ -103,6 +103,17 @@ compile_commands:
 	@ln -sf build/compile_commands.json compile_commands.json
 	@echo "compile_commands.json generated and linked"
 
+test: $(LIBFT_DIR)/libft.a $(TEST_OBJECTS) | $(BINDIR)
+	$(CC) $(TEST_OBJECTS) libs/Unity/src/unity.c $(TEST_SRC_FILES) $(CFLAGS) -L./libs/libft -lft -lm -o $(TEST_BIN)
+	@echo "Running tests..."
+	@./$(TEST_BIN)
+
+obj_test/%.o: tests/%.c | obj_test
+	$(CC) $(CFLAGS) -c $< -o $@
+
+obj_test:
+	mkdir -p obj_test
+
 clean:
 	rm -rf $(OBJDIR)
 	rm -rf $(OBJDIR_DBG)
@@ -116,4 +127,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re dev compile_commands
+.PHONY: all clean fclean re tests compile_commands

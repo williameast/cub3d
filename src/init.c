@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 17:00:06 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 17:24:20 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	init_game(t_game *game, char *filename)
 
 	map_begin_offset = parse_config_data(&parse, &game->config, filename);
 	if (map_begin_offset == -1)
-		return(handle_error("Error: Missing or invalid config data", game));
+		return (handle_error("Error: Missing or invalid config data", game));
 	parse.raw_map_string = parse.raw_file_string + map_begin_offset;
 	if (create_map(&game->map, parse.raw_map_string))
 		return (1);
@@ -33,8 +33,7 @@ int	init_window(t_window *window)
 	window->width = WIDTH;
 	window->height = HEIGHT;
 	window->mlx = mlx_init(window->width,
-						   window->height,
-						   WIN_NAME, false);
+			window->height, WIN_NAME, false);
 	if (!window->mlx)
 		return (1);
 	window->img = mlx_new_image(window->mlx,
