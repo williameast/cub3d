@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 17:35:00 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 17:35:00 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 18:28:10 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ int	store_config_values(t_parse *parse, t_config *config)
 		if (*str == '\n')
 			str++;
 	}
-	return (0);
+	return (OK);
 }

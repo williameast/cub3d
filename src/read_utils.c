@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 17:30:00 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 17:30:00 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 18:28:34 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	increment_and_check(int *counter)
 {
 	(*counter)++;
 	if (*counter > 1)
-		return (-1);
-	return (0);
+		return (ERR);
+	return (OK);
 }
 
 char	*extract_value(char *line, int skip)

@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:30:28 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 17:20:21 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 18:28:00 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	get_map_max_dimensions(t_map *map, char *raw_map_string)
 			row_len++;
 		i++;
 	}
-	return (0);
+	return (OK);
 }
 
 static int validate_map_chars(char *raw_map_string)
@@ -56,18 +56,18 @@ static int validate_map_chars(char *raw_map_string)
 			if (!spawn)
 				spawn = 1;
 			else
-				return (1);
+				return (ERR);
 			i++;
 		}
 		if (ft_strchr(MAP_VALID_ENV_CHARS, raw_map_string[i]))
 			i++;
 		else
-			return (1);
+			return (ERR);
 	}
 	if (!spawn)
-		return (1);
+		return (ERR);
 	else
-		return (0);
+		return (OK);
 }
 
 int	create_map(t_map *map, char *raw_map_string, t_game *game)
@@ -77,5 +77,5 @@ int	create_map(t_map *map, char *raw_map_string, t_game *game)
 	get_map_max_dimensions(map, raw_map_string);
 	if (allocate_game_map(map, raw_map_string))
 		return(handle_error("Could not allocate map grid.\n", game, ERR));
-	return (0);
+	return (OK);
 }

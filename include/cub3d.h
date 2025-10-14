@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 17:20:41 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 18:28:59 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@
 // for player chars, it will only be valid with one and only one
 // player character.
 # define MAP_VALID_PLAYER_CHARS "NESW" // north east south west
-# define PLAYER_DIRECTIONS "NESW" // north east south west
 
 // these can come up as many times as needed.
 # define MAP_VALID_ENV_CHARS " \n01" // note the space.
