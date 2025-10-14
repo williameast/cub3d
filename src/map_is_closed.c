@@ -6,11 +6,12 @@
 /*   By: dimachad <dimachad@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:00:37 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/11 21:47:02 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:30:11 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdio.h>
 
 int	is_closed(int Y, int X, t_map *map, char **visited);
 
@@ -44,16 +45,15 @@ int	is_closed(int Y, int X, t_map *map, char **visited)
 	return (1);
 }
 
-int	map_is_closed(t_map *map, double *player)
+int	map_is_closed(t_map *map, double *player, t_game *game)
 {
 	char	**visited;
 
 	if (OK != allocate_contiguous_map(&visited, map->size[x], map->size[y]))
-		return (perror("Error\nMalloc visited array in validaton:"), ERR);
+		return (perror("Error: map_is_closed: Malloc fail"), ERR);
 	ft_memset(*visited, 0, map->size[y] * map->size[x]);
 	find_player(map->grid, player, map->size[x], map->size[y]);
 	if (!is_closed(player[y], player[x], map, visited))
-		return (free(visited), 0);
-	printf("valid");
-	return (free(visited), 1);
+		return (handle_error("Error: map_is_closed: map not closed", game));
+	return (free(visited), OK);
 }

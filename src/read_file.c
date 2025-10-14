@@ -6,13 +6,22 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:12:48 by weast             #+#    #+#             */
-/*   Updated: 2025/10/07 15:36:23 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 16:32:44 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "get_next_line.h"
 #include "libft.h"
+
+static void	cleanup_parse(t_parse *parse)
+{
+	if (!parse)
+		return ;
+	free(parse->raw_file_string);
+	free(parse->raw_col_floor);
+	free(parse->raw_col_ceiling);
+}
 
 static int	check_extension(char *filename)
 {
@@ -252,5 +261,6 @@ int	parse_config_data(t_parse *parse, t_config *config, char *filename)
 		return (-1);
 	if (store_config_values(parse, config))
 		return (-1);
+
 	return (return_offset(parse));
 }

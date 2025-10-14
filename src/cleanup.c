@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:50:16 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 14:33:41 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 16:34:05 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -15,7 +15,7 @@
 // config cleanup function. we can just continously add to this
 // as elements in the struct increase.
 //
-void	cleanup_config(t_config *config)
+static void	cleanup_config(t_config *config)
 {
 	if (!config)
 		return ;
@@ -34,7 +34,7 @@ void	cleanup_parse(t_parse *parse)
 	free(parse->raw_col_ceiling);
 }
 
-void	cleanup_map(t_map *map)
+static void	cleanup_map(t_map *map)
 {
 	if (!map)
 		return;

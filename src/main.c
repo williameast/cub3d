@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 14:58:43 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 16:29:03 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (perror("Usage: ./cub3d <map.cub>\n"), ERR);
 	if (init_game(&game, &parse, argv[1]) == OK
-		&& map_is_closed(&game.map, game.player.pos) == OK
+		&& map_is_closed(&game.map, game.player.pos, &game) == OK
 		&& init_window(&game.win) == OK
 		&& init_engine(&game) == OK)
 		mlx_loop(game.win.mlx);

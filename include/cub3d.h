@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 14:37:33 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 16:30:49 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,19 +158,15 @@ int	create_map(t_map *map, char *raw_map_string);
 // check that map is closed.
 int		allocate_contiguous_map(char ***map, size_t cols, size_t rows);
 void	find_player(char **map, double *player, int cols, int rows);
-int		map_is_closed(t_map *map, double *player);
+int		map_is_closed(t_map *map, double *player, t_game *game);
 /* int	allocate_flat_map(t_map *map); */
-int allocate_game_map(t_map *map, char *raw_map_string);
+int		allocate_game_map(t_map *map, char *raw_map_string);
 
 
 // DRAWING
 
 
 // CLEANUP
-void	cleanup_map(t_map *map);
-void	cleanup_config(t_config *config);
-void	cleanup_parse(t_parse *parse);
-
 void	cleanup_all(t_game *game);
 
 
@@ -183,6 +179,10 @@ int handle_movement(void);
 
 // not passing walls, checking if move is legal!
 int bounds_managament(void);
+
+// ERROR
+int	handle_error(char *msg, t_game *game);
+
 
 // DEBUG
 void	debug_map(t_map *map);
