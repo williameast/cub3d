@@ -6,20 +6,19 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 17:35:00 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:37:52 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 18:50:31 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-
-static int extract_rgb(char *line, int skip)
+static int	extract_rgb(char *line, int skip)
 {
-	int i;
-	int rgb;
-	char **split;
-	int colors[3];
+	int		i;
+	int		rgb;
+	char	**split;
+	int		colors[3];
 
 	split = ft_split(extract_value(line, skip), ',');
 	i = 0;
@@ -36,8 +35,7 @@ static int extract_rgb(char *line, int skip)
 	return (rgb);
 }
 
-static void	store_line_value(t_line_id id, t_config *config, \
-				char *line)
+static void	store_line_value(t_line_id id, t_config *config, char *line)
 {
 	if (id == LINE_NO)
 		config->tex_no = extract_value(line, 2);
@@ -52,7 +50,6 @@ static void	store_line_value(t_line_id id, t_config *config, \
 	else if (id == LINE_C)
 		config->col_ceiling = extract_rgb(line, 1);
 }
-
 
 int	store_config_values(t_parse *parse, t_config *config)
 {

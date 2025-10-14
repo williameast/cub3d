@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 13:19:33 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:46:09 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 18:50:42 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 
 void	debug_map(t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
-
 	while (i < map->size[y])
 	{
 		while (j < map->size[x])
@@ -45,11 +44,9 @@ void	debug_config(t_config *config, t_map *map)
 	printf("\n  COLOURS\n\n");
 	printf("	Floor: %i\n", config->col_floor);
 	printf("	Ceil : %i\n", config->col_ceiling);
-
 	printf(" LAYOUT\n\n");
 	debug_map(map);
 }
-
 
 void	debug_game(t_game *game)
 {

@@ -6,13 +6,13 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:35:59 by weast             #+#    #+#             */
-/*   Updated: 2025/09/09 13:40:55 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/14 18:51:00 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int close_window(t_window *window)
+int	close_window(t_window *window)
 {
 	cleanup_window(window);
 	return (0);
