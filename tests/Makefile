@@ -1,63 +1,90 @@
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -I../include -I../libs/libft/include -I../libs/unity/src -I../libs/MLX42/include
-LDFLAGS = -L../libs/libft -lft -lm
+ifeq ($(OS),Windows_NT)
+  ifeq ($(shell uname -s),) # not in a bash-like shell
+	CLEANUP = del /F /Q
+	MKDIR = mkdir
+  else # in a bash-like shell, like msys
+	CLEANUP = rm -f
+	MKDIR = mkdir -p
+  endif
+	TARGET_EXTENSION=exe
+else
+	CLEANUP = rm -f
+	MKDIR = mkdir -p
+	TARGET_EXTENSION=out
+endif
 
-SRCDIR = .
-OBJDIR = obj
-BINDIR = .
+.PHONY: clean
+.PHONY: test
 
-UNITY_PATH = ../libs/unity/src
-LIBFT_DIR = ../libs/libft
-PROJECT_SRC = ../src
+PATHU = unity/src/
+PATHS = ../src/
+PATHT = test/
+PATHB = build/
+PATHD = build/depends/
+PATHO = build/objs/
+PATHR = build/results/
 
-# Test source files
-TEST_SRC = test_init_game.c
+BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR)
 
-# Project source files to test (only what you need)
-INIT_SRC = allocate_contiguous_map.c \
-		   read_file.c \
-		   read_map.c \
-		   input_mapping.c \
-		   init.c \
-		   utils.c
+SRCT = $(wildcard $(PATHT)*.c)
 
-VALID_SRC = find_player.c \
-			map_is_closed.c
+COMPILE=gcc -c
+LINK=gcc $(LDFLAGS)
+DEPEND=gcc -MM -MG -MF
+CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST -I.CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST -I../include -I../libs/libft/include -I../libs/MLX42/include
+LDFLAGS=-L../libs/libft -L../libs/MLX42/build -lft -lmlx42 -lglfw -lGL -ldl -lm./include -I../libs/libft/include -I../libs/MLX42/include -L../libs/libft -L../libs/MLX42/build -lft -lmlx42 -lglfw -lGL -ldl -lm
 
-EXIT_SRC = cleanup.c \
-		   exit.c
+RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
 
-# Combine all source files you want to test
-ALL_SRC = $(INIT_SRC) $(VALID_SRC) $(EXIT_SRC)
-TESTED_FILES = $(addprefix $(PROJECT_SRC)/, $(ALL_SRC))
+PASSED = `grep -s PASS $(PATHR)*.txt`
+FAIL = `grep -s FAIL $(PATHR)*.txt`
+IGNORE = `grep -s IGNORE $(PATHR)*.txt`
 
-TEST_FILES = $(addprefix $(SRCDIR)/, $(TEST_SRC))
-TEST_OBJECTS = $(addprefix $(OBJDIR)/, $(TEST_SRC:.c=.o))
+test: $(BUILD_PATHS) $(RESULTS)
+	@echo "-----------------------\nIGNORES:\n-----------------------"
+	@echo "$(IGNORE)"
+	@echo "-----------------------\nFAILURES:\n-----------------------"
+	@echo "$(FAIL)"
+	@echo "-----------------------\nPASSED:\n-----------------------"
+	@echo "$(PASSED)"
+	@echo "\nDONE"
 
-TEST_BIN = $(BINDIR)/test_runner
+$(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
+	-./$< > $@ 2>&1
 
-all: $(TEST_BIN)
+$(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHO)unity.o #$(PATHD)Test%.d
+	$(LINK) -o $@ $^
 
-$(TEST_BIN): $(LIBFT_DIR)/libft.a $(TEST_OBJECTS) | $(OBJDIR)
-	$(CC) $(TEST_OBJECTS) $(UNITY_PATH)/unity.c $(TESTED_FILES) $(LDFLAGS) -o $@
-	@echo "Running tests..."
-	@./$(TEST_BIN)
+$(PATHO)%.o:: $(PATHT)%.c
+	$(COMPILE) $(CFLAGS) $< -o $@
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(PATHO)%.o:: $(PATHS)%.c
+	$(COMPILE) $(CFLAGS) $< -o $@
 
-$(LIBFT_DIR)/libft.a:
-	$(MAKE) -C $(LIBFT_DIR) all
+$(PATHO)%.o:: $(PATHU)%.c $(PATHU)%.h
+	$(COMPILE) $(CFLAGS) $< -o $@
 
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
+$(PATHD)%.d:: $(PATHT)%.c
+	$(DEPEND) $@ $<
+
+$(PATHB):
+	$(MKDIR) $(PATHB)
+
+$(PATHD):
+	$(MKDIR) $(PATHD)
+
+$(PATHO):
+	$(MKDIR) $(PATHO)
+
+$(PATHR):
+	$(MKDIR) $(PATHR)
 
 clean:
-	rm -rf $(OBJDIR)
+	$(CLEANUP) $(PATHO)*.o
+	$(CLEANUP) $(PATHB)*.$(TARGET_EXTENSION)
+	$(CLEANUP) $(PATHR)*.txt
 
-fclean: clean
-	rm -f $(TEST_BIN)
-
-re: fclean all
-
-.PHONY: all clean fclean re
+.PRECIOUS: $(PATHB)Test%.$(TARGET_EXTENSION)
+.PRECIOUS: $(PATHD)%.d
+.PRECIOUS: $(PATHO)%.o
+.PRECIOUS: $(PATHR)%.txt

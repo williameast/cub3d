@@ -1,17 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_init_game.c                                   :+:      :+:    :+:   */
+/*   Testinit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:36:09 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/14 18:15:28 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/15 18:23:48 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/unity/src/unity.h"
+#include "unity.h"
 #include "../include/cub3d.h"
+
+void setUp()
+{
+
+}
+
+void tearDown()
+{
+
+}
 
 void	test_valid_map_is_created(char *map)
 {
