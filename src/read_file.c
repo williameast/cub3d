@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:12:48 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:46:36 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/20 12:38:37 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	parse_map(t_game *game, char *filename)
 		cleanup_parse(&parse);
 		return (handle_error("Error: failed to create map", game, INVALID));
 	}
+	cleanup_parse(&parse);
 	debug_game(game);
 	return (OK);
 }

@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 17:35:00 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:50:31 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/20 12:35:30 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ static int	extract_rgb(char *line, int skip)
 	int		i;
 	int		rgb;
 	char	**split;
+	char	*temp;
 	int		colors[3];
 
-	split = ft_split(extract_value(line, skip), ',');
+	temp = extract_value(line, skip);
+	split = ft_split(temp, ',');
+	free(temp);
 	i = 0;
 	rgb = 0;
 	while (split[i] != NULL && i < 3)
