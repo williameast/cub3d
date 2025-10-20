@@ -56,6 +56,14 @@ enum coordinates
 	y,
 };
 
+enum e_dir
+{
+	NORTH,
+	EAST,
+	SOUTH,
+	WEST
+};
+
 
 /* ************************************************************************** */
 // STRUCTURE DEFINITIONS
@@ -117,6 +125,7 @@ typedef struct s_game
 int		init_window(t_window *window);
 void	cleanup_window(t_window *window);
 void	key_hook(mlx_key_data_t key_press, void *param);
+void	game_loop(void *param);
 
 
 
@@ -188,6 +197,7 @@ int handle_rotation(void);
 
 // not passing walls, checking if move is legal!
 int	validate_player_move(t_map *map, double pos[2]);
+void	handle_movement(int dir, t_game *game);
 
 // ERROR
 int	handle_error(char *msg, t_game *game, int error);

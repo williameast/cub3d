@@ -6,7 +6,7 @@
 #    By: weast <weast@student.42berlin.de>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 14:24:45 by weast             #+#    #+#              #
-#    Updated: 2025/10/20 14:42:03 by weast            ###   ########.fr        #
+#    Updated: 2025/10/20 14:49:07 by weast            ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 #
@@ -35,13 +35,14 @@ INIT_SRC	= allocate_contiguous_map.c \
 			  init.c \
 				utils.c
 
+GAME_SRC	= game_loop.c
 
 VALID_SRC	= player.c \
 			  map_is_closed.c
 EXIT_SRC	= cleanup.c \
 			  exit.c
 
-SRC_FILES	= $(MAIN_SRC) $(INIT_SRC) $(VALID_SRC) $(EXIT_SRC)
+SRC_FILES	= $(MAIN_SRC) $(INIT_SRC) $(VALID_SRC) $(EXIT_SRC) $(GAME_SRC)
 SRCS		= $(addprefix $(SRCDIR)/, $(SRC_FILES))
 OBJECTS		= $(addprefix $(OBJDIR)/, $(SRC_FILES:.c=.o))
 OBJS_DBG	= $(addprefix $(OBJDIR_DBG)/, $(SRC_FILES:.c=.o))

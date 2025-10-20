@@ -13,14 +13,6 @@
 #include "MLX42/MLX42.h"
 #include "cub3d.h"
 
-enum	dir
-{
-	NORTH,
-	EAST,
-	SOUTH,
-	WEST
-};
-
 static void	calculate_new_position(int dir, double *new_x, double *new_y)
 {
 	if (dir == NORTH)
@@ -69,12 +61,4 @@ void	key_hook(mlx_key_data_t key_press, void *param)
 	t_game *game = (t_game *)param;
 	if (key_press.key == MLX_KEY_ESCAPE && key_press.action == MLX_PRESS)
 		mlx_close_window(game->win.mlx);
-	if (key_press.key == MLX_KEY_UP && key_press.action != MLX_RELEASE)
-		handle_movement(NORTH, game);
-	if (key_press.key == MLX_KEY_DOWN && key_press.action != MLX_RELEASE)
-		handle_movement(SOUTH, game);
-	if (key_press.key == MLX_KEY_LEFT && key_press.action != MLX_RELEASE)
-		handle_movement(EAST, game);
-	if (key_press.key == MLX_KEY_RIGHT && key_press.action != MLX_RELEASE)
-		handle_movement(WEST, game);
 }
