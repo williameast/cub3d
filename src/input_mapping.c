@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:25:40 by weast             #+#    #+#             */
-/*   Updated: 2025/10/20 14:28:06 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/20 14:39:35 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,7 @@ void	handle_movement(int dir, t_game *game)
 	double	new_x;
 	double	new_y;
 	double	temp[2];
-	static int first_call = 1;
 
-	if (first_call)
-	{
-		printf("FIRST CALL - Player pos before movement: (%.2f, %.2f)\n", game->player.pos[x], game->player.pos[y]);
-		first_call = 0;
-	}
 	new_x = game->player.pos[x];
 	new_y = game->player.pos[y];
 	calculate_new_position(dir, &new_x, &new_y);
