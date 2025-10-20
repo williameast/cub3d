@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:45:23 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/20 13:00:08 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@
 // these can come up as many times as needed.
 # define MAP_VALID_ENV_CHARS " \n01" // note the space.
 
+
+// PHYSICS
+
+# define MOVEMENT_VELOCITY 0.1;
 
 /* ************************************************************************** */
 // GRID SYSTEM
@@ -182,11 +186,8 @@ void	cleanup_all(t_game *game);
 int handle_direction(void);
 int handle_rotation(void);
 
-// movement
-int handle_movement(void);
-
 // not passing walls, checking if move is legal!
-int bounds_managament(void);
+int	validate_player_move(t_map *map, double pos[2]);
 
 // ERROR
 int	handle_error(char *msg, t_game *game, int error);
