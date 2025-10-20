@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:50:54 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/20 12:42:23 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	init_window(t_window *window)
 {
+	if (!window)
+		return 1;
 	window->width = WIDTH;
 	window->height = HEIGHT;
 	window->mlx = mlx_init(window->width,
