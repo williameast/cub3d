@@ -13,9 +13,14 @@
 #include "cub3d.h"
 
 // this we use to handle key presses.
-void	key_hook(mlx_key_data_t key_press, void *param)
+int	key_hook(int keycode, void *param)
 {
-	t_window *window = (t_window *)param;
-	if (key_press.key == MLX_KEY_ESCAPE && key_press.action == MLX_PRESS)
-		mlx_close_window(window->mlx);
+	t_window	*window;
+
+	window = (t_window *)param;
+	if (keycode == 65307)
+	{
+		mlx_loop_end(window->mlx);
+	}
+	return (0);
 }

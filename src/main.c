@@ -15,7 +15,7 @@
 
 int	init_engine(t_game *game)
 {
-	mlx_key_hook(game->win.mlx, key_hook, &game->win);
+	mlx_key_hook(game->win.win, key_hook, &game->win);
 	return (0);
 }
 

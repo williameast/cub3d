@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <math.h>
 # include "libft.h"
-# include "MLX42/MLX42.h"
+# include "mlx.h"
 # include "fcntl.h"
 
 # define WIDTH 1024 // window width
@@ -92,8 +92,13 @@ typedef struct s_map
 // WINDOW MANAGEMENT
 
 typedef struct s_window {
-  mlx_t *mlx;
-  mlx_image_t *img;
+  void *mlx;
+  void *win;
+  void *img;
+  char *img_data;
+  int bits_per_pixel;
+  int size_line;
+  int endian;
   int width;
   int height;
 } t_window;
@@ -112,7 +117,7 @@ typedef struct s_game
 
 int		init_window(t_window *window);
 void	cleanup_window(t_window *window);
-void	key_hook(mlx_key_data_t key_press, void *param);
+int		key_hook(int keycode, void *param);
 
 
 

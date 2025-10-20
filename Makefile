@@ -12,8 +12,8 @@
 #
 NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./include -I./libs/libft/include -I./libs/MLX42/include
-LDFLAGS = -L./libs/libft -L./libs/MLX42/build -lft -lmlx42 -lglfw -lGL -ldl -lm
+CFLAGS = -Wall -Wextra -Werror -I./include -I./libs/libft/include -I./libs/minilibx-linux
+LDFLAGS = -L./libs/libft -L./libs/minilibx-linux -lft -lmlx -lXext -lX11 -lm
 
 SRCDIR = src
 OBJDIR = obj
@@ -21,7 +21,7 @@ OBJDIR_DBG	= obj_dbg
 OBJDIR_SAN	= obj_san
 BINDIR = bin
 LIBFT_DIR = libs/libft
-MLX42_DIR = libs/MLX42
+MINILIBX_DIR = libs/minilibx-linux
 
 MAIN_SRC	= main.c\
 			  _debug.c
@@ -49,18 +49,18 @@ OBJS_SAN	= $(addprefix $(OBJDIR_SAN)/, $(SRC_FILES:.c=.o))
 
 all: $(BINDIR)/$(NAME) $(BINDIR)/maps submodules
 
-$(BINDIR)/$(NAME): $(LIBFT_DIR)/libft.a $(MLX42_DIR)/build/libmlx42.a $(OBJECTS) | $(BINDIR)
+$(BINDIR)/$(NAME): $(LIBFT_DIR)/libft.a $(MINILIBX_DIR)/libmlx.a $(OBJECTS) | $(BINDIR)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 
 # Debug build (with -g, separate object files)
 debug: CFLAGS += -g
-debug: submodules $(LIBFT_DIR)/libft.a $(MLX42_DIR)/build/libmlx42.a $(OBJS_DBG) | $(BINDIR)
+debug: submodules $(LIBFT_DIR)/libft.a $(MINILIBX_DIR)/libmlx.a $(OBJS_DBG) | $(BINDIR)
 	$(CC) $(OBJS_DBG) $(LDFLAGS) -o $(BINDIR)/$(NAME)
 
 
 san: CFLAGS += -g -fsanitize=address
 san: LDFLAGS += -fsanitize=address
-san: submodules $(LIBFT_DIR)/libft.a $(MLX42_DIR)/build/libmlx42.a $(OBJS_DBG) | $(BINDIR)
+san: submodules $(LIBFT_DIR)/libft.a $(MINILIBX_DIR)/libmlx.a $(OBJS_SAN) | $(BINDIR)
 	$(CC) $(OBJS_SAN) $(LDFLAGS) -o $(BINDIR)/$(NAME)
 
 $(BINDIR)/maps: | $(BINDIR)
@@ -80,11 +80,8 @@ $(OBJDIR_SAN)/%.o: $(SRCDIR)/%.c | $(OBJDIR_SAN)
 $(LIBFT_DIR)/libft.a:
 	$(MAKE) -C $(LIBFT_DIR) all
 
-$(MLX42_DIR)/build/libmlx42.a: | $(MLX42_DIR)/build
-	cd $(MLX42_DIR)/build && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && make
-
-$(MLX42_DIR)/build:
-	mkdir -p $(MLX42_DIR)/build
+$(MINILIBX_DIR)/libmlx.a:
+	$(MAKE) -C $(MINILIBX_DIR)
 
 # Initialize git submodules
 submodules:
@@ -116,7 +113,7 @@ clean:
 fclean: clean
 	rm -rf $(BINDIR)
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -rf $(MLX42_DIR)/build
+	$(MAKE) -C $(MINILIBX_DIR) clean
 
 re: fclean all
 
