@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:43:38 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/20 12:56:29 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	init_engine(t_game *game)
 {
-	mlx_key_hook(game->win.mlx, key_hook, &game->win);
+	mlx_key_hook(game->win.mlx, key_hook, game);
 	return (0);
 }
 
