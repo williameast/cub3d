@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:00:37 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/14 17:16:53 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/20 14:37:52 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ int	map_is_closed(t_map *map, double *player, t_game *game)
 	find_player(map->grid, player, map->size[x], map->size[y]);
 	if (!is_closed(player[y], player[x], map, visited))
 		return (handle_error("Error: map_is_closed: map not closed", game, INVALID));
+	game->player.pos[x] = player[x];
+	game->player.pos[y] = player[y];
 	return (free(visited), OK);
 }
