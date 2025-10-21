@@ -29,16 +29,18 @@ MAIN_SRC	= main.c\
 INIT_SRC	= allocate_contiguous_map.c \
 			  read_file.c \
 			  read_map.c \
-				read_utils.c \
-				read_store.c \
-				read_validate.c \
+			  read_utils.c \
+			  read_store.c \
+			  read_validate.c \
 			  input_mapping.c \
 			  init.c \
-				utils.c
+			  utils.c
 
 
 VALID_SRC	= find_player.c \
-			  map_is_closed.c
+			  map_is_closed.c \
+			  render_frame.c \
+			  cast_ray.c
 EXIT_SRC	= cleanup.c \
 			  exit.c
 

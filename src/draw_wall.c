@@ -6,24 +6,11 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 14:23:12 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/21 20:28:56 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/22 00:22:29 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
-
-static void	img_pix_put(t_img *img, int x, int y, int color)
-{
-	char	*pixel;
-
-	// Boundary check to prevent buffer overflow
-	if (y < 0 || y >= img->height || x < 0 || x >= img->width)
-		return ;
-	// Get pointer to exact pixel location in buffer
-	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	// Write color directly to memory (cast to int* to write 4 bytes at once)
-	*(int *)pixel = color;
-}
+#include "raycaster.h"
 
 static char	*get_texture(t_caster *s, t_config *config)
 {
@@ -61,6 +48,7 @@ static void	calc_tex_params(t_game *g, t_caster *s, t_draw *d)
 	if ((s->wall_side == x && s->x.ray_dir > 0)
 		|| (s->wall_side == y && s->y.ray_dir < 0))
 		d->tex_x = TEX_SIZE - d->tex_x - 1;
+	d->tex_step = TEX_SIZE / d->wall_hight;
 }
 
 static void	init_draw_params(t_game *g, t_caster *s, t_draw *d, int img_hight)
@@ -76,16 +64,16 @@ static void	init_draw_params(t_game *g, t_caster *s, t_draw *d, int img_hight)
 	d->px_wall_end = half_wall + screen_center;
 	if (d->px_wall_end >= img_hight)
 		d->px_wall_end = img_hight - 1;
-	calc_tex_params(g, s, d);
-	d->tex_step = TEX_SIZE / d->wall_hight;
+	calc_tex_params(g, s, &d);
 	d->tex_pos = (d->px_wall_start - screen_center + half_wall) * d->tex_step;
 }
 
-void	draw_column(t_game *g, t_map *map, t_caster *s, int col_x)
+void	draw_column(t_game *g, t_caster *s)
 {
-	t_draw		d;
 	const char	*texture = get_texture(s, &g->config);
+	t_draw		d;
 	int			color;
+	char		*pixel;
 
 	init_draw_params(g, s, &d, g->win.height);
 	while (d.px_wall_start < d.px_wall_end)
@@ -93,7 +81,8 @@ void	draw_column(t_game *g, t_map *map, t_caster *s, int col_x)
 		d.tex_y = (int)d.tex_pos & (TEX_SIZE - 1);
 		d.tex_pos += d.tex_step;
 		color = get_tex_color_trans(texture, d.tex_x, d.tex_y);
-		img_pix_put(&g->img, col_x, d.px_wall_start, color);
+		pixel = g->win.img_data + (y * g->win.size_line + x * g->win.bytespp);
+		*(int *)pixel = color;
 		d.px_wall_start++;
 	}
 }

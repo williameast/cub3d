@@ -6,11 +6,11 @@
 /*   By: dimachad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:28:45 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/21 20:28:53 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/22 00:22:31 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "raycaster.h"
 #include <math.h>
 
 /*
@@ -83,6 +83,7 @@ void	raycasting(t_game *g)
 	const double	width_ratio = 2.0 / g->map.size[x];
 	t_caster		s;
 
+	g->win.bytespp = g->win.bits_per_pixel >> 3; // should move to init
 	s.x.player_dir = cosf(g->player.angle);
 	s.y.player_dir = sinf(g->player.angle);
 	init_player_axis(&s.x, s.y.player_dir, g->player.pos[x]);
@@ -98,7 +99,7 @@ void	raycasting(t_game *g)
 			s.wall_dist = s.x.side_dist - s.x.delta_dist;
 		else
 			s.wall_dist = s.y.side_dist - s.y.delta_dist;
-		draw_column(&g, &g->map, &s, s.px_col_x);
+		// draw_column(g, &s, s.px_col_x);
 		s.px_col_x++;
 	}
 }

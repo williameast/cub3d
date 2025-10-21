@@ -6,16 +6,16 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/10/21 21:50:02 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/22 00:22:40 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
 
 int	init_engine(t_game *game)
 {
 	mlx_key_hook(game->win.win, key_hook, &game->win);
+	mlx_loop_hook(game->win.mlx, render_frame, game);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/21 21:51:22 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/22 00:04:16 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <math.h>
 # include "libft.h"
 # include "mlx.h"
 # include "fcntl.h"
@@ -52,7 +51,6 @@ enum coordinates
 	y,
 };
 
-
 /* ************************************************************************** */
 // STRUCTURE DEFINITIONS
 
@@ -75,6 +73,18 @@ typedef struct s_config
 	int		col_ceiling;
 }	t_config;
 
+//	SUBSTITUTE t_texture -> TEXTURES can reuse the t_image struct
+// typedef struct s_image
+// {
+// 	void	*img;
+// 	char	*data;
+// 	int		width;
+// 	int		height;
+// 	int		bits_per_pixel;
+// int		bytespp;
+// 	int		size_line;
+// 	int		endian;
+// }	t_image;
 typedef struct s_texture
 {
 	char	*data;
@@ -95,19 +105,19 @@ typedef struct s_map
 	int		size[2];
 }	t_map;
 
-typedef struct s_draw
-{
-	int		wall_hight;
-	int		px_wall_start;
-	int		px_wall_end;
-	double	wall_x_ratio;
-	int		tex_x;
-	int		tex_y;
-	double	tex_step;
-	double	tex_pos;
-}	t_draw;
 /* ************************************************************************** */
 // WINDOW MANAGEMENT
+
+//
+// typedef struct s_window {
+// 	void		*mlx;
+// 	void		*win;
+// 	t_image		*front;
+// 	t_image		*back;
+// 	t_image		buffer[2];
+// 	int			width;
+// 	int			height;
+// } t_window;
 
 typedef struct s_window {
   void *mlx;
@@ -115,6 +125,7 @@ typedef struct s_window {
   void *img;
   char *img_data;
   int bits_per_pixel;
+	int	bytespp;
   int size_line;
   int endian;
   int width;
@@ -130,35 +141,13 @@ typedef struct s_game
 	int	exit_code;
 } t_game;
 
-typedef struct s_axis
-{
-	double	player_dir;
-	int		player_tile;
-	double	player_offset;
-	double	ray_dir;
-	double	side_dist;
-	double	delta_dist;
-	int		step;
-	double	plane;
-}	t_axis;
 
-typedef struct s_caster_state
-{
-	int		px_col_x;
-	double	cam_x;
-	int		wall_side;
-	double	wall_dist;
-	t_axis	x;
-	t_axis	y;
-}	t_caster;
-
+int		render_frame(void *arg);
 int		init_window(t_window *window);
 void	cleanup_window(t_window *window);
 int		key_hook(int keycode, void *param);
 
-/* ************************************************************************** */
 // PARSING
-
 // Line identifier enum for config parsing
 typedef enum e_line_id
 {
