@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/21 13:41:31 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/21 20:28:59 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,39 @@ typedef struct s_config
 	char	*tex_we;
 	int		col_floor;
 	int		col_ceiling;
-} t_config;
+}	t_config;
 
-typedef struct	s_player
+typedef struct s_texture
+{
+	char	*data;
+	int		width;
+	int		bpp;
+	int		stride;
+}	t_texture;
+
+typedef struct s_player
 {
 	double	pos[2];
 	int		angle;
-} t_player;
+}	t_player;
 
-// a map object, containing the string, the dimensions
 typedef struct s_map
 {
 	char	**grid;
-	int	size[2];
-} t_map;
+	int		size[2];
+}	t_map;
 
+typedef struct s_draw
+{
+	int		wall_hight;
+	int		px_wall_start;
+	int		px_wall_end;
+	double	wall_x_ratio;
+	int		tex_x;
+	int		tex_y;
+	double	tex_step;
+	double	tex_pos;
+}	t_draw;
 /* ************************************************************************** */
 // WINDOW MANAGEMENT
 
@@ -109,30 +127,24 @@ typedef struct s_game
 
 typedef struct s_axis
 {
-	double	dir;
+	double	player_dir;
+	int		player_tile;
+	double	player_offset;
+	double	ray_dir;
 	double	side_dist;
 	double	delta_dist;
 	int		step;
+	double	plane;
 }	t_axis;
-
-typedef struct s_split_player
-{
-	double	dir;
-	int		tile;
-	double	offset;
-}	t_s_player;
 
 typedef struct s_caster_state
 {
-	double		plane[2];
-	int			px_col_x;
-	double		cam_x;
-	int			wall_side;
-	double		wall_dist;
-	t_axis		ray_x;
-	t_axis		ray_y;
-	t_s_player	player_x;
-	t_s_player	player_y;
+	int		px_col_x;
+	double	cam_x;
+	int		wall_side;
+	double	wall_dist;
+	t_axis	x;
+	t_axis	y;
 }	t_caster;
 
 int		init_window(t_window *window);

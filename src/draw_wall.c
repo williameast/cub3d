@@ -1,0 +1,99 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_wall.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/21 14:23:12 by dimachad          #+#    #+#             */
+/*   Updated: 2025/10/21 20:28:56 by dimachad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/cub3d.h"
+
+static void	img_pix_put(t_img *img, int x, int y, int color)
+{
+	char	*pixel;
+
+	// Boundary check to prevent buffer overflow
+	if (y < 0 || y >= img->height || x < 0 || x >= img->width)
+		return ;
+	// Get pointer to exact pixel location in buffer
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	// Write color directly to memory (cast to int* to write 4 bytes at once)
+	*(int *)pixel = color;
+}
+
+static char	*get_texture(t_caster *s, t_config *config)
+{
+	if (s->wall_side == y && s->y.ray_dir < 0)
+		return (config->tex_so);
+	else if (s->wall_side == y && s->y.ray_dir > 0)
+		return (config->tex_no);
+	else if (s->wall_side == x && s->x.ray_dir < 0)
+		return (config->tex_we);
+	else
+		return (config->tex_ea);
+}
+
+static int	get_tex_color_trans(t_img *tex, int tex_x, int tex_y)
+{
+	const int	pixel_idx = tex_x * tex->line_len + tex_y * (tex->bpp / 8);
+	int			color;
+
+	if (!tex || !tex->addr || tex_x < 0 || tex_x >= tex->width)
+		return (0xFF00FF);
+	if (tex_y < 0 || tex_y >= tex->height)
+		return (0xFF00FF);
+	color = *(int *)(tex->addr + pixel_idx);
+	return (color);
+}
+
+static void	calc_tex_params(t_game *g, t_caster *s, t_draw *d)
+{
+	if (s->wall_side == x)
+		d->wall_x_ratio = g->player.pos[y] + s->wall_dist * s->y.ray_dir;
+	else
+		d->wall_x_ratio = g->player.pos[x] + s->wall_dist * s->x.ray_dir;
+	d->wall_x_ratio -= floor(d->wall_x_ratio);
+	d->tex_x = d->wall_x_ratio * TEX_SIZE;
+	if ((s->wall_side == x && s->x.ray_dir > 0)
+		|| (s->wall_side == y && s->y.ray_dir < 0))
+		d->tex_x = TEX_SIZE - d->tex_x - 1;
+}
+
+static void	init_draw_params(t_game *g, t_caster *s, t_draw *d, int img_hight)
+{
+	const int	screen_center = img_hight >> 1;
+	int			half_wall;
+
+	d->wall_hight = img_hight / s->wall_dist;
+	half_wall = d->wall_hight >> 1;
+	d->px_wall_start = -half_wall + screen_center;
+	if (d->px_wall_start < 0)
+		d->px_wall_start = 0;
+	d->px_wall_end = half_wall + screen_center;
+	if (d->px_wall_end >= img_hight)
+		d->px_wall_end = img_hight - 1;
+	calc_tex_params(g, s, d);
+	d->tex_step = TEX_SIZE / d->wall_hight;
+	d->tex_pos = (d->px_wall_start - screen_center + half_wall) * d->tex_step;
+}
+
+void	draw_column(t_game *g, t_map *map, t_caster *s, int col_x)
+{
+	t_draw		d;
+	const char	*texture = get_texture(s, &g->config);
+	int			color;
+
+	init_draw_params(g, s, &d, g->win.height);
+	while (d.px_wall_start < d.px_wall_end)
+	{
+		d.tex_y = (int)d.tex_pos & (TEX_SIZE - 1);
+		d.tex_pos += d.tex_step;
+		color = get_tex_color_trans(texture, d.tex_x, d.tex_y);
+		img_pix_put(&g->img, col_x, d.px_wall_start, color);
+		d.px_wall_start++;
+	}
+}
