@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/20 14:08:39 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/21 13:41:31 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,6 @@ typedef struct s_caster_state
 int		init_window(t_window *window);
 void	cleanup_window(t_window *window);
 void	key_hook(mlx_key_data_t key_press, void *param);
-
-
 
 /* ************************************************************************** */
 // PARSING

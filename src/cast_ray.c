@@ -6,7 +6,7 @@
 /*   By: dimachad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:28:45 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/21 12:35:06 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/21 13:33:35 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 * ray_x/y.dir		= direction sin and cos of the ray being calculated
 * ray_x/y.delta_dist= distance needed to cross one cell in the ray dir;
 * ray_x/y.delta_dist= distance needed to cross one cell in x/y dir;
-*
 */
 static void	digital_diff_analys(t_map *map, t_caster *c)
 {
