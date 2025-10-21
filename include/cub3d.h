@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:45:23 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/20 14:08:39 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,33 @@ typedef struct s_game
 	int	exit_code;
 } t_game;
 
+typedef struct s_axis
+{
+	double	dir;
+	double	side_dist;
+	double	delta_dist;
+	int		step;
+}	t_axis;
 
+typedef struct s_split_player
+{
+	double	dir;
+	int		tile;
+	double	offset;
+}	t_s_player;
 
+typedef struct s_caster_state
+{
+	double		plane[2];
+	int			px_col_x;
+	double		cam_x;
+	int			wall_side;
+	double		wall_dist;
+	t_axis		ray_x;
+	t_axis		ray_y;
+	t_s_player	player_x;
+	t_s_player	player_y;
+}	t_caster;
 
 int		init_window(t_window *window);
 void	cleanup_window(t_window *window);
