@@ -14,6 +14,7 @@ NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I./include -I./libs/libft/include -I./libs/minilibx-linux
 LDFLAGS = -L./libs/libft -L./libs/minilibx-linux -lft -lmlx -lXext -lX11 -lm
+HEADERS = include/cub3d.h libs/libft/include/libft.h
 
 SRCDIR = src
 OBJDIR = obj
@@ -66,15 +67,15 @@ san: submodules $(LIBFT_DIR)/libft.a $(MINILIBX_DIR)/libmlx.a $(OBJS_SAN) | $(BI
 $(BINDIR)/maps: | $(BINDIR)
 	ln -sf ../maps $(BINDIR)/maps
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS) | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Debug objects
-$(OBJDIR_DBG)/%.o: $(SRCDIR)/%.c | $(OBJDIR_DBG)
+$(OBJDIR_DBG)/%.o: $(SRCDIR)/%.c $(HEADERS) | $(OBJDIR_DBG)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # San objects
-$(OBJDIR_SAN)/%.o: $(SRCDIR)/%.c | $(OBJDIR_SAN)
+$(OBJDIR_SAN)/%.o: $(SRCDIR)/%.c $(HEADERS) | $(OBJDIR_SAN)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT_DIR)/libft.a:
