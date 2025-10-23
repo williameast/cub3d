@@ -6,54 +6,49 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/10/21 23:33:47 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:04:25 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
-int	init_window(t_window *window)
+int	init_img(t_img *img, t_render *render, size_t width, size_t hight)
 {
-	if (!window)
-		return (1);
-	window->width = WIDTH;
-	window->height = HEIGHT;
-	window->mlx = mlx_init();
-	if (!window->mlx)
-		return (1);
-	window->win = mlx_new_window(window->mlx, window->width,
-			window->height, WIN_NAME);
-	if (!window->win)
-	{
-		mlx_destroy_display(window->mlx);
-		free(window->mlx);
-		return (1);
-	}
-	window->img = mlx_new_image(window->mlx, window->width, window->height);
-	if (!window->img)
-	{
-		mlx_destroy_window(window->mlx, window->win);
-		mlx_destroy_display(window->mlx);
-		free(window->mlx);
-		return (1);
-	}
-	window->img_data = mlx_get_data_addr(window->img, &window->bits_per_pixel,
-			&window->size_line, &window->endian);
-	return (0);
+	img->width = width;
+	img->hight = hight;
+	img->img = mlx_new_image(
+			render->mlx,
+			img->width,
+			img->hight);
+	if (!img->img)
+		return (perror("Init_img: "), ERR);
+	img->data = mlx_get_data_addr(
+			img->img,
+			&img->bits_per_pixel,
+			&img->size_line,
+			&img->endian);
+	return (OK);
 }
 
-void	cleanup_window(t_window *window)
+int	init_render(t_game *g, t_render *r)
 {
-	if (window->img)
-		mlx_destroy_image(window->mlx, window->img);
-	window->img = NULL;
-	if (window->win)
-		mlx_destroy_window(window->mlx, window->win);
-	window->win = NULL;
-	if (window->mlx)
-	{
-		mlx_destroy_display(window->mlx);
-		free(window->mlx);
-	}
-	window->mlx = NULL;
+	int	i;
+
+	r->mlx = mlx_init();
+	if (!r->mlx)
+		return (perror("Init_render: "), ERR);
+	if (!mlx_get_screen_size(r->mlx, r->width, r->hight))
+		return (ERR);
+	r->win = mlx_new_window(r->mlx, r->width, r->hight, WIN_NAME);
+	if (!r->win)
+		return (perror("Init_render: "), cleanup_all(g, r), ERR);
+	if (init_img(r->front, r, r->width, r->hight) != OK
+		|| init_img(r->back, r, r->width, r->hight) != OK
+		|| init_img(r->minimap, r, r->width, r->hight) != OK)
+		return (cleanup_all(g, r), ERR);
+	i = 0;
+	while (i < 4)
+		if (init_img(&g->config.tex[i], r, 128, 128) != OK)
+			return (perror("Init_render: "), cleanup_all(g, r), ERR);
+	return (OK);
 }

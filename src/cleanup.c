@@ -6,38 +6,35 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:50:16 by weast             #+#    #+#             */
-/*   Updated: 2025/10/20 12:20:49 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/23 11:50:22 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
 
-// config cleanup function. we can just continously add to this
-// as elements in the struct increase.
-//
-static void	cleanup_config(t_config *config)
+void	*free_and_null_img(void *img, t_render *render)
 {
-	if (!config)
-		return ;
-	free(config->tex_no);
-	free(config->tex_so);
-	free(config->tex_ea);
-	free(config->tex_we);
-
-
+	if (img)
+		mlx_destroy_image(render->mlx, img);
+	return (NULL);
 }
 
-static void	cleanup_map(t_map *map)
+void	cleanup_all(t_game *g, t_render *r)
 {
-	if (!map)
-		return ;
-	free(map->grid);
-}
+	int	i;
 
-void	cleanup_all(t_game *game)
-{
-	if (!game)
-		return ;
-	cleanup_config(&game->config);
-	cleanup_map(&game->map);
-	cleanup_window(&game->win);
+	i = 0;
+	while (i < 4)
+		g->config.tex[i] = free_and_null_img(&g->config.tex[i], r);
+	r->back = free_and_null_img(r->back, r);
+	r->front = free_and_null_img(r->front, r);
+	r->minimap = free_and_null_img(r->minimap, r);
+	if (r->win)
+		mlx_destroy_window(r->mlx, r->win);
+	r->win = NULL;
+	if (r->mlx)
+		mlx_destroy_display(r->mlx);
+	r->mlx = NULL;
+	if (g->map.grid)
+		free(g->map.grid);
+	g->map.grid = NULL;
 }
