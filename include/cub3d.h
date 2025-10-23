@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/22 00:04:16 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/23 17:38:00 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 /* ************************************************************************** */
 // GRID SYSTEM
 
-enum coordinates
+enum e_coordinates
 {
 	x,
 	y,
@@ -60,38 +60,50 @@ typedef struct s_parse
 	char	*raw_map_string;
 	char	*raw_col_floor;
 	char	*raw_col_ceiling;
-} t_parse;
+}	t_parse;
+
+typedef enum e_directions
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+}	t_dir;
+
+typedef struct s_image
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		bytespp;
+	int		size_line;
+	int		endian;
+}	t_img;
 
 // temp object. RGB
 typedef struct s_config
 {
-	char	*tex_no;
-	char	*tex_so;
-	char	*tex_ea;
-	char	*tex_we;
+	char	*tex_path[4];
+	t_img	tex[4];
 	int		col_floor;
 	int		col_ceiling;
 }	t_config;
 
-//	SUBSTITUTE t_texture -> TEXTURES can reuse the t_image struct
-// typedef struct s_image
-// {
-// 	void	*img;
-// 	char	*data;
-// 	int		width;
-// 	int		height;
-// 	int		bits_per_pixel;
-// int		bytespp;
-// 	int		size_line;
-// 	int		endian;
-// }	t_image;
-typedef struct s_texture
+/* ************************************************************************** */
+// WINDOW MANAGEMENT
+
+typedef struct s_render_state
 {
-	char	*data;
+	void	*mlx;
 	int		width;
-	int		bpp;
-	int		stride;
-}	t_texture;
+	int		height;
+	void	*win;
+	t_img	front;
+	t_img	back;
+	t_img	minimap;
+}	t_render;
 
 typedef struct s_player
 {
@@ -105,46 +117,18 @@ typedef struct s_map
 	int		size[2];
 }	t_map;
 
-/* ************************************************************************** */
-// WINDOW MANAGEMENT
-
-//
-// typedef struct s_window {
-// 	void		*mlx;
-// 	void		*win;
-// 	t_image		*front;
-// 	t_image		*back;
-// 	t_image		buffer[2];
-// 	int			width;
-// 	int			height;
-// } t_window;
-
-typedef struct s_window {
-  void *mlx;
-  void *win;
-  void *img;
-  char *img_data;
-  int bits_per_pixel;
-	int	bytespp;
-  int size_line;
-  int endian;
-  int width;
-  int height;
-} t_window;
-
 typedef struct s_game
 {
-	t_player player;
-	t_map	map;
-	t_window win;
-	t_config config;
-	int	exit_code;
-} t_game;
-
+	t_player	player;
+	t_map		map;
+	t_render	render;
+	t_config	config;
+	int			exit_code;
+}	t_game;
 
 int		render_frame(void *arg);
-int		init_window(t_window *window);
-void	cleanup_window(t_window *window);
+int		init_window(t_render *window);
+void	cleanup_window(t_render *window);
 int		key_hook(int keycode, void *param);
 
 // PARSING
@@ -204,7 +188,8 @@ int	parse_map(t_game *game, char *filename);
 
 
 // CLEANUP
-void	cleanup_all(t_game *game);
+void	cleanup_all(t_game *g, t_render *r);
+int		perror_and_clean(char *err_str, t_game *g);
 
 
 // viewport
