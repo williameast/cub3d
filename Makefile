@@ -1,15 +1,3 @@
-#******************************************************************************#
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: weast <weast@student.42berlin.de>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/10/01 14:24:45 by weast             #+#    #+#              #
-#    Updated: 2025/10/14 18:10:41 by weast            ###   ########.fr        #
-#                                                                              #
-#******************************************************************************#
-#
 NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I./include -I./libs/libft/include -I./libs/minilibx-linux
@@ -50,9 +38,8 @@ OBJECTS		= $(addprefix $(OBJDIR)/, $(SRC_FILES:.c=.o))
 OBJS_DBG	= $(addprefix $(OBJDIR_DBG)/, $(SRC_FILES:.c=.o))
 OBJS_SAN	= $(addprefix $(OBJDIR_SAN)/, $(SRC_FILES:.c=.o))
 
-all: $(BINDIR)/$(NAME) $(BINDIR)/maps submodules
-
-$(BINDIR)/$(NAME): $(LIBFT_DIR)/libft.a $(MINILIBX_DIR)/libmlx.a $(OBJECTS) | $(BINDIR)
+all: $(BINDIR)/$(NAME) $(BINDIR)/maps
+$(BINDIR)/$(NAME): submodules $(LIBFT_DIR)/libft.a $(MINILIBX_DIR)/libmlx.a $(OBJECTS) | $(BINDIR)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 
 # Debug build (with -g, separate object files)

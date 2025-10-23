@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/23 17:38:00 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/23 21:57:56 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_game
 }	t_game;
 
 int		render_frame(void *arg);
-int		init_window(t_render *window);
+int		init_window(t_game *g, t_render *r);
 void	cleanup_window(t_render *window);
 int		key_hook(int keycode, void *param);
 

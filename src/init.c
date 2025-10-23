@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/10/23 17:38:03 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/23 21:57:58 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ int	init_img(t_img *img, t_render *render, size_t width, size_t height)
 			&img->bits_per_pixel,
 			&img->size_line,
 			&img->endian);
+	img->bytespp = img->bits_per_pixel >> 3;
 	return (OK);
 }
 
-int	init_sprite(t_img *img, char *path, t_render *render, int size)
+int	init_sprite(t_img *img, char *path, t_render *render)
 {
-	img->width = size;
-	img->height = size;
 	img->img = mlx_xpm_file_to_image(
 			render->mlx,
 			path,
@@ -46,6 +45,7 @@ int	init_sprite(t_img *img, char *path, t_render *render, int size)
 			&img->bits_per_pixel,
 			&img->size_line,
 			&img->endian);
+	img->bytespp = img->bits_per_pixel >> 3;
 	return (OK);
 }
 
@@ -82,8 +82,9 @@ int	load_trans_textures(t_game *g, t_render *r)
 	i = 0;
 	while (i < 4)
 	{
-		if (init_img(&g->config.tex[i], r, 128, 128) != OK
-			|| init_sprite(&tmp_tex, g->config.tex_path[i], r, 128) != OK
+		if (init_sprite(&tmp_tex, g->config.tex_path[i], r) != OK
+			|| init_img(&g->config.tex[i], r,
+				tmp_tex.width, tmp_tex.height) != OK
 			|| transpose_texture(&tmp_tex, &g->config.tex[i]) != OK)
 			return (perror_and_clean("load_trans_textures: ", g));
 		mlx_destroy_image(r->mlx, tmp_tex.img);
@@ -92,7 +93,7 @@ int	load_trans_textures(t_game *g, t_render *r)
 	return (OK);
 }
 
-int	init_render(t_game *g, t_render *r)
+int	init_window(t_game *g, t_render *r)
 {
 	r->mlx = mlx_init();
 	if (!r->mlx)

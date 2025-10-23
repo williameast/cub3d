@@ -6,22 +6,26 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 14:23:12 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/22 00:22:29 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/23 01:34:44 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycaster.h"
 
-static char	*get_texture(t_caster *s, t_config *config)
+static t_img	*get_texture(t_caster *s, t_config *config)
 {
-	if (s->wall_side == y && s->y.ray_dir < 0)
-		return (config->tex_so);
-	else if (s->wall_side == y && s->y.ray_dir > 0)
-		return (config->tex_no);
-	else if (s->wall_side == x && s->x.ray_dir < 0)
-		return (config->tex_we);
-	else
-		return (config->tex_ea);
+	if (s->wall_side == y)
+	{
+		if (s->y.ray_dir < 0)
+			return (&config->tex[SOUTH]);
+		return (&config->tex[NORTH]);
+	}
+	else if (s->wall_side == x)
+	{
+		if (s->x.ray_dir < 0)
+			return (&config->tex[WEAST]);
+		return (&config->tex[EAST]);
+	}
 }
 
 static int	get_tex_color_trans(t_img *tex, int tex_x, int tex_y)
@@ -70,18 +74,18 @@ static void	init_draw_params(t_game *g, t_caster *s, t_draw *d, int img_hight)
 
 void	draw_column(t_game *g, t_caster *s)
 {
-	const char	*texture = get_texture(s, &g->config);
+	const t_img	*texture = get_texture(s, &g->config);
 	t_draw		d;
 	int			color;
 	char		*pixel;
 
-	init_draw_params(g, s, &d, g->win.height);
+	init_draw_params(g, s, &d, g->render.hight);
 	while (d.px_wall_start < d.px_wall_end)
 	{
 		d.tex_y = (int)d.tex_pos & (TEX_SIZE - 1);
 		d.tex_pos += d.tex_step;
 		color = get_tex_color_trans(texture, d.tex_x, d.tex_y);
-		pixel = g->win.img_data + (y * g->win.size_line + x * g->win.bytespp);
+		pixel = g->render.back->data + (y * g->render.back->size_line + x * g->render.back->bytespp);
 		*(int *)pixel = color;
 		d.px_wall_start++;
 	}

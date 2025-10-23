@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_frame.c                                     :+:      :+:    :+:   */
+/*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/21 22:25:42 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/22 15:42:50 by dimachad         ###   ########.fr       */
+/*   Created: 2025/10/23 15:00:52 by dimachad          #+#    #+#             */
+/*   Updated: 2025/10/23 15:11:55 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "raycaster.h"
+#include "../include/cub3d.h"
 
-int	render_frame(void *arg)
+int	get_pixel_color(t_img *img, int x, int y)
 {
-	t_game	*game;
+	int	*pixels;
 
-	game = arg;
-	raycasting(game);
-	return (OK);
+	pixels = (int *)img->addr;
+	return (pixels[y * (img->size_line >> 2) + x]);
+}
+
+void	put_pixel(t_img *img, int x, int y, int color)
+{
+	int	*pixels;
+
+	pixels = (int *)img->addr;
+	pixels[y * (img->size_line >> 2) + x] = color;
 }

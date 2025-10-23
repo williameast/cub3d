@@ -6,7 +6,7 @@
 /*   By: dimachad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:28:45 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/22 00:22:31 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/23 21:37:38 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /*
 * s					= raycaster [s]tate struct;
-* width_ratio		= convertion ration from px width to abstract interval of 0 to 2;
+* width_ratio		= ration from px width to abstract interval of 0 to 2;
 * px_col_x			= cur px being iterated and calculated;
 * s.cam_x			= px_col_x converted to -1 to 1 interval;
 * x.player/y.dir	= player angle converted to sin and cos coordinates -1 to 1
@@ -83,7 +83,6 @@ void	raycasting(t_game *g)
 	const double	width_ratio = 2.0 / g->map.size[x];
 	t_caster		s;
 
-	g->win.bytespp = g->win.bits_per_pixel >> 3; // should move to init
 	s.x.player_dir = cosf(g->player.angle);
 	s.y.player_dir = sinf(g->player.angle);
 	init_player_axis(&s.x, s.y.player_dir, g->player.pos[x]);
@@ -99,7 +98,7 @@ void	raycasting(t_game *g)
 			s.wall_dist = s.x.side_dist - s.x.delta_dist;
 		else
 			s.wall_dist = s.y.side_dist - s.y.delta_dist;
-		// draw_column(g, &s, s.px_col_x);
+		draw_column(g, &s, s.px_col_x);
 		s.px_col_x++;
 	}
 }
