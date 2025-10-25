@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 13:19:33 by weast             #+#    #+#             */
-/*   Updated: 2025/10/14 18:50:42 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/23 22:06:34 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	debug_config(t_config *config, t_map *map)
 {
 	printf("PREAMBLE\n\n");
 	printf("  TEXTURES\n\n");
-	printf("	North: %s\n", config->tex_no);
-	printf("	South: %s\n", config->tex_so);
-	printf("	East : %s\n", config->tex_ea);
-	printf("	West : %s\n", config->tex_we);
+	printf("	North: %s\n", config->tex_path[0]);
+	printf("	South: %s\n", config->tex_path[1]);
+	printf("	East : %s\n", config->tex_path[2]);
+	printf("	West : %s\n", config->tex_path[3]);
 	printf("\n  COLOURS\n\n");
 	printf("	Floor: %i\n", config->col_floor);
 	printf("	Ceil : %i\n", config->col_ceiling);

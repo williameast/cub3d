@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 22:35:04 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/21 23:42:57 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/25 01:47:42 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ typedef struct s_caster_state
 }	t_caster;
 
 void	raycasting(t_game *g);
-void	draw_column(t_game *g, t_caster *s, int col_x);
+void	draw_column(t_game *g, t_caster *s, t_img *back);
 
 #endif

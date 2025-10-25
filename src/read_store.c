@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 17:35:00 by weast             #+#    #+#             */
-/*   Updated: 2025/10/20 12:35:30 by weast            ###   ########.fr       */
+/*   Updated: 2025/10/23 22:08:43 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ static int	extract_rgb(char *line, int skip)
 static void	store_line_value(t_line_id id, t_config *config, char *line)
 {
 	if (id == LINE_NO)
-		config->tex_no = extract_value(line, 2);
+		config->tex_path[NORTH] = extract_value(line, 2);
 	else if (id == LINE_SO)
-		config->tex_so = extract_value(line, 2);
+		config->tex_path[SOUTH] = extract_value(line, 2);
 	else if (id == LINE_WE)
-		config->tex_we = extract_value(line, 2);
+		config->tex_path[WEST] = extract_value(line, 2);
 	else if (id == LINE_EA)
-		config->tex_ea = extract_value(line, 2);
+		config->tex_path[EAST] = extract_value(line, 2);
 	else if (id == LINE_F)
 		config->col_floor = extract_rgb(line, 1);
 	else if (id == LINE_C)

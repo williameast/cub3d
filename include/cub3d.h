@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/23 21:57:56 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/25 02:59:49 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ typedef struct s_render_state
 	int		width;
 	int		height;
 	void	*win;
-	t_img	front;
-	t_img	back;
+	t_img	*front;
+	t_img	*back;
+	t_img	frames[2];
 	t_img	minimap;
 }	t_render;
 
@@ -128,7 +129,6 @@ typedef struct s_game
 
 int		render_frame(void *arg);
 int		init_window(t_game *g, t_render *r);
-void	cleanup_window(t_render *window);
 int		key_hook(int keycode, void *param);
 
 // PARSING

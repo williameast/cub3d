@@ -9,3 +9,5 @@ build/
 .cache
 .projectile
 .nix
+.clangd
+compile_commands.json

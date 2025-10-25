@@ -6,10 +6,11 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 14:23:12 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/23 01:34:44 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/25 02:59:16 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 #include "raycaster.h"
 
 static t_img	*get_texture(t_caster *s, t_config *config)
@@ -20,25 +21,26 @@ static t_img	*get_texture(t_caster *s, t_config *config)
 			return (&config->tex[SOUTH]);
 		return (&config->tex[NORTH]);
 	}
-	else if (s->wall_side == x)
+	else
 	{
 		if (s->x.ray_dir < 0)
-			return (&config->tex[WEAST]);
+			return (&config->tex[WEST]);
 		return (&config->tex[EAST]);
 	}
 }
 
-static int	get_tex_color_trans(t_img *tex, int tex_x, int tex_y)
+static int	get_tex_color_trans(const t_img *tex, int tex_x, int tex_y)
 {
-	const int	pixel_idx = tex_x * tex->line_len + tex_y * (tex->bpp / 8);
-	int			color;
+	int	*pixels;
+	int	line_len_in_px;
 
 	if (!tex || !tex->addr || tex_x < 0 || tex_x >= tex->width)
 		return (0xFF00FF);
 	if (tex_y < 0 || tex_y >= tex->height)
 		return (0xFF00FF);
-	color = *(int *)(tex->addr + pixel_idx);
-	return (color);
+	pixels = (int *)tex->addr;
+	line_len_in_px = tex->size_line >> 2;
+	return (pixels[tex_x * line_len_in_px + tex_y]);
 }
 
 static void	calc_tex_params(t_game *g, t_caster *s, t_draw *d)
@@ -52,7 +54,7 @@ static void	calc_tex_params(t_game *g, t_caster *s, t_draw *d)
 	if ((s->wall_side == x && s->x.ray_dir > 0)
 		|| (s->wall_side == y && s->y.ray_dir < 0))
 		d->tex_x = TEX_SIZE - d->tex_x - 1;
-	d->tex_step = TEX_SIZE / d->wall_hight;
+	d->tex_step = (double)TEX_SIZE / (double)d->wall_hight;
 }
 
 static void	init_draw_params(t_game *g, t_caster *s, t_draw *d, int img_hight)
@@ -68,25 +70,35 @@ static void	init_draw_params(t_game *g, t_caster *s, t_draw *d, int img_hight)
 	d->px_wall_end = half_wall + screen_center;
 	if (d->px_wall_end >= img_hight)
 		d->px_wall_end = img_hight - 1;
-	calc_tex_params(g, s, &d);
+	calc_tex_params(g, s, d);
 	d->tex_pos = (d->px_wall_start - screen_center + half_wall) * d->tex_step;
 }
 
-void	draw_column(t_game *g, t_caster *s)
+void	draw_column(t_game *g, t_caster *s, t_img *back)
 {
 	const t_img	*texture = get_texture(s, &g->config);
 	t_draw		d;
 	int			color;
 	char		*pixel;
+	int			py;
 
-	init_draw_params(g, s, &d, g->render.hight);
-	while (d.px_wall_start < d.px_wall_end)
+	init_draw_params(g, s, &d, g->render.height);
+	py = 0;
+	while (py < g->render.height)
 	{
-		d.tex_y = (int)d.tex_pos & (TEX_SIZE - 1);
-		d.tex_pos += d.tex_step;
-		color = get_tex_color_trans(texture, d.tex_x, d.tex_y);
-		pixel = g->render.back->data + (y * g->render.back->size_line + x * g->render.back->bytespp);
-		*(int *)pixel = color;
-		d.px_wall_start++;
+		pixel = back->addr + py * back->size_line
+			+ s->px_col_x * back->bytespp;
+		if (py < d.px_wall_start)
+			*(int *)pixel = g->config.col_ceiling;
+		else if (py <= d.px_wall_end)
+		{
+			d.tex_y = (int)d.tex_pos & (TEX_SIZE - 1);
+			d.tex_pos += d.tex_step;
+			color = get_tex_color_trans(texture, d.tex_x, d.tex_y);
+			*(int *)pixel = color;
+		}
+		else
+			*(int *)pixel = g->config.col_floor;
+		py++;
 	}
 }

@@ -23,14 +23,12 @@ INIT_SRC	= allocate_contiguous_map.c \
 			  input_mapping.c \
 			  init.c \
 			  utils.c
-
-
 VALID_SRC	= find_player.c \
 			  map_is_closed.c \
 			  render_frame.c \
-			  cast_ray.c
-EXIT_SRC	= cleanup.c \
-			  exit.c
+			  cast_ray.c \
+			  draw_wall.c
+EXIT_SRC	= cleanup.c
 
 SRC_FILES	= $(MAIN_SRC) $(INIT_SRC) $(VALID_SRC) $(EXIT_SRC)
 SRCS		= $(addprefix $(SRCDIR)/, $(SRC_FILES))

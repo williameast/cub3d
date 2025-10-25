@@ -1,7 +1,7 @@
-NO ./maps/assets/CONCRETE_2A.xpm
-SO ./maps/assets/VENT_1A.xpm
-WE ./maps/assets/TECH_1A.xpm
-EA ./maps/assets/TECH_3G.xpm
+NO sprites/sprite_1.xpm
+SO sprites/sprite_4.xpm
+WE sprites/sprite_9.xpm
+EA sprites/sprite_7.xpm
 
 F 20,22,25
 C 13,14,15

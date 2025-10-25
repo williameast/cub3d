@@ -6,7 +6,7 @@
 /*   By: dimachad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:28:45 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/23 21:37:38 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/25 02:29:54 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ static void	init_axis(t_axis *axis, double player_offset, double cam_x)
 
 void	raycasting(t_game *g)
 {
-	const double	width_ratio = 2.0 / g->map.size[x];
+	const double	width_ratio = 2.0 / g->render.width;
 	t_caster		s;
 
 	s.x.player_dir = cosf(g->player.angle);
 	s.y.player_dir = sinf(g->player.angle);
 	init_player_axis(&s.x, s.y.player_dir, g->player.pos[x]);
-	init_player_axis(&s.y, s.x.player_dir, g->player.pos[y]);
+	init_player_axis(&s.y, -s.x.player_dir, g->player.pos[y]);
 	s.px_col_x = 0;
-	while (s.px_col_x < g->map.size[y])
+	while (s.px_col_x < g->render.width)
 	{
 		s.cam_x = s.px_col_x * width_ratio - 1;
 		init_axis(&s.x, s.x.player_offset, s.cam_x);
@@ -98,7 +98,7 @@ void	raycasting(t_game *g)
 			s.wall_dist = s.x.side_dist - s.x.delta_dist;
 		else
 			s.wall_dist = s.y.side_dist - s.y.delta_dist;
-		draw_column(g, &s, s.px_col_x);
+		draw_column(g, &s, g->render.back);
 		s.px_col_x++;
 	}
 }

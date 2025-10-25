@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/10/23 21:58:01 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/24 23:31:04 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 		&& map_is_closed(&game.map, game.player.pos, &game) == OK
 		&& init_window(&game, &game.render) == OK
 		&& init_engine(&game) == OK)
-		mlx_loop(game.win.mlx);
-	cleanup_all(&game);
+		mlx_loop(game.render.mlx);
+	cleanup_all(&game, &game.render);
 	return (game.exit_code);
 }

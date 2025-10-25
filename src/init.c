@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/10/23 21:57:58 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/10/25 01:50:59 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int	init_sprite(t_img *img, char *path, t_render *render)
 			&img->width,
 			&img->height);
 	if (!img->img)
-		return (perror("Init_sprite: "), ERR);
+		return (ft_putstr_fd("Error: sprite not found: ", 2),
+			ft_putstr_fd(path, 2),
+			ERR);
 	img->addr = mlx_get_data_addr(
 			img->img,
 			&img->bits_per_pixel,
@@ -95,16 +97,21 @@ int	load_trans_textures(t_game *g, t_render *r)
 
 int	init_window(t_game *g, t_render *r)
 {
+	r->back = &r->frames[0];
+	r->front = &r->frames[1];
 	r->mlx = mlx_init();
 	if (!r->mlx)
 		return (perror("Init_render: "), ERR);
 	if (!mlx_get_screen_size(r->mlx, &r->width, &r->height))
-		return (ERR);
+	{
+		r->width = 1280;
+		r->height = 720;
+	}
 	r->win = mlx_new_window(r->mlx, r->width, r->height, WIN_NAME);
 	if (!r->win)
 		return (perror("Init_render: "), cleanup_all(g, r), ERR);
-	if (init_img(&r->front, r, r->width, r->height) != OK
-		|| init_img(&r->back, r, r->width, r->height) != OK
+	if (init_img(r->front, r, r->width, r->height) != OK
+		|| init_img(r->back, r, r->width, r->height) != OK
 		|| init_img(&r->minimap, r, r->width, r->height) != OK
 		|| load_trans_textures(g, r) != OK)
 		return (cleanup_all(g, r), ERR);
