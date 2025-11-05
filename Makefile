@@ -27,7 +27,8 @@ VALID_SRC	= find_player.c \
 			  map_is_closed.c \
 			  render_frame.c \
 			  cast_ray.c \
-			  draw_wall.c
+			  draw_wall.c \
+				movement.c
 EXIT_SRC	= cleanup.c
 
 SRC_FILES	= $(MAIN_SRC) $(INIT_SRC) $(VALID_SRC) $(EXIT_SRC)

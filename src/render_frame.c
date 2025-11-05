@@ -6,13 +6,14 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 22:25:42 by dimachad          #+#    #+#             */
-/*   Updated: 2025/10/25 02:27:59 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/05 13:17:42 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "mlx.h"
 #include "raycaster.h"
+
 
 int	render_frame(void *game)
 {
@@ -24,6 +25,7 @@ int	render_frame(void *game)
 	r = &g->render;
 	b = g->render.back;
 	raycasting(g);
+	move(g);
 	mlx_put_image_to_window(r->mlx, r->win, b->img, 0, 0);
 	r->back = r->front;
 	r->front = b;

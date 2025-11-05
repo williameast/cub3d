@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/10/25 02:59:49 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/05 13:17:51 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_render_state
 	t_img	*back;
 	t_img	frames[2];
 	t_img	minimap;
+	int		key_state[65536];
 }	t_render;
 
 typedef struct s_player
@@ -197,7 +198,7 @@ int handle_direction(void);
 int handle_rotation(void);
 
 // movement
-int handle_movement(void);
+void	move(t_game *game);
 
 // not passing walls, checking if move is legal!
 int bounds_managament(void);
