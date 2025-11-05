@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 12:27:52 by weast             #+#    #+#             */
-/*   Updated: 2025/11/05 15:38:48 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/05 16:08:03 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,28 @@ void	walk(t_game *game)
 	float new_x = game->player.pos[x];
 	float new_y = game->player.pos[y];
 	float rad_angle = game->player.angle * RAD;
+	float dx = cosf(rad_angle);
+	float dy = sinf(rad_angle);
 
 	if (game->render.key_state[XK_w])
 	{
-		new_x += cos(rad_angle) * VELOCITY;
-		new_y += -sin(rad_angle) * VELOCITY;
+		new_x += dx * VELOCITY;
+		new_y -= dy * VELOCITY;
 	}
 	if (game->render.key_state[XK_s])
 	{
-		new_x -= cos(rad_angle) * VELOCITY;
-		new_y -= -sin(rad_angle) * VELOCITY;
-	}
-	if (game->render.key_state[XK_a])
-	{
-		new_x += cos(rad_angle - HALFRAD) * VELOCITY;
-		new_y += -sin(rad_angle - HALFRAD) * VELOCITY;
+		new_x -= dx * VELOCITY;
+		new_y += dy * VELOCITY;
 	}
 	if (game->render.key_state[XK_d])
 	{
-		new_x -= cos(rad_angle + HALFRAD) * VELOCITY;
-		new_y -= -sin(rad_angle + HALFRAD) * VELOCITY;
+		new_x -= dy * VELOCITY;
+		new_y -= dx * VELOCITY;
+	}
+	if (game->render.key_state[XK_a])
+	{
+		new_x += dy * VELOCITY;
+		new_y += dx * VELOCITY;
 	}
 	if (validate_move(&game->map, new_x, new_y))
 	{
@@ -76,15 +78,10 @@ void	walk(t_game *game)
 void	see(t_game *game)
 {
 	if (game->render.key_state[XK_Left])
-		game->player.angle++;
+		game->player.angle += VELOCITY;
 	if (game->render.key_state[XK_Right])
-		game->player.angle--;
-	if (game->player.angle < 0)
-		game->player.angle = 359;
-	if (game->player.angle > 359)
-		game->player.angle = 0;
+		game->player.angle -= VELOCITY;
 }
-
 
 void	move(t_game *game)
 {

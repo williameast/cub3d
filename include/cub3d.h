@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/11/05 13:17:51 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/05 15:58:34 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct s_render_state
 typedef struct s_player
 {
 	double	pos[2];
-	int		angle;
+	float	angle;
 }	t_player;
 
 typedef struct s_map
