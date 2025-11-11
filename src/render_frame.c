@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 22:25:42 by dimachad          #+#    #+#             */
-/*   Updated: 2025/11/05 13:17:42 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/11 18:35:06 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 #include "mlx.h"
 #include "raycaster.h"
 
-
 int	render_frame(void *game)
 {
 	t_game		*g;
 	t_render	*r;
-	t_img		*b;
+	t_img		*back;
 
 	g = game;
 	r = &g->render;
-	b = g->render.back;
-	raycasting(g);
+	back = g->render.back;
 	move(g);
-	mlx_put_image_to_window(r->mlx, r->win, b->img, 0, 0);
+	raycasting(g);
+	mlx_put_image_to_window(r->mlx, r->win, back->img, 0, 0);
 	r->back = r->front;
-	r->front = b;
+	r->front = back;
 	return (OK);
 }

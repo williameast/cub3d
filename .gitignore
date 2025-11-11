@@ -5,6 +5,7 @@ bin/
 .vscode/
 .DS_Store
 cmake-build-*/
+CMakeLists.txt
 build/
 .cache
 .projectile

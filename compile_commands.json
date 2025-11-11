@@ -1,1 +1,326 @@
-build/compile_commands.json
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/main.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/_debug.o",
+      "src/_debug.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/_debug.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/_debug.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/allocate_contiguous_map.o",
+      "src/allocate_contiguous_map.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/allocate_contiguous_map.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/allocate_contiguous_map.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/read_file.o",
+      "src/read_file.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/read_file.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/read_file.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/read_map.o",
+      "src/read_map.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/read_map.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/read_map.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/read_utils.o",
+      "src/read_utils.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/read_utils.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/read_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/read_store.o",
+      "src/read_store.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/read_store.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/read_store.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/read_validate.o",
+      "src/read_validate.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/read_validate.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/read_validate.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/input_mapping.o",
+      "src/input_mapping.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/input_mapping.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/input_mapping.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/init.o",
+      "src/init.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/init.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/init.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/utils.o",
+      "src/utils.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/utils.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/find_player.o",
+      "src/find_player.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/find_player.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/find_player.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/map_is_closed.o",
+      "src/map_is_closed.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/map_is_closed.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/map_is_closed.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/render_frame.o",
+      "src/render_frame.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/render_frame.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/render_frame.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/cast_ray.o",
+      "src/cast_ray.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/cast_ray.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/cast_ray.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/draw_wall.o",
+      "src/draw_wall.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/draw_wall.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/draw_wall.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/movement.o",
+      "src/movement.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/movement.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/movement.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./include",
+      "-I./libs/libft/include",
+      "-I./libs/minilibx-linux",
+      "-c",
+      "-o",
+      "obj/cleanup.o",
+      "src/cleanup.c"
+    ],
+    "directory": "/home/dimachad/CODE/6.0_cub3d",
+    "file": "/home/dimachad/CODE/6.0_cub3d/src/cleanup.c",
+    "output": "/home/dimachad/CODE/6.0_cub3d/obj/cleanup.o"
+  }
+]
