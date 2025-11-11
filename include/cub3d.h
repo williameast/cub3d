@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/11/11 19:29:07 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/12 00:12:36 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,4 +214,5 @@ void	debug_map(t_map *map);
 
 // basically prints a little report of all that we know.
 void	debug_game(t_game *game);
+
 #endif
