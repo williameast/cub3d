@@ -26,6 +26,7 @@ INIT_SRC	= allocate_contiguous_map.c \
 VALID_SRC	= find_player.c \
 			  map_is_closed.c \
 			  render_frame.c \
+			  render_utils.c \
 			  cast_ray.c \
 			  draw_wall.c \
 				movement.c

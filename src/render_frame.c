@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 22:25:42 by dimachad          #+#    #+#             */
-/*   Updated: 2025/11/11 18:35:06 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/12 00:07:39 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	render_frame(void *game)
 	back = g->render.back;
 	move(g);
 	raycasting(g);
+	draw_minimap(g);
 	mlx_put_image_to_window(r->mlx, r->win, back->img, 0, 0);
 	r->back = r->front;
 	r->front = back;

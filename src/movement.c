@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 12:27:52 by weast             #+#    #+#             */
-/*   Updated: 2025/11/05 16:08:03 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/11 19:36:39 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 
 #define VELOCITY 0.01
-#define RAD 0.0174532
-#define HALFRAD 0.0087266
+
+
 int validate_move(t_map *map, float new_x, float new_y)
 {
 	int X;
@@ -44,29 +44,28 @@ void	walk(t_game *game)
 {
 	float new_x = game->player.pos[x];
 	float new_y = game->player.pos[y];
-	float rad_angle = game->player.angle * RAD;
-	float dx = cosf(rad_angle);
-	float dy = sinf(rad_angle);
+	game->player.dir[x] = cosf(game->player.angle);
+	game->player.dir[y] = sinf(game->player.angle);
 
 	if (game->render.key_state[XK_w])
 	{
-		new_x += dx * VELOCITY;
-		new_y -= dy * VELOCITY;
+		new_x += game->player.dir[x] * VELOCITY;
+		new_y += game->player.dir[y] * VELOCITY;
 	}
 	if (game->render.key_state[XK_s])
 	{
-		new_x -= dx * VELOCITY;
-		new_y += dy * VELOCITY;
+		new_x -= game->player.dir[x] * VELOCITY;
+		new_y -= game->player.dir[y] * VELOCITY;
 	}
 	if (game->render.key_state[XK_d])
 	{
-		new_x -= dy * VELOCITY;
-		new_y -= dx * VELOCITY;
+		new_x += game->player.dir[y] * VELOCITY;
+		new_y -= game->player.dir[x] * VELOCITY;
 	}
 	if (game->render.key_state[XK_a])
 	{
-		new_x += dy * VELOCITY;
-		new_y += dx * VELOCITY;
+		new_x -= game->player.dir[y] * VELOCITY;
+		new_y += game->player.dir[x] * VELOCITY;
 	}
 	if (validate_move(&game->map, new_x, new_y))
 	{
@@ -77,6 +76,7 @@ void	walk(t_game *game)
 
 void	see(t_game *game)
 {
+	// SET orientation depending on NESW!
 	if (game->render.key_state[XK_Left])
 		game->player.angle += VELOCITY;
 	if (game->render.key_state[XK_Right])
