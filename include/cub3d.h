@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/11/11 18:49:02 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/11 19:29:07 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_player
 {
 	double	pos[2];
 	float	angle;
+	float	dir[2];
 }	t_player;
 
 typedef struct s_map

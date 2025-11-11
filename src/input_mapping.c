@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:25:40 by weast             #+#    #+#             */
-/*   Updated: 2025/11/05 15:52:38 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/11 19:34:30 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int handle_keypress(int keycode, void *param)
 
 	render->key_state[keycode] = 1;
 
+	// handle hitting X to close.
 	if (keycode == XK_Escape)
 	{
 		mlx_loop_end(render->mlx);
