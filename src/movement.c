@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 12:27:52 by weast             #+#    #+#             */
-/*   Updated: 2025/11/05 16:08:03 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/11 19:18:29 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,28 @@ void	walk(t_game *game)
 {
 	float new_x = game->player.pos[x];
 	float new_y = game->player.pos[y];
-	float rad_angle = game->player.angle * RAD;
-	float dx = cosf(rad_angle);
-	float dy = sinf(rad_angle);
+	float dx = cosf(game->player.angle);
+	float dy = sinf(game->player.angle);
+
 
 	if (game->render.key_state[XK_w])
 	{
 		new_x += dx * VELOCITY;
-		new_y -= dy * VELOCITY;
+		new_y += dy * VELOCITY;
 	}
 	if (game->render.key_state[XK_s])
 	{
 		new_x -= dx * VELOCITY;
-		new_y += dy * VELOCITY;
+		new_y -= dy * VELOCITY;
 	}
 	if (game->render.key_state[XK_d])
 	{
-		new_x -= dy * VELOCITY;
+		new_x += dy * VELOCITY;
 		new_y -= dx * VELOCITY;
 	}
 	if (game->render.key_state[XK_a])
 	{
-		new_x += dy * VELOCITY;
+		new_x -= dy * VELOCITY;
 		new_y += dx * VELOCITY;
 	}
 	if (validate_move(&game->map, new_x, new_y))

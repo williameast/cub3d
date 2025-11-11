@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/11/05 15:58:34 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/11 18:49:02 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,8 @@ int bounds_managament(void);
 // ERROR
 int	handle_error(char *msg, t_game *game, int error);
 
+// MINIMAP
+void	draw_minimap(t_game *game);
 // DEBUG
 void	debug_map(t_map *map);
 
