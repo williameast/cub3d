@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/11/12 19:36:28 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/12 20:27:56 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define MAP_VALID_PLAYER_CHARS "NESW" // north east south west
 
 // these can come up as many times as needed.
-# define MAP_VALID_ENV_CHARS " \n01" // note the space.
+# define MAP_VALID_ENV_CHARS " \n01D" // note the space.
 
 
 /* ************************************************************************** */
