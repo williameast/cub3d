@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 15:00:52 by dimachad          #+#    #+#             */
-/*   Updated: 2025/11/11 18:43:08 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/12 19:53:26 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,33 @@ static void	draw_player(t_game *game)
 	int	scale;
 	int	offset_x;
 	int	offset_y;
-	int	player_size;
 	int	player_x;
 	int	player_y;
 
 	scale = 10;
 	offset_x = 10;
 	offset_y = 10;
-	player_size = 4;
-	player_x = offset_x + (int)(game->player.pos[x] * scale) - player_size / 2;
-	player_y = offset_y + (int)(game->player.pos[y] * scale) - player_size / 2;
-	draw_square(game->render.back, player_x, player_y, player_size, 0xFF0000);
+	player_x = offset_x + (int)(game->player.pos[x] * scale) - 2;
+	player_y = offset_y + (int)(game->player.pos[y] * scale) - 2;
+	draw_square(game->render.back, player_x, player_y, 4, 0xFF0000);
+}
+
+void	draw_cigarette(t_game *game)
+{
+	static int width;
+
+	width = WIDTH / 2;
+	draw_square(game->render.back, width , 50, 30, 0xf9e9d3);
+	draw_square(game->render.back, width - 10 , 80, 30, 0xf9e9d3);
+	draw_square(game->render.back, width - 12, 110, 30, 0xecbd7b);
+	draw_square(game->render.back, width - 14, 140, 30, 0xe09123);
+	draw_square(game->render.back, width - 17, 170, 30, 0xe09123);
 }
 
 void	draw_minimap(t_game *game)
 {
 	draw_map_tiles(game);
 	draw_player(game);
+	draw_cigarette(game);
 }
+

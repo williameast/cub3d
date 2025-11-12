@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/11/12 00:12:36 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/12 19:36:28 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,23 @@ enum e_coordinates
 	x,
 	y,
 };
+
+/* ************************************************************************** */
+// INPUT KEYS
+
+typedef enum e_key
+{
+	KEY_W,
+	KEY_A,
+	KEY_S,
+	KEY_D,
+	KEY_X,
+	KEY_LEFT,
+	KEY_RIGHT,
+	KEY_ESCAPE,
+	KEY_COUNT,
+	KEY_INVALID = -1
+}	t_key;
 
 /* ************************************************************************** */
 // STRUCTURE DEFINITIONS
@@ -103,8 +120,7 @@ typedef struct s_render_state
 	t_img	*front;
 	t_img	*back;
 	t_img	frames[2];
-	t_img	minimap;
-	int		key_state[65536];
+	int		key_state[KEY_COUNT];
 }	t_render;
 
 typedef struct s_player
@@ -199,14 +215,17 @@ int handle_direction(void);
 int handle_rotation(void);
 
 // movement
+int handle_keypress(int keycode, void *param);
+int handle_keyrelease(int keycode, void *param);
 void	move(t_game *game);
+t_key	keycode_to_key(int keycode);
 
 // not passing walls, checking if move is legal!
 int bounds_managament(void);
 
 // ERROR
 int	handle_error(char *msg, t_game *game, int error);
-
+int	clean_exit(void *params);
 // MINIMAP
 void	draw_minimap(t_game *game);
 // DEBUG

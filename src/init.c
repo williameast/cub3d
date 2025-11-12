@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/11/12 18:24:22 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/12 19:37:48 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	init_window(t_game *g, t_render *r)
 		return (perror("Init_render: "), cleanup_all(g, r), ERR);
 	if (init_img(r->front, r, r->width, r->height) != OK
 		|| init_img(r->back, r, r->width, r->height) != OK
-		|| init_img(&r->minimap, r, r->width, r->height) != OK
 		|| load_trans_textures(g, r) != OK)
 		return (cleanup_all(g, r), ERR);
 	return (OK);
