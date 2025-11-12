@@ -6,7 +6,7 @@
 /*   By: dimachad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:28:45 by dimachad          #+#    #+#             */
-/*   Updated: 2025/11/12 00:04:27 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:27:50 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	digital_diff_analys(t_map *map, t_caster *s)
 	const double	x_delta_dist = s->x.delta_dist;
 	const double	y_delta_dist = s->y.delta_dist;
 	const int		x_step = s->x.step;
-	const int		y_step_row = s->y.step * map->size[y];
+	const int		y_step_row = s->y.step * map->size[x];
 	char			*cur_cell;
 
 	cur_cell = &map->grid[s->y.player_tile][s->x.player_tile];
