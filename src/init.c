@@ -6,69 +6,59 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/10/25 01:50:59 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/12 18:24:22 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include "init.h"
 
 int	init_img(t_img *img, t_render *render, size_t width, size_t height)
 {
 	img->width = width;
 	img->height = height;
-	img->img = mlx_new_image(
-			render->mlx,
-			img->width,
-			img->height);
+	img->img = mlx_new_image(render->mlx, img->width, img->height);
 	if (!img->img)
 		return (perror("Init_img: "), ERR);
-	img->addr = mlx_get_data_addr(
-			img->img,
-			&img->bits_per_pixel,
-			&img->size_line,
-			&img->endian);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->size_line, &img->endian);
 	img->bytespp = img->bits_per_pixel >> 3;
+	mlx_put_image_to_window(render->mlx, render->win, img->img, 0, 0);
 	return (OK);
 }
 
 int	init_sprite(t_img *img, char *path, t_render *render)
 {
-	img->img = mlx_xpm_file_to_image(
-			render->mlx,
-			path,
-			&img->width,
+	img->img = mlx_xpm_file_to_image(render->mlx, path, &img->width,
 			&img->height);
 	if (!img->img)
-		return (ft_putstr_fd("Error: sprite not found: ", 2),
-			ft_putstr_fd(path, 2),
-			ERR);
-	img->addr = mlx_get_data_addr(
-			img->img,
-			&img->bits_per_pixel,
-			&img->size_line,
-			&img->endian);
+		return (ft_putstr_fd("Error: sprite not found: ", 2), ft_putstr_fd(path,
+				2), ERR);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->size_line, &img->endian);
 	img->bytespp = img->bits_per_pixel >> 3;
 	return (OK);
 }
 
 int	transpose_texture(t_img *tmp, t_img *tex)
 {
-	int	X;
-	int	Y;
-	int	line_len_in_px;
-	int	i_px_color_src;
-	int	i_px_dest;
+	int		X;
+	int		Y;
+	t_trans	t;
 
+	t.line_len_in_px_src = (tmp->size_line >> 2);
+	t.line_len_in_px_dst = (tex->size_line >> 2);
+	t.src_addr = (int *)tmp->addr;
+	t.dst_addr = (int *)tex->addr;
 	Y = 0;
-	line_len_in_px = (tmp->size_line >> 2);
 	while (Y < tmp->height)
 	{
 		X = 0;
 		while (X < tmp->width)
 		{
-			i_px_color_src = Y * line_len_in_px + X;
-			i_px_dest = X * line_len_in_px + Y;
-			tex->addr[i_px_dest] = tmp->addr[i_px_color_src];
+			t.i_px_color_src = Y * t.line_len_in_px_src + X;
+			t.i_px_dest = X * t.line_len_in_px_dst + Y;
+			t.dst_addr[t.i_px_dest] = t.src_addr[t.i_px_color_src];
 			X++;
 		}
 		Y++;
@@ -85,11 +75,13 @@ int	load_trans_textures(t_game *g, t_render *r)
 	while (i < 4)
 	{
 		if (init_sprite(&tmp_tex, g->config.tex_path[i], r) != OK
-			|| init_img(&g->config.tex[i], r,
-				tmp_tex.width, tmp_tex.height) != OK
+			|| init_img(&g->config.tex[i], r, tmp_tex.height,
+				tmp_tex.width) != OK
 			|| transpose_texture(&tmp_tex, &g->config.tex[i]) != OK)
 			return (perror_and_clean("load_trans_textures: ", g));
 		mlx_destroy_image(r->mlx, tmp_tex.img);
+		mlx_put_image_to_window(g->render.mlx, g->render.win,
+			g->config.tex[i].img, 0, 0);
 		i++;
 	}
 	return (OK);
