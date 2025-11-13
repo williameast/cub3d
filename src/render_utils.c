@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 15:00:52 by dimachad          #+#    #+#             */
-/*   Updated: 2025/11/12 19:53:26 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/13 23:10:49 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ void	draw_minimap(t_game *game)
 {
 	draw_map_tiles(game);
 	draw_player(game);
-	draw_cigarette(game);
+	//draw_cigarette(game);
 }
 

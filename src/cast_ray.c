@@ -6,7 +6,7 @@
 /*   By: dimachad <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:28:45 by dimachad          #+#    #+#             */
-/*   Updated: 2025/11/12 11:54:03 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/13 22:41:59 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,63 @@
 * ray_x/y.delta_dist= distance needed to cross one cell in the ray dir;
 * ray_x/y.delta_dist= distance needed to cross one cell in x/y dir;
 */
+
+enum e_perpendicular
+{
+	POS,
+	RAY,
+};
+
+static int	is_door_blocking(int x_y, char *cur_cell,
+						t_axis **axis, t_caster *s)
+{
+	s->wall_dist = axis[x_y]->side_dist - axis[x_y]->delta_dist;
+	s->draw.wall_x_ratio = axis[!x_y]->player_pos
+		+ s->wall_dist * axis[!x_y]->ray_dir;
+	s->draw.wall_x_ratio -= floor(s->draw.wall_x_ratio);
+	if (cur_cell != s->last_door_cell)
+	{
+		s->last_door_cell = cur_cell;
+		s->door_open_ratio = 0.0;
+		if (s->wall_dist < 2.0)
+			s->door_open_ratio = 1.0 - s->wall_dist / 2.0;
+	}
+	if (s->draw.wall_x_ratio < s->door_open_ratio)
+		return (0);
+	return (1);
+}
+
 static void	digital_diff_analys(t_map *map, t_caster *s)
 {
-	const double	x_delta_dist = s->x.delta_dist;
-	const double	y_delta_dist = s->y.delta_dist;
-	const int		x_step = s->x.step;
-	const int		y_step_row = s->y.step * map->size[x];
-	char			*cur_cell;
+	const int	step_y_row = s->y.step * map->size[x];
+	const int	step[2] = {s->x.step, step_y_row};
+	t_axis		*axis[2];
+	char		*cur_cell;
+	int			x_y;
 
 	cur_cell = &map->grid[s->y.player_tile][s->x.player_tile];
+	axis[x] = &s->x;
+	axis[y] = &s->y;
 	while (*cur_cell != '1')
 	{
-		if (s->x.side_dist < s->y.side_dist)
-		{
-			s->x.side_dist += x_delta_dist;
-			cur_cell += x_step;
-			s->wall_side = x;
-		}
-		else
-		{
-			s->y.side_dist += y_delta_dist;
-			cur_cell += y_step_row;
-			s->wall_side = y;
-		}
+		x_y = s->x.side_dist >= s->y.side_dist;
+		s->wall_side = x_y;
+		axis[x_y]->side_dist += axis[x_y]->delta_dist;
+		cur_cell += step[x_y];
+		if (*cur_cell == 'D'
+			&& is_door_blocking(x_y, cur_cell, axis, s))
+			return ;
 	}
+	s->last_door_cell = NULL;
+	s->wall_dist = axis[x_y]->side_dist - axis[x_y]->delta_dist;
+	s->draw.wall_x_ratio = axis[!x_y]->player_pos
+		+ s->wall_dist * axis[!x_y]->ray_dir;
+	s->draw.wall_x_ratio -= floor(s->draw.wall_x_ratio);
 }
 
 static void	init_player_axis(t_axis *axis, double player_dir, double map_pos)
 {
+	axis->player_pos = map_pos;
 	axis->plane = player_dir * 0.66;
 	axis->player_tile = (int)map_pos;
 	axis->player_offset = map_pos - axis->player_tile;
@@ -83,6 +112,7 @@ void	raycasting(t_game *g)
 	const double	width_ratio = 2.0 / g->render.width;
 	t_caster		s;
 
+	s.last_door_cell = NULL;
 	s.x.player_dir = cosf(g->player.angle);
 	s.y.player_dir = sinf(g->player.angle);
 	init_player_axis(&s.x, s.y.player_dir, g->player.pos[x]);
@@ -94,10 +124,6 @@ void	raycasting(t_game *g)
 		init_axis(&s.x, s.x.player_offset, s.cam_x);
 		init_axis(&s.y, s.y.player_offset, s.cam_x);
 		digital_diff_analys(&g->map, &s);
-		if (s.wall_side == x)
-			s.wall_dist = s.x.side_dist - s.x.delta_dist;
-		else
-			s.wall_dist = s.y.side_dist - s.y.delta_dist;
 		draw_column(g, &s, g->render.back);
 		s.px_col_x++;
 	}

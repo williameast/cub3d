@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 22:35:04 by dimachad          #+#    #+#             */
-/*   Updated: 2025/11/11 23:20:10 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/13 21:50:21 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_draw
 
 typedef struct s_axis
 {
+	double	player_pos;
 	double	player_dir;
 	int		player_tile;
 	double	player_offset;
@@ -49,8 +50,11 @@ typedef struct s_caster_state
 	double	cam_x;
 	int		wall_side;
 	double	wall_dist;
+	char	*last_door_cell;
+	double	door_open_ratio;
 	t_axis	x;
 	t_axis	y;
+	t_draw	draw;
 }	t_caster;
 
 void	raycasting(t_game *g);
