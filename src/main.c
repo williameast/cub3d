@@ -6,27 +6,32 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/11/12 20:17:29 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/13 00:49:16 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "mlx.h"
 #include <X11/X.h>
 
 int	clean_exit(void *params);
 
 int	init_engine(t_game *game)
 {
-	mlx_loop_hook(game->render.mlx, render_frame, game);
-	mlx_hook(game->render.win, KeyPress, KeyPressMask, &handle_keypress, game);
-	mlx_hook(game->render.win, KeyRelease, KeyReleaseMask, &handle_keyrelease, game);
-	mlx_hook(game->render.win, 17, 0, &clean_exit, game);
+	mlx_loop_hook(game->render.mlx,
+		render_frame, game);
+	mlx_hook(game->render.win, KeyPress, KeyPressMask,
+		&handle_keypress, game);
+	mlx_hook(game->render.win, KeyRelease, KeyReleaseMask,
+		&handle_keyrelease, game);
+	mlx_hook(game->render.win, 17, 0,
+		mlx_loop_end, &game->render.mlx);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	t_game		game;
+	t_game	game;
 
 	ft_bzero(&game, sizeof(game));
 	if (argc != 2)

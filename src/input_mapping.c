@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:25:40 by weast             #+#    #+#             */
-/*   Updated: 2025/11/12 20:09:59 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/13 02:10:06 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ t_key	keycode_to_key(int keycode)
 int handle_keypress(int keycode, void *param)
 {
 	t_game	*game;
-	t_key		key;
+	t_key	key;
 
 	game = (t_game *)param;
 	key = keycode_to_key(keycode);
 	game->render.key_state[key] = 1;
 	if (key == KEY_ESCAPE)
-		clean_exit(game);
+		mlx_loop_end(game->render.mlx);
 	return (0);
 }
 

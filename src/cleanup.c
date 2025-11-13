@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:50:16 by weast             #+#    #+#             */
-/*   Updated: 2025/11/12 20:19:19 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/13 02:14:26 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -14,18 +14,28 @@
 void	*free_and_null_img(t_img *img, t_render *render)
 {
 	if (img->img)
-		mlx_destroy_image(&render->mlx, &img->img);
+		mlx_destroy_image(render->mlx, img->img);
+	return (NULL);
+}
+
+void	*free_and_null(void *ptr)
+{
+	if (ptr)
+		free(ptr);
 	return (NULL);
 }
 
 void	cleanup_all(t_game *g, t_render *r)
 {
-	int	i;
+	t_config	*c;
+	int			i;
 
+	c = &g->config;
 	i = 0;
 	while (i < 4)
 	{
-		g->config.tex[i].img = free_and_null_img(&g->config.tex[i], r);
+		c->tex[i].img = free_and_null_img(&c->tex[i], r);
+		c->tex_path[i] = free_and_null(c->tex_path[i]);
 		i++;
 	}
 	r->back->img = free_and_null_img(r->back, r);
@@ -33,9 +43,9 @@ void	cleanup_all(t_game *g, t_render *r)
 	if (r->win)
 		mlx_destroy_window(r->mlx, r->win);
 	r->win = NULL;
+	mlx_destroy_display(r->mlx);
 	if (r->mlx)
-		mlx_destroy_display(r->mlx);
-	r->mlx = NULL;
+		free_and_null(r->mlx);
 	if (g->map.grid)
 		free(g->map.grid);
 	g->map.grid = NULL;
@@ -43,18 +53,7 @@ void	cleanup_all(t_game *g, t_render *r)
 
 int	perror_and_clean(char *err_str, t_game *g)
 {
-	return (
-		perror(err_str),
-		cleanup_all(g, &g->render),
-		ERR);
-}
-
-
-int	clean_exit(void *params)
-{
-	t_game *game;
-
-	game = (t_game *) params;
-	cleanup_all(game, &game->render);
-	return (1);
+	perror(err_str);
+	cleanup_all(g, &g->render);
+	return (ERR);
 }
