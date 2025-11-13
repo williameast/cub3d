@@ -27,7 +27,7 @@ TODOs
 
 DINIS:
         add copy of sprites for cigarettes.
-        handle segfault in cleanup function.
+        # handle segfault in cleanup function.
         do a map (sailor moon)
         the doors
         check flood fill still works with the D (should reject if D is touching
