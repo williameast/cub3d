@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:25:40 by weast             #+#    #+#             */
-/*   Updated: 2025/11/14 11:33:56 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/14 12:12:45 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,12 @@ int	handle_keypress(int keycode, void *param)
 {
 	t_game	*game;
 	t_key	key;
-	int		origin[2];
 
 	game = (t_game *)param;
 	key = keycode_to_key(keycode);
 	game->render.key_state[key] = 1;
 	if (key == KEY_ESCAPE)
 		mlx_loop_end(game->render.mlx);
-	if (key == KEY_X)
-	{
-		origin[x] = WIDTH / 2;
-		origin[y] = HEIGHT - 100;
-		spawn_smoke(game, origin);
-	}
 	return (0);
 }
 

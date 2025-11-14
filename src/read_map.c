@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:30:28 by weast             #+#    #+#             */
-/*   Updated: 2025/11/14 11:49:25 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/14 12:13:14 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,9 @@ static char	validate_map_chars(char *raw_map_string)
 
 int	create_map(t_map *map, char *raw_map_string, t_game *game)
 {
-	char spawn;
+	char	spawn;
 
 	spawn = validate_map_chars(raw_map_string);
-	printf("spawn: %c", spawn);
 	if (!spawn)
 		return (handle_error("Invalid characters in map.", game, INVALID));
 	get_map_max_dimensions(map, raw_map_string);

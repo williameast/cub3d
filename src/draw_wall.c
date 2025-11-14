@@ -6,7 +6,7 @@
 /*   By: dimachad <dimachad@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 14:23:12 by dimachad          #+#    #+#             */
-/*   Updated: 2025/11/13 22:46:45 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:18:12 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	draw_column(t_game *g, t_caster *s, t_img *back)
 	d = &s->draw;
 	init_draw_params(s, d, g->render.height);
 	py = 0;
-	while (py < g->render.height)
+	while (py++ < g->render.height)
 	{
 		pixel = back->addr + py * back->size_line
 			+ s->px_col_x * back->bytespp;
@@ -98,6 +98,5 @@ void	draw_column(t_game *g, t_caster *s, t_img *back)
 		}
 		else
 			*(int *)pixel = g->config.col_floor;
-		py++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/11/14 12:07:56 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/14 12:15:48 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,26 @@ int	init_sprite(t_img *img, char *path, t_render *render)
 
 int	transpose_texture(t_img *tmp, t_img *tex)
 {
-	int		X;
-	int		Y;
+	int		x;
+	int		y;
 	t_trans	t;
 
 	t.line_len_in_px_src = (tmp->size_line >> 2);
 	t.line_len_in_px_dst = (tex->size_line >> 2);
 	t.src_addr = (int *)tmp->addr;
 	t.dst_addr = (int *)tex->addr;
-	Y = 0;
-	while (Y < tmp->height)
+	y = 0;
+	while (y < tmp->height)
 	{
-		X = 0;
-		while (X < tmp->width)
+		x = 0;
+		while (x < tmp->width)
 		{
-			t.i_px_color_src = Y * t.line_len_in_px_src + X;
-			t.i_px_dest = X * t.line_len_in_px_dst + Y;
+			t.i_px_color_src = y * t.line_len_in_px_src + x;
+			t.i_px_dest = x * t.line_len_in_px_dst + y;
 			t.dst_addr[t.i_px_dest] = t.src_addr[t.i_px_color_src];
-			X++;
+			x++;
 		}
-		Y++;
+		y++;
 	}
 	return (OK);
 }
