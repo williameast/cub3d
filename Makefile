@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I./include -I./libs/libft/include -I./libs/minilibx-linux
 LDFLAGS = -L./libs/libft -L./libs/minilibx-linux -lft -lmlx -lXext -lX11 -lm
