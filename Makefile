@@ -27,9 +27,10 @@ VALID_SRC	= find_player.c \
 			  map_is_closed.c \
 			  render_frame.c \
 			  render_utils.c \
+			  render_minimap.c \
 			  cast_ray.c \
 			  draw_wall.c \
-				movement.c
+			  movement.c
 EXIT_SRC	= cleanup.c
 
 SRC_FILES	= $(MAIN_SRC) $(INIT_SRC) $(VALID_SRC) $(EXIT_SRC)
@@ -88,11 +89,6 @@ $(OBJDIR_SAN):
 
 $(BINDIR):
 	mkdir -p $(BINDIR)
-
-compile_commands:
-	@cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-	@ln -sf build/compile_commands.json compile_commands.json
-	@echo "compile_commands.json generated and linked"
 
 clean:
 	rm -rf $(OBJDIR)

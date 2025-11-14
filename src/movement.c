@@ -6,58 +6,43 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 12:27:52 by weast             #+#    #+#             */
-/*   Updated: 2025/11/12 19:00:34 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/14 11:33:47 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
-
-#define VELOCITY 0.04
-
-
-int validate_move(t_map *map, float new_x, float new_y)
+static int	validate_move(t_map *map, float new_x, float new_y)
 {
-	int X;
-	int Y;
+	int	x;
+	int	y;
 
-	X = (int) new_x;
-	Y = (int) new_y;
-
-	if (map->grid[Y][X] == '1')
+	x = (int)new_x;
+	y = (int)new_y;
+	if (map->grid[y][x] == '1')
 		return (0);
 	return (1);
 }
 
 void	walk(t_game *game)
 {
-	float new_x = game->player.pos[x];
-	float new_y = game->player.pos[y];
+	float	new_x;
+	float	new_y;
+
+	new_x = game->player.pos[x];
+	new_y = game->player.pos[y];
 	game->player.dir[x] = cosf(game->player.angle);
 	game->player.dir[y] = sinf(game->player.angle);
-
 	if (game->render.key_state[KEY_W])
-	{
-		new_x += game->player.dir[x] * VELOCITY;
-		new_y += game->player.dir[y] * VELOCITY;
-	}
+		calculate_walk(game->player.dir, &new_x, &new_y, 1);
 	if (game->render.key_state[KEY_S])
-	{
-		new_x -= game->player.dir[x] * VELOCITY;
-		new_y -= game->player.dir[y] * VELOCITY;
-	}
+		calculate_walk(game->player.dir, &new_x, &new_y, -1);
 	if (game->render.key_state[KEY_D])
-	{
-		new_x += game->player.dir[y] * VELOCITY;
-		new_y -= game->player.dir[x] * VELOCITY;
-	}
+		calculate_strafe(game->player.dir, &new_x, &new_y, 1);
 	if (game->render.key_state[KEY_A])
-	{
-		new_x -= game->player.dir[y] * VELOCITY;
-		new_y += game->player.dir[x] * VELOCITY;
-	}
+		calculate_strafe(game->player.dir, &new_x, &new_y, -1);
 	if (validate_move(&game->map, new_x, new_y))
 	{
 		game->player.pos[x] = new_x;
@@ -67,7 +52,6 @@ void	walk(t_game *game)
 
 void	see(t_game *game)
 {
-	// SET orientation depending on NESW!
 	if (game->render.key_state[KEY_LEFT])
 		game->player.angle += VELOCITY;
 	if (game->render.key_state[KEY_RIGHT])

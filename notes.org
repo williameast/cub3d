@@ -38,6 +38,6 @@ DINIS:
 WILLIAM:
         create smoke particles
         norm compliance on files
-        add a exception to the parser to handle D as input (only in bonus)
-        rotate origin of player to corresponding cardinality
+        # add a exception to the parser to handle D as input (only in bonus)
+        # rotate origin of player to corresponding cardinality
         do a map

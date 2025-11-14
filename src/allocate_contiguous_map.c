@@ -6,7 +6,7 @@
 /*   By: size<sizestudent.42berlin.d>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 22:41:27 by size         #+#    #+#             */
-/*   Updated: 2025/10/07 20:05:40 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/14 11:35:28 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 // Copies mapstring data into grid system
 static void	fill_grid_from_map_string(t_map *map, char *raw_map_string)
 {
-	int i;
-	int x;
-	int y;
+	int	i;
+	int	x;
+	int	y;
 
 	i = 0;
 	x = 0;
@@ -56,7 +56,6 @@ int	allocate_contiguous_map(char ***map, size_t cols, size_t rows)
 
 	pointers_size = rows * sizeof(char *);
 	row_size = cols * sizeof(char);
-
 	*map = malloc(pointers_size + (rows * row_size));
 	if (!(*map))
 		return (-1);
@@ -71,17 +70,16 @@ int	allocate_contiguous_map(char ***map, size_t cols, size_t rows)
 	return (0);
 }
 
-int allocate_game_map(t_map *map, char *raw_map_string)
+int	allocate_game_map(t_map *map, char *raw_map_string)
 {
 	size_t	total_size;
 	char	*data;
 
 	total_size = map->size[y] * map->size[x];
 	allocate_contiguous_map(&map->grid,
-							map->size[x],
-							map->size[y]);
+		map->size[x],
+		map->size[y]);
 	data = (char *)map->grid + (map->size[y] * sizeof(char *));
-
 	ft_memset(data, ' ', total_size);
 	fill_grid_from_map_string(map, raw_map_string);
 	return (0);

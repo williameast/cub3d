@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/11/14 01:44:21 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:04:28 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define HEIGHT 768 // window height
 
 # define FILE_EXT ".cub" // file extension used.
-# define WIN_NAME "cub3d_debug"
+# define WIN_NAME "cub3d"
 
 # define OK 0
 # define ERR -1
@@ -42,7 +42,9 @@
 // these can come up as many times as needed.
 # define MAP_VALID_ENV_CHARS " \n01D" // note the space.
 
+# define VELOCITY 0.03
 
+# define MAX_SMOKE_PARTICLES 50
 /* ************************************************************************** */
 // GRID SYSTEM
 
@@ -137,12 +139,24 @@ typedef struct s_map
 	int		size[2];
 }	t_map;
 
+
+typedef struct s_smoke_particle
+{
+	float	pos[2];
+	float	velocity[2];
+	int		size;
+	int		color;
+	float	lifetime;
+	int		active;
+}	t_smoke;
+
 typedef struct s_game
 {
 	t_player	player;
 	t_map		map;
 	t_render	render;
 	t_config	config;
+	t_smoke		smoke[MAX_SMOKE_PARTICLES];
 	int			exit_code;
 }	t_game;
 
@@ -229,8 +243,16 @@ int	handle_error(char *msg, t_game *game, int error);
 int	clean_exit(void *params);
 // MINIMAP
 void	draw_minimap(t_game *game);
+// SMOKE
+void	spawn_smoke(t_game *game, int origin[2]);
+void	update_smoke(t_game *game);
+void	draw_smoke(t_game *game);
+void	init_smoke(t_game *game);
 // DEBUG
 void	debug_map(t_map *map);
+void	put_square(t_img *img, int point[2] , int size, int colour);
+void	calculate_walk(float dir[2], float *new_x, float *new_y, int sign);
+void	calculate_strafe(float dir[2], float *new_x, float *new_y, int sign);
 
 // basically prints a little report of all that we know.
 void	debug_game(t_game *game);
