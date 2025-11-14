@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 14:20:01 by weast             #+#    #+#             */
-/*   Updated: 2025/11/14 12:15:48 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/14 13:48:44 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ int	init_sprite(t_img *img, char *path, t_render *render)
 	img->img = mlx_xpm_file_to_image(render->mlx, path, &img->width,
 			&img->height);
 	if (!img->img)
-		return (ft_putstr_fd("Error: sprite not found: ", 2), ft_putstr_fd(path,
-				2), ERR);
+		return (
+			ft_putstr_fd("Error: sprite not found: ", 2),
+			ft_putstr_fd(path, 2),
+			ft_putstr_fd("\n", 2),
+			ERR);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->size_line, &img->endian);
 	img->bytespp = img->bits_per_pixel >> 3;
@@ -78,7 +81,7 @@ int	load_trans_textures(t_game *g, t_render *r)
 			|| init_img(&g->config.tex[i], r, tmp_tex.height,
 				tmp_tex.width) != OK
 			|| transpose_texture(&tmp_tex, &g->config.tex[i]) != OK)
-			return (perror_and_clean("load_trans_textures: ", g));
+			return (ERR);
 		mlx_destroy_image(r->mlx, tmp_tex.img);
 		mlx_put_image_to_window(g->render.mlx, g->render.win,
 			g->config.tex[i].img, 0, 0);
@@ -105,6 +108,6 @@ int	init_window(t_game *g, t_render *r)
 	if (init_img(r->front, r, r->width, r->height) != OK
 		|| init_img(r->back, r, r->width, r->height) != OK
 		|| load_trans_textures(g, r) != OK)
-		return (cleanup_all(g, r), ERR);
+		return (ERR);
 	return (OK);
 }

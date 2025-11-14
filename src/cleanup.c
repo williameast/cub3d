@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:50:16 by weast             #+#    #+#             */
-/*   Updated: 2025/11/14 02:12:49 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/14 13:42:41 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -52,11 +52,4 @@ void	cleanup_all(t_game *g, t_render *r)
 	if (g->map.grid)
 		free(g->map.grid);
 	g->map.grid = NULL;
-}
-
-int	perror_and_clean(char *err_str, t_game *g)
-{
-	perror(err_str);
-	cleanup_all(g, &g->render);
-	return (ERR);
 }
