@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:30:28 by weast             #+#    #+#             */
-/*   Updated: 2025/11/14 14:33:14 by weast            ###   ########.fr       */
+/*   Updated: 2025/11/14 14:38:25 by weast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	create_map(t_map *map, char *raw_map_string, t_game *game)
 				game,
 				INVALID));
 	spawn = validate_map_chars(raw_map_string);
-	if (!spawn)
+	if (spawn == ERR)
 		return (handle_error("Invalid characters in map.", game, INVALID));
 	get_map_max_dimensions(map, raw_map_string);
 	if (allocate_game_map(map, raw_map_string))
