@@ -1,7 +1,7 @@
-NO sprites/sprite_1.xpm
-SO sprites/sprite_4.xpm
-WE sprites/sprite_9.xpm
-EA sprites/sprite_7.xpm
+NO sprites/spaceship/sprite_1.xpm
+SO sprites/spaceship/sprite_4.xpm
+WE sprites/spaceship/sprite_9.xpm
+EA sprites/spaceship/sprite_7.xpm
 
 F 20,22,25
 C 13,14,15

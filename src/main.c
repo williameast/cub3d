@@ -6,15 +6,11 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 12:55:59 by weast             #+#    #+#             */
-/*   Updated: 2025/11/13 13:06:09 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/14 02:13:13 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
-#include <X11/X.h>
-
-int	clean_exit(void *params);
 
 int	init_engine(t_game *game)
 {

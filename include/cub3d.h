@@ -6,7 +6,7 @@
 /*   By: weast <weast@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:01:53 by weast             #+#    #+#             */
-/*   Updated: 2025/11/13 21:50:14 by dimachad         ###   ########.fr       */
+/*   Updated: 2025/11/14 01:44:21 by dimachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "libft.h"
+# include <X11/X.h>
 # include "mlx.h"
 # include "fcntl.h"
 
